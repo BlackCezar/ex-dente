@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-app",
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/apollo": "next",
+    "@nuxtjs/google-fonts": "^3.1.1",
+    "@nuxtjs/tailwindcss": "^6.10.1",
+    "nuxt": "^3.8.2",
+    "nuxt-svgo": "^3.7.0",
+    "vue": "^3.3.10",
+    "vue-router": "^4.2.5"
+  },
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "type": "module",
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "mitt": "^3.0.1",
+    "nuxt-swiper": "^1.2.2"
+  }
+}
