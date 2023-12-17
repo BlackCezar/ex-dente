@@ -3,6 +3,7 @@ import { useQueries } from '#imports'
 import type { HomePage } from '~/types/global.type'
 import MainSlider from '~/components/main/MainSlider.vue'
 import BenefitsScreen from '~/components/main/BenefitsScreen.vue'
+import MainCallBackForm from '~/components/main/MainCallBackForm.vue'
 
 var { homePage } = useQueries()
 var { data } = await useAsyncQuery<HomePage>(homePage)
@@ -29,6 +30,7 @@ useSeoMeta({
 	    <ServicesScreen />
 	    <BenefitsScreen />
 	    <MainReviewsScreen />
+        <MainCallBackForm />
     </div>
 </template>
 

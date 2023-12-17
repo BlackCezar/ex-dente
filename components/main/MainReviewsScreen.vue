@@ -23,7 +23,8 @@ var swiper = ref(null)
 		<Swiper @swiper="swiper = $event"
 		        :breakpoints="{
 				320: {
-					spaceBetween: 16
+					spaceBetween: 16,
+					slidesPerView: 1					
 				},
 				1024: {
 					spaceBetween: 40,
@@ -38,12 +39,12 @@ var swiper = ref(null)
 			</template>
 		</Swiper>
 	</ClientOnly>
-	<div>
-		<nuxt-link to="/reviews">
+	<div class="mt-5 lg:mt-[3.75rem] flex items-center justify-between lg:justify-end">
+		<nuxt-link class="text-accent text-opacity-50 group hover:text-opacity-100 transition-opacity flex gap-2 uppercase items-center" to="/reviews">
 			<span>Все отзывы</span>
-			<svgo-arrow-right-bold />
+			<svgo-arrow-right-bold filled class="text-[1.5rem] transition-transform group-hover:translate-x-1 !mb-0" />
 		</nuxt-link>
-		<ReviewsPagination :swiper="swiper" />
+		<ReviewsPagination class="lg:hidden" :swiper="swiper" />
 	</div>
 </div>
 </template>

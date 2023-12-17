@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         '@nuxtjs/google-fonts',
         'nuxt-svgo',
         'nuxt-swiper',
+        '@vee-validate/nuxt',
     ],
     googleFonts: {
         families: {
