@@ -18,8 +18,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                accent: 'hsla(213, 63%, 12%, 1)', // #0B1C31
-                'white': 'hsla(0, 0%, 99%, 1)', // #FCFCFC
+                accent: 'hsl(213, 63%, 12%)', // #0B1C31
+                'white': 'hsl(0, 0%, 99%)', // #FCFCFC
                 'accent-half': 'hsla(213, 63%, 12%, 0.5)',
                 secondary: 'hsla(197, 60%, 78%, 0.8)',
             },

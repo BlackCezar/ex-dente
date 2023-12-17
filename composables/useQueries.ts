@@ -89,6 +89,34 @@ export default function useQueries() {
         }
     `
 
+    var homePageBenefitQuery = gql`
+        query HomePageBenefit {
+            homePageBenefit {
+                data {
+                    attributes {
+                        title
+                        subtitle
+                        description
+                        benefit
+                        slider {
+                            id
+                            label
+                            style
+                            banner {
+                                data {
+                                    attributes {
+                                        url
+                                        alternativeText
+                                        caption
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
     var servicesQuery = gql`
         query allServicesWithSubServices {
             services {
@@ -162,11 +190,46 @@ export default function useQueries() {
         }
     `
 
+    var mainPageReviewsListQuery = gql`
+        query ReviewsQuery($pagination: PaginationArg) {
+            reviews(pagination: $pagination) {
+                data {
+                    id
+                    attributes {
+                        publishedAt
+                        review {
+                            name
+                            id
+                            reviewText
+                            reviewType
+                            clinic {
+                                data {
+                                    attributes {
+                                        label
+                                    }
+                                }
+                            }
+                            doctor {
+                                data {
+                                    attributes {
+                                        name
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     return {
         mainMenuQuery,
         commonConfigQuery,
         headerQuery,
         homePage,
-        servicesQuery
+        servicesQuery,
+        homePageBenefitQuery,
+        mainPageReviewsListQuery
     }
 }

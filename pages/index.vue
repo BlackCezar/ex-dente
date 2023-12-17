@@ -2,6 +2,7 @@
 import { useQueries } from '#imports'
 import type { HomePage } from '~/types/global.type'
 import MainSlider from '~/components/main/MainSlider.vue'
+import BenefitsScreen from '~/components/main/BenefitsScreen.vue'
 
 var { homePage } = useQueries()
 var { data } = await useAsyncQuery<HomePage>(homePage)
@@ -26,6 +27,8 @@ useSeoMeta({
     <div class="">
         <MainSlider :slides="data.homePage.data.attributes.slider" />
 	    <ServicesScreen />
+	    <BenefitsScreen />
+	    <MainReviewsScreen />
     </div>
 </template>
 

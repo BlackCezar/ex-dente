@@ -17,23 +17,23 @@ function toService(service: ServicesItem) {
 </script>
 
 <template>
-<div class="bg-white pb-10 pt-[3.75rem] lb:py-[10rem] container">
-	<div class="flex mb-6 flex-col gap-5">
-		<h2 class="font-[Mignon] text-[1.5rem] font-semibold uppercase text-accent">Услуги</h2>
-		<p class="text-accent opacity-[0.5]">В своей работе мы используем передовые технологии, новейшее оборудование и материалы</p>
+<div class="bg-white pb-10 pt-[3.75rem] lg:py-[10rem] container">
+	<div class="flex mb-6 lg:mb-[4.5rem] flex-col lg:items-center  lg:gap-[8rem] lg:flex-row gap-5">
+		<h2 class="font-[Mignon] text-[1.5rem] lg:text-[2.5rem] font-semibold uppercase text-accent">Услуги</h2>
+		<p class="text-accent opacity-[0.5] lg:text-[1.125rem] lg:max-w-[34rem]">В своей работе мы используем передовые технологии, новейшее оборудование и материалы</p>
 	</div>
 	<div class="grid gap-8 grid-cols-1 justify-start lg:grid-cols-2">
 		<nav>
 			<ul class="flex snap-mandatory gap-3 snap-x lg:items-start lg:flex-col lg:gap-8 overflow-x-auto">
-				<li v-for="service of data?.services?.data" class="snap-end">
-					<a @click.prevent="toService(service)" class="text-[1.125rem] lg:px-0  block text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2 " :href="`/services/${service.attributes.slug}`" :class="{
+				<li v-for="service of data?.services?.data" class="snap-end lg:flex lg:items-center lg:gap-5">
+					<a @click.prevent="toService(service)" class="text-[1.125rem] transition-colors hover:lg:text-opacity-100 lg:text-[2.5rem] lg:px-0  block text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2 " :href="`/services/${service.attributes.slug}`" :class="{
 						'text-opacity-100 bg-[#A7D6E9CC] ': service.id === activeService?.id,
 						'text-opacity-70 bg-[#F0F1F2]': service.id !== activeService?.id,
 					}">
 						{{service.attributes.title}} {{service.attributes.id}}
 					</a>
-					<a v-if="service.id === activeService?.id" :href="`/services/${service.attributes.slug}`">
-						<svgo-arrow-right filled />
+					<a v-if="service.id === activeService?.id" class="hidden lg:block lg:text-[2.5rem]" :href="`/services/${service.attributes.slug}`">
+						<svgo-arrow-right-bold filled />
 					</a>
 				</li>
 			</ul>

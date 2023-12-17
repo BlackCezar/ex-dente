@@ -179,3 +179,85 @@ export interface Services {
         data: ServicesItem[];
     }
 }
+
+export interface IHomePageBenefitSlide {
+    id: string;
+    label: string;
+    style: string;
+    banner: {
+        __typename: string;
+        data: {
+            __typename: string;
+            attributes: {
+                url: string | null;
+                alternativeText: string | null;
+                caption: string | null;
+            }
+        }
+    } | null;
+}
+export interface IHomePageBenefit {
+    __typename: string;
+    attributes: {
+        __typename: string;
+        title: string;
+        subtitle: string;
+        description: string;
+        slider: IHomePageBenefitSlide[];
+    }
+}
+export interface HomePageBenefit {
+    homePageBenefit: {
+        __typename: string;
+        data: IHomePageBenefit | null
+    }
+}
+
+
+export type TClinicReview = {
+    reviewType: 'clinic';
+    clinic: {
+        __typename: "ClinicEntityResponse";
+        data: {
+            __typename: "ClinicEntity"
+            attributes: {
+                __typename: "Clinic"
+                label: string;
+            }
+        }
+    }
+}
+export type TDoctorReview = {
+    reviewType: 'doctor';
+    doctor: {
+        __typename: "DoctorEntityResponse"
+        data: {
+            __typename: "DoctorEntity"
+            attributes: {
+                __typename: "Doctor"
+                name: string;
+            }
+        }
+    }
+}
+export type TReview = {
+    __typename: "ComponentFormReviewForm"
+    name: string;
+    id: string;
+    reviewText: string;
+}
+export interface IReview {
+    __typename: "ReviewEntity";
+    id: string;
+    attributes: {
+        __typename: "Review"
+        publishedAt: string;
+        review: TReview & TClinicReview | TReview & TDoctorReview
+    }
+}
+export interface ReviewsList {
+    reviews: {
+        __typename: string;
+        data: IReview[];
+    }
+}
