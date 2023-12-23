@@ -184,6 +184,31 @@ export default function useQueries() {
                             }
                         }
                         title
+                        seoText
+                    }
+                }
+            }
+        }
+    `
+
+    var mainPageNewsQuery = gql`
+        query NewsQuery($pagination: PaginationArg) {
+            newsPosts(pagination: $pagination) {
+                data {
+                    id
+                    attributes {
+                        title
+                        slug
+                        description
+                        createdAt
+                        avatar {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    url
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -223,13 +248,29 @@ export default function useQueries() {
         }
     `
 
+    var footerQuery = gql`
+        query Footer {
+            footer {
+                data {
+                    attributes {
+                        copyright
+                        disclaimer
+                        warning
+                    }
+                }
+            }
+        }
+    `
+
     return {
+        footerQuery,
         mainMenuQuery,
         commonConfigQuery,
         headerQuery,
         homePage,
         servicesQuery,
         homePageBenefitQuery,
-        mainPageReviewsListQuery
+        mainPageReviewsListQuery,
+        mainPageNewsQuery,
     }
 }

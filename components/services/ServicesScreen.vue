@@ -17,12 +17,13 @@ function toService(service: ServicesItem) {
 </script>
 
 <template>
-<div class="bg-white pb-10 pt-[3.75rem] lg:py-[10rem] container">
-	<div class="flex mb-6 lg:mb-[4.5rem] flex-col lg:items-center  lg:gap-[8rem] lg:flex-row gap-5">
-		<h2 class="font-[Mignon] text-[1.5rem] lg:text-[2.5rem] font-semibold uppercase text-accent">Услуги</h2>
-		<p class="text-accent opacity-[0.5] lg:text-[1.125rem] lg:max-w-[34rem]">В своей работе мы используем передовые технологии, новейшее оборудование и материалы</p>
-	</div>
-	<div class="grid gap-8 grid-cols-1 justify-start lg:grid-cols-2">
+<div class="bg-white pb-10 pt-[3.75rem] lg:py-[10rem]">
+    <div class="container mx-auto">
+        <div class="flex mb-6 lg:mb-[4.5rem] flex-col lg:items-center  lg:gap-[8rem] lg:flex-row gap-5">
+            <h2 class="font-[Mignon] text-[1.5rem] lg:text-[2.5rem] font-semibold uppercase text-accent">Услуги</h2>
+            <p class="text-accent opacity-[0.5] lg:text-[1.125rem] lg:max-w-[34rem]">В своей работе мы используем передовые технологии, новейшее оборудование и материалы</p>
+        </div>
+        <div class="grid gap-8 grid-cols-1 justify-start lg:grid-cols-2">
 		<nav>
 			<ul class="flex snap-mandatory gap-3 snap-x lg:items-start lg:flex-col lg:gap-8 overflow-x-auto">
 				<li v-for="service of data?.services?.data" class="snap-end lg:flex lg:items-center lg:gap-5">
@@ -52,6 +53,7 @@ function toService(service: ServicesItem) {
 			</nav>
 		</div>
 	</div>
+    </div>
 </div>
 </template>
 

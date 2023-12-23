@@ -150,6 +150,7 @@ export interface HomePage {
             __typename: string
             attributes: {
                 title: string
+                seoText?: string
                 seo: TSeo
                 slider: TSlide[]
             }
@@ -158,106 +159,178 @@ export interface HomePage {
 }
 
 export interface IService {
-    __typename: string;
-    id: string;
-    title: string;
-    slug: string;
+    __typename: string
+    id: string
+    title: string
+    slug: string
     sub_services: {
-        __typename: string;
-        data: TData<IService>[];
+        __typename: string
+        data: TData<IService>[]
     }
 }
 
 export interface ServicesItem {
-    __typename: string;
-    id: string;
+    __typename: string
+    id: string
     attributes: IService
 }
 export interface Services {
     services: {
-        __typename: string;
-        data: ServicesItem[];
+        __typename: string
+        data: ServicesItem[]
     }
 }
 
 export interface IHomePageBenefitSlide {
-    id: string;
-    label: string;
-    style: string;
+    id: string
+    label: string
+    style: string
     banner: {
-        __typename: string;
+        __typename: string
         data: {
-            __typename: string;
+            __typename: string
             attributes: {
-                url: string | null;
-                alternativeText: string | null;
-                caption: string | null;
+                url: string | null
+                alternativeText: string | null
+                caption: string | null
             }
         }
-    } | null;
+    } | null
 }
 export interface IHomePageBenefit {
-    __typename: string;
+    __typename: string
     attributes: {
-        __typename: string;
-        title: string;
-        subtitle: string;
-        description: string;
-        slider: IHomePageBenefitSlide[];
+        __typename: string
+        title: string
+        subtitle: string
+        description: string
+        slider: IHomePageBenefitSlide[]
     }
 }
 export interface HomePageBenefit {
     homePageBenefit: {
-        __typename: string;
+        __typename: string
         data: IHomePageBenefit | null
     }
 }
 
-
 export type TClinicReview = {
-    reviewType: 'clinic';
+    reviewType: 'clinic'
     clinic: {
-        __typename: "ClinicEntityResponse";
+        __typename: 'ClinicEntityResponse'
         data: {
-            __typename: "ClinicEntity"
+            __typename: 'ClinicEntity'
             attributes: {
-                __typename: "Clinic"
-                label: string;
+                __typename: 'Clinic'
+                label: string
             }
         }
     }
 }
 export type TDoctorReview = {
-    reviewType: 'doctor';
+    reviewType: 'doctor'
     doctor: {
-        __typename: "DoctorEntityResponse"
+        __typename: 'DoctorEntityResponse'
         data: {
-            __typename: "DoctorEntity"
+            __typename: 'DoctorEntity'
             attributes: {
-                __typename: "Doctor"
-                name: string;
+                __typename: 'Doctor'
+                name: string
             }
         }
     }
 }
 export type TReview = {
-    __typename: "ComponentFormReviewForm"
-    name: string;
-    id: string;
-    reviewText: string;
+    __typename: 'ComponentFormReviewForm'
+    name: string
+    id: string
+    reviewText: string
 }
 export interface IReview {
-    __typename: "ReviewEntity";
-    id: string;
+    __typename: 'ReviewEntity'
+    id: string
     attributes: {
-        __typename: "Review"
-        publishedAt: string;
-        review: TReview & TClinicReview | TReview & TDoctorReview
+        __typename: 'Review'
+        publishedAt: string
+        review: (TReview & TClinicReview) | (TReview & TDoctorReview)
     }
 }
 export interface ReviewsList {
     reviews: {
-        __typename: string;
-        data: IReview[];
+        __typename: string
+        data: IReview[]
+    }
+}
+
+export type IParagraphItem = {
+    type: 'paragraph'
+    children: {
+        type: 'text'
+        text: string
+    }
+}
+export type ITextItems = IParagraphItem
+export type IComponentTextText = {
+    __typename: 'ComponentTextText'
+    id: string
+    text: ITextItems[]
+}
+export type ComponentSlidersSlider = {
+    __typename: 'ComponentSlidersSlider'
+    banner: {
+        __typename: 'UploadFileEntityResponse'
+        data: {
+            __typename: 'UploadFileEntity'
+            attributes: {
+                __typename: 'UploadFile'
+                url: string
+                alternativeText?: string
+            }
+        }
+    }
+    label: string
+    id: string
+}
+export type NewsBodyItem = IComponentTextText | ComponentSlidersSlider
+
+export interface INewsItem {
+    __typename: 'NewsPostEntity'
+    id: string
+    attributes: {
+        __typename: 'NewsPost'
+        slug: string | null
+        description: string | null
+        title?: string
+        createdAt: string
+        avatar: {
+            data?: {
+                attributes: {
+                    alternativeText?: string
+                    url?: string
+                }
+            }
+        }
+    }
+}
+
+export interface NewsList {
+    newsPosts: {
+        __typename: 'NewsPostEntityResponseCollection'
+        data: INewsItem[]
+    }
+}
+
+export interface Footer {
+    footer: {
+        __typename: 'FooterEntityResponse'
+        data: {
+            __typename: 'FooterEntity'
+            attributes: {
+                __typename: 'Footer'
+                disclaimer: string
+                warning: string
+                copyright: string
+            }
+        }
     }
 }

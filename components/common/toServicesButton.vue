@@ -3,7 +3,7 @@
 <template>
     <nuxt-link
         to="/services"
-        class="absolute z-20 right-4 bottom-[calc(50%_+_1.5rem)] lg:right-auto lg:bottom-[20%] lg:left-[55%] services-icon text-white"
+        class="absolute block z-20 right-4 bottom-[calc(50%_+_1.5rem)] lg:right-auto lg:bottom-[20%] lg:left-[55%] services-icon text-white"
     >
         <svgo-services filled class="text-[7.5rem] lg:text-[13.75rem]" />
     </nuxt-link>

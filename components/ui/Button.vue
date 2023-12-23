@@ -1,19 +1,24 @@
 <script setup lang="ts">
+import type { ButtonHTMLAttributes } from 'vue'
+
 withDefaults(
     defineProps<{
         variant?: 'primary' | 'secondary'
         mode?: 'light' | 'dark'
-        full?: boolean
+        full?: boolean,
+        type?: ButtonHTMLAttributes['type']
     }>(),
     {
         variant: 'primary',
         mode: 'light',
+        type: 'button'
     },
 )
 </script>
 
 <template>
     <button
+        :type="type"
         class="btn group/btn"
         :class="`${variant} ${mode} ${full ? 'full' : ''} ${
             variant === 'primary' ? 'grid-cols-[auto_1.25rem]' : ''
