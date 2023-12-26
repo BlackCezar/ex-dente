@@ -1,31 +1,28 @@
 <script setup lang="ts">
 import useQueries from '~/composables/useQueries'
 import HeaderLogo from '~/components/common/header/HeaderLogo.vue'
-import type { CommonConfig, Header, MainMenu } from '~/types/global.type'
+import type { Header } from '~/types/global.type'
 import { useGlobalStore } from '~/store/global.store'
 import { storeToRefs } from 'pinia'
 
-var { mainMenuQuery, commonConfigQuery, headerQuery } = useQueries()
+var { headerQuery } = useQueries()
 
-var { data: mainMenu } = await useAsyncQuery<MainMenu>(mainMenuQuery)
-var { data: commonConfig } =
-    await useAsyncQuery<CommonConfig>(commonConfigQuery)
 var { data: header } = await useAsyncQuery<Header>(headerQuery)
 
 var globalStore = useGlobalStore()
-var { phoneNumber } = storeToRefs(globalStore)
-
-globalStore.setAppConfig(commonConfig.value)
-globalStore.setMainMenu(mainMenu.value)
+var { phoneNumber, mainMenu } = storeToRefs(globalStore)
 
 var normalizedMainMenu = computed(
-    () => mainMenu.value?.menuTest?.data?.attributes?.body ?? [],
+    () => mainMenu.value?.menuTest?.data?.attributes?.body ?? []
 )
 var isOpen = ref(false)
 </script>
 
 <template>
-    <div class="header-wrapper container absolute left-0 z-50 top-0" :data-open="isOpen">
+    <div
+        class="header-wrapper container absolute left-0 z-50 top-0"
+        :data-open="isOpen"
+    >
         <div
             class="py-4 flex h-fit items-center header justify-end gap-3 lg:gap-12"
         >

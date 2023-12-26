@@ -5,14 +5,22 @@ export var useGlobalStore = defineStore('global', {
     state: (): GlobalStore => ({
         config: null,
         mainMenu: null,
+        services: [],
     }),
     getters: {
         phoneNumber: (state) =>
             state?.config?.commonConfig?.data?.attributes?.phoneNumber ?? '',
+        address: (state) =>
+            state?.config?.commonConfig?.data?.attributes?.address ?? '',
+        email: (state) =>
+            state?.config?.commonConfig?.data?.attributes?.email ?? '',
         logo: (state) =>
             state?.config?.commonConfig?.data?.attributes?.logo?.[0] ?? '',
     },
     actions: {
+        setServices(services: any) {
+            this.services = services
+        },
         setAppConfig(config: CommonConfig) {
             this.config = config
         },

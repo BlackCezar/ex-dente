@@ -15,6 +15,12 @@
             padding-right: 6.25rem;
         }
     }
+    .footer-main-link {
+        @apply text-[1.25rem] block mb-6 lg:mb-10 lg:text-[1.5rem] font-[Mignon] font-semibold leading-[1.6875rem] lg:leading-[1.8125rem] uppercase text-white text-opacity-80;
+    }
+    .footer-link {
+        @apply text-[0.875rem] text-white text-opacity-80 lg:text-base lg:text-left;
+    }
 }
 
 body {

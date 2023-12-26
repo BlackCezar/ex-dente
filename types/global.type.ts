@@ -48,6 +48,7 @@ export interface CommonConfigClass {
 export interface GlobalStore {
     config: null | CommonConfig
     mainMenu: null | MainMenu
+    services: ServicesItem[]
 }
 
 export interface IConfig {
@@ -330,6 +331,36 @@ export interface Footer {
                 disclaimer: string
                 warning: string
                 copyright: string
+            }
+        }
+    }
+}
+
+export interface Socials {
+    socialNetworkSection: {
+        __typename: 'SocialNetworkSectionEntityResponse'
+        data: {
+            __typename: 'SocialNetworkSectionEntity'
+            attributes: {
+                __typename: 'SocialNetworkSection'
+                socialNetwork: {
+                    __typename: 'ComponentSocialsSocialNetwork'
+                    label: string
+                    url: string
+                    id: string
+                    icon: {
+                        __typename: 'UploadFileRelationResponseCollection'
+                        data: {
+                            __typename: 'UploadFileEntity'
+                            attributes: {
+                                __typename: 'UploadFile'
+                                alternativeText?: string
+                                caption?: string
+                                url: string
+                            }
+                        }[]
+                    }
+                }[]
             }
         }
     }

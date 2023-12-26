@@ -262,7 +262,35 @@ export default function useQueries() {
         }
     `
 
+    var socialsQuery = gql`
+        query Socials {
+            socialNetworkSection {
+                data {
+                    attributes {
+                        socialNetwork {
+                            ... on ComponentSocialsSocialNetwork {
+                                url
+                                label
+                                id
+                                icon {
+                                    data {
+                                        attributes {
+                                            url
+                                            alternativeText
+                                            caption
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     return {
+        socialsQuery,
         footerQuery,
         mainMenuQuery,
         commonConfigQuery,
