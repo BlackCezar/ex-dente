@@ -13,14 +13,14 @@ var { data: socials } = await useAsyncQuery<Socials>(socialsQuery)
 <template>
     <div class="bg-accent pb-12 lg:pb-[6.25rem]">
         <div
-            class="pb-8 lg:pb-[5rem] container pt-10 lg:pt-[7.19rem] grid grid-cols-1 lg:grid-cols-[1fr_0.6fr_1.4fr_1fr]"
+            class="pb-8 mx-auto gap-10 lg:gap-[5rem] lg:pb-[5rem] container pt-10 lg:pt-[7.19rem] grid grid-cols-1 lg:grid-cols-[1fr_0.6fr_1.4fr_1fr]"
         >
             <FooterInfo
                 :socials="socials"
                 :copyright="data.footer.data.attributes.copyright"
             />
             <FooterMenu />
-            <FooterServices />
+            <LazyFooterServices />
             <FooterContacts />
         </div>
         <FooterDisclaimer

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import LeftButton from '~/components/ui/LeftButton.vue'
+import RightButton from '~/components/ui/RightButton.vue'
+
 defineProps<{
     swiper: any
 }>()
@@ -6,18 +9,8 @@ defineProps<{
 
 <template>
     <div class="flex justify-center lg:justify-end">
-        <button type="button" @click="swiper.slidePrev(300)">
-            <svgo-pagination-left
-                filled
-                class="text-[3.5rem] svgo-pagination-left hover:text-opacity-100 text-opacity-60 lg:text-[5rem]"
-            />
-        </button>
-        <button type="button" @click="swiper.slideNext(300)">
-            <svgo-pagination-right
-                filled
-                class="text-[3.5rem] svgo-pagination-right hover:text-opacity-100 text-opacity-60 lg:text-[5rem]"
-            />
-        </button>
+        <LeftButton @click="swiper.slidePrev(300)" is-light />
+        <RightButton @click="swiper.slideNext(300)" is-light />
     </div>
 </template>
 

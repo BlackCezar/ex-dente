@@ -10,6 +10,8 @@ export default defineNuxtConfig({
         'nuxt-svgo',
         'nuxt-swiper',
         '@vee-validate/nuxt',
+        'nuxt-jsonld',
+        '@nuxtjs/device',
     ],
     googleFonts: {
         families: {

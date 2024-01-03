@@ -9,7 +9,7 @@ defineProps<{
 <template>
     <footer>
         <div
-            class="text-center text-opacity-10 text-white uppercase leading-[2rem] lg:leading-normal lg:text-[3.75rem] lg:mb-5 text-[1.25rem] lg:tracking-[0.675rem] tracking-[0.0875rem] mb-4"
+            class="text-center text-opacity-10 text-white uppercase leading-[2rem] lg:leading-normal lg:text-[3.5rem] lg:mb-5 text-[1.25rem] lg:tracking-[0.675rem] tracking-[0.0875rem] mb-4"
         >
             {{ data.warning }}
         </div>

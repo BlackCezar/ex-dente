@@ -9,8 +9,8 @@ var { mainMenu } = storeToRefs(globalStore)
 <template>
     <div>
         <nav>
-            <ul>
-                <li>
+            <ul class="flex items-center lg:items-start flex-col gap-4 lg:gap-5">
+                <li class="-mb-4 lg:-mb-5">
                     <nuxt-link
                         class="footer-main-link mx-auto text-center lg:text-left"
                         to="#menu"
@@ -22,9 +22,9 @@ var { mainMenu } = storeToRefs(globalStore)
                 >
                     <li
                         role="menuitem"
-                        v-if="link.__typename === 'ComponentMenuLink'"
+                        v-if="link?.__typename === 'ComponentMenuLink'"
                     >
-                        <nuxt-link :to="link.url">{{ link.label }}</nuxt-link>
+                        <nuxt-link class="text-[0.875rem] lg:text-[1.125rem] uppercase text-white text-opacity-80" :to="link.url">{{ link.label }}</nuxt-link>
                     </li>
                     <template
                         v-else-if="link.__typename === 'ComponentMenuDropdown'"
@@ -34,10 +34,10 @@ var { mainMenu } = storeToRefs(globalStore)
                                 role="menuitem"
                                 class="hidden group cursor-pointer relative lg:flex whitespace-nowrap items-center gap-2"
                             >
-                                <span>
+                                <span class="text-white uppercase text-opacity-80">
                                     {{ section.attributes.label }}
                                 </span>
-                                <svgo-chevron-down />
+                                <svgo-chevron-down class="text-[1.5rem] -rotate-90 !mb-0 text-white text-opacity-80" />
 
                                 <nav
                                     class="bg-white before:absolute before:w-full before:h-full before:-left-4 before:z-0 before:-top-8 hidden group-hover:block absolute z-10 top-[calc(100%_+_1rem)] max-w-[25rem]"
@@ -50,10 +50,10 @@ var { mainMenu } = storeToRefs(globalStore)
                                                 ?.links"
                                         >
                                             <nuxt-link
-                                                class="text-accent-half hover:text-accent transition-colors gap-2 flex justify-between items-center"
+                                                class="text-accent-half  hover:text-accent transition-colors gap-2 flex justify-between items-center"
                                                 :to="link.url"
                                             >
-                                                <span>{{ link.label }}</span>
+                                                <span class="text-[1.375rem] leading-[1.75rem] uppercase">{{ link.label }}</span>
                                                 <svgo-chevron-right
                                                     class="text-[1.5rem]"
                                                 />
@@ -65,7 +65,7 @@ var { mainMenu } = storeToRefs(globalStore)
                             <li
                                 role="menuitem"
                                 v-for="link of section.attributes?.links"
-                                class="lg:hidden"
+                                class="lg:hidden text-[0.875rem] uppercase text-white  text-opacity-80"
                             >
                                 <nuxt-link :to="link.url">{{
                                     link.label

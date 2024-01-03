@@ -1,4 +1,79 @@
 export default function useQueries() {
+    var aboutPageQuery = gql`
+        query Query {
+            about {
+                data {
+                    attributes {
+                        title
+                        slider {
+                            id
+                            label
+                            banner {
+                                data {
+                                    attributes {
+                                        formats
+                                    }
+                                }
+                            }
+                        }
+                        slogan
+                        button {
+                            id
+                            label
+                            style
+                            url
+                        }
+                        description
+                        benefits {
+                            ... on ComponentTextBenefit {
+                                id
+                                text
+                                title
+                            }
+                        }
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        seoText
+                        aboutUsText
+                        image {
+                            banner {
+                                data {
+                                    attributes {
+                                        formats
+                                    }
+                                }
+                            }
+                        }
+                        videoUrl
+                        videoPoster {
+                            data {
+                                attributes {
+                                    formats
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     var mainMenuQuery = gql`
         query mainMenuQuery {
             menuTest {
@@ -43,7 +118,7 @@ export default function useQueries() {
                         defaultSharedImage {
                             data {
                                 attributes {
-                                    formats
+                                    url
                                 }
                             }
                         }
@@ -105,7 +180,7 @@ export default function useQueries() {
                             banner {
                                 data {
                                     attributes {
-                                        url
+                                        formats
                                         alternativeText
                                         caption
                                     }
@@ -159,7 +234,7 @@ export default function useQueries() {
                                 image {
                                     data {
                                         attributes {
-                                            url
+                                            formats
                                             caption
                                         }
                                     }
@@ -205,7 +280,7 @@ export default function useQueries() {
                             data {
                                 attributes {
                                     alternativeText
-                                    url
+                                    formats
                                 }
                             }
                         }
@@ -289,12 +364,74 @@ export default function useQueries() {
         }
     `
 
+    var newsQuery = gql`
+        query News {
+            newsListing {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+    var newsPosts = gql`
+        query Query($pagination: PaginationArg) {
+            newsPosts(pagination: $pagination) {
+                data {
+                    id
+                    attributes {
+                        publishedAt
+                        avatar {
+                            data {
+                                attributes {
+                                    formats
+                                }
+                            }
+                        }
+                        slug
+                        title
+                    }
+                }
+                meta {
+                    pagination {
+                        pageCount
+                        total
+                        pageSize
+                        page
+                    }
+                }
+            }
+        }
+    `
+
     return {
+        newsPosts,
+        newsQuery,
         socialsQuery,
         footerQuery,
         mainMenuQuery,
         commonConfigQuery,
         headerQuery,
+        aboutPageQuery,
         homePage,
         servicesQuery,
         homePageBenefitQuery,

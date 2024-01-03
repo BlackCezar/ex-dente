@@ -18,7 +18,7 @@ var swiper = ref(null)
         <div class="container mx-auto">
             <div class="flex items-center justify-between lg:mb-[5rem] mb-7">
                 <h2
-                    class="font-[Mignon] font-semibold lg:text-[2.5rem] uppercase text-accent"
+                    class="font-[Mignon] font-semibold text-[1.5rem] lg:text-[2.5rem] uppercase text-accent"
                 >
                     Отзывы пациентов
                 </h2>
@@ -55,7 +55,7 @@ var swiper = ref(null)
                     class="text-accent text-opacity-50 group hover:text-opacity-100 transition-opacity flex gap-2 uppercase items-center"
                     to="/reviews"
                 >
-                    <span>Все отзывы</span>
+                    <span class="text-[1.125rem]">Все отзывы</span>
                     <svgo-arrow-right-bold
                         filled
                         class="text-[1.5rem] transition-transform group-hover:translate-x-1 !mb-0"

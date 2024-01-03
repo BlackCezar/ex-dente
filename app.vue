@@ -13,11 +13,9 @@ import { useGlobalStore } from '~/store/global.store'
 
 var globalStore = useGlobalStore()
 var { commonConfigQuery, mainMenuQuery } = useQueries()
-var { data: commonConfig } = await useAsyncQuery<CommonConfig>(
-    commonConfigQuery
-)
-var { data: mainMenu } = await useAsyncQuery<MainMenu>(mainMenuQuery)
+var { result: commonConfig } = useQuery<CommonConfig>(commonConfigQuery)
+var { result: mainMenu } = useQuery<MainMenu>(mainMenuQuery)
 
-globalStore.setAppConfig(commonConfig.value)
-globalStore.setMainMenu(mainMenu.value)
+if (commonConfig.value) globalStore.setAppConfig(commonConfig.value)
+if (mainMenu.value) globalStore.setMainMenu(mainMenu.value)
 </script>

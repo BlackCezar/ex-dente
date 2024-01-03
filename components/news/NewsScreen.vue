@@ -44,7 +44,7 @@ var { data } = await useAsyncQuery<NewsList>(mainPageNewsQuery, {
                     }"
                 >
                     <template
-                        v-for="article of data.newsPosts.data"
+                        v-for="article of data?.newsPosts?.data"
                         :key="article.id"
                     >
                         <SwiperSlide>

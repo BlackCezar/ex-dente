@@ -9,7 +9,7 @@ var isShort = ref(true)
 </script>
 
 <template>
-    <div class="bg-accent">
+    <div class="bg-accent" v-if="content">
         <div
             class="lg:pt-[5rem] lg:pb-[7.5rem] pt-[3.75rem] pb-[5rem] mx-auto container text-white grid seo-text-wrapper"
             :class="{
@@ -34,7 +34,7 @@ var isShort = ref(true)
 
 <style>
 .seo-text-wrapper {
-    grid-template-rows: minmax(999px, max-content) auto;
+    grid-template-rows: minmax(999px, max-content) 1.5rem;
     transition: 300ms;
     justify-items: center;
 }
@@ -43,7 +43,7 @@ var isShort = ref(true)
     min-height: 0;
 }
 .seo-text-wrapper.is-short {
-    grid-template-rows: minmax(384px, 0.3fr) auto;
+    grid-template-rows: minmax(384px, 0fr) 1.5rem;
 }
 .seo-text-wrapper.is-short .md::after {
     position: absolute;

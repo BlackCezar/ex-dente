@@ -96,26 +96,28 @@ export interface Header {
     }
 }
 
+export type UploadFileEntityResponse = {
+    __typename: 'UploadFileEntityResponse'
+    data?: {
+        __typename: 'UploadFileEntity'
+        attributes: {
+            formats: TImageFormats
+            caption?: string
+            alternativeText?: string
+        }
+    }
+}
+
 export interface TSeo {
-    __typename: string
+    __typename: 'ComponentSharedSeo'
     keywords: string
     metaDescription: string
     metaTitle: string
     preventIndexing: boolean
     sharedImage: {
-        __typename: string
+        __typename: 'ComponentSharedSharedImage'
         alt: string
-        media: {
-            __typename: string
-            data: {
-                __typename: string
-                attributes: {
-                    __typename: string
-                    url: string
-                    caption: string | null
-                }
-            }
-        }
+        media: UploadFileEntityResponse
     }
 }
 
@@ -137,7 +139,7 @@ export interface TSlide {
         data: {
             attributes: {
                 __typename: string
-                url: string
+                formats: TImageFormats
                 caption: string | null
             }
         }
@@ -191,7 +193,7 @@ export interface IHomePageBenefitSlide {
         data: {
             __typename: string
             attributes: {
-                url: string | null
+                formats: TImageFormats | null
                 alternativeText: string | null
                 caption: string | null
             }
@@ -268,27 +270,47 @@ export type IParagraphItem = {
     children: {
         type: 'text'
         text: string
-    }
+        bold?: boolean
+        italic?: boolean
+        underline?: boolean
+        code?: boolean
+        strikethrough?: boolean
+    }[]
 }
-export type ITextItems = IParagraphItem
+export type IHeadingItem = {
+    type: 'heading'
+    level: number
+    children: {
+        type: 'text'
+        text: string
+    }[]
+}
+export type IListItem = {
+    type: 'list'
+    format: 'unordered' | 'ordered'
+    children: {
+        type: 'list-item'
+        children: {
+            type: 'text'
+            text: string
+        }[]
+    }[]
+}
+export type ITextItems = IParagraphItem | IHeadingItem | IListItem
 export type IComponentTextText = {
     __typename: 'ComponentTextText'
     id: string
     text: ITextItems[]
 }
+export type ComponentTextBenefit = {
+    __typename: 'ComponentTextBenefit'
+    id: string
+    text: string
+    title: string
+}
 export type ComponentSlidersSlider = {
     __typename: 'ComponentSlidersSlider'
-    banner: {
-        __typename: 'UploadFileEntityResponse'
-        data: {
-            __typename: 'UploadFileEntity'
-            attributes: {
-                __typename: 'UploadFile'
-                url: string
-                alternativeText?: string
-            }
-        }
-    }
+    banner: UploadFileEntityResponse
     label: string
     id: string
 }
@@ -303,14 +325,8 @@ export interface INewsItem {
         description: string | null
         title?: string
         createdAt: string
-        avatar: {
-            data?: {
-                attributes: {
-                    alternativeText?: string
-                    url?: string
-                }
-            }
-        }
+        publishedAt: string
+        avatar?: UploadFileEntityResponse
     }
 }
 
@@ -364,4 +380,106 @@ export interface Socials {
             }
         }
     }
+}
+
+export type ComponentButtonButton = {
+    __typename: 'ComponentButtonButton'
+    id: string
+    label: string
+    style: string
+    url: string
+}
+
+export interface NewsQuery {
+    newsListing: {
+        __typename: 'NewsListingEntityResponse'
+        data: {
+            __typename: 'NewsListingEntity'
+            attributes: {
+                __typename: 'NewsListing'
+                title: string
+                seo?: TSeo
+            }
+        }
+    }
+}
+
+export interface NewsPostsQuery {
+    newsPosts: {
+        __typename: 'NewsPostEntityResponseCollection'
+        data: {
+            __typename: 'NewsPostEntity'
+            id: string
+            attributes: Pick<
+                INewsItem['attributes'],
+                'avatar' | 'title' | 'slug' | 'publishedAt'
+            >
+        }[]
+        meta: {
+            __typename: 'ResponseCollectionMeta'
+            pagination: {
+                __typename: 'Pagination'
+                pageCount: number
+                total: number
+                pageSize: number
+                page: number
+            }
+        }
+    }
+}
+
+export interface AboutQuery {
+    about: {
+        __typename: 'AboutEntityResponse'
+        data?: {
+            __typename: 'AboutEntity'
+            attributes: {
+                __typename: 'About'
+                title: string
+                slider: ComponentSlidersSlider[]
+                slogan?: string
+                button?: ComponentButtonButton
+                description?: string
+                benefits: ComponentTextBenefit[]
+                seo?: TSeo
+                seoText: ITextItems[]
+                image?: ComponentSlidersSlider
+                videoUrl?: string
+                videoPoster?: {
+                    data: {
+                        attributes: {
+                            formats: TImageFormats
+                        }
+                    }
+                }
+                aboutUsText: ITextItems[]
+            }
+        }
+    }
+}
+
+export type TImage = {
+    name: string
+    hash: string
+    ext: string
+    mime: string
+    path: string | null
+    width: number
+    height: number
+    size: number
+    url: string
+}
+export type TImageFormats = {
+    thumbnail: TImage // 245
+    small: TImage // 500
+    medium: TImage // 750
+    large: TImage // 1000
+    small_x2: TImage // 1000
+    medium_x2: TImage // 1500
+    large_x2: TImage // 2000
+}
+
+export type IBreadCrumb = {
+    path: string
+    title: string
 }

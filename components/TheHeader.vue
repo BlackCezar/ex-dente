@@ -13,20 +13,45 @@ var globalStore = useGlobalStore()
 var { phoneNumber, mainMenu } = storeToRefs(globalStore)
 
 var normalizedMainMenu = computed(
-    () => mainMenu.value?.menuTest?.data?.attributes?.body ?? []
+    () => mainMenu.value?.menuTest?.data?.attributes?.body ?? [],
 )
 var isOpen = ref(false)
+var route = useRoute()
+var isLight = ref(false)
+var headerWrapper = ref<HTMLDivElement | null>(null)
+
+onMounted(() => {
+    isLight.value =
+        !!headerWrapper.value?.nextElementSibling?.classList.contains(
+            'bg-white',
+        )
+})
+
+watch(
+    () => route.path,
+    () => {
+        isLight.value =
+            !!headerWrapper.value?.nextElementSibling?.classList.contains(
+                'bg-white',
+            )
+    },
+)
+watchEffect(() => {
+    isLight.value = isOpen.value
+})
 </script>
 
 <template>
     <div
-        class="header-wrapper container absolute left-0 z-50 top-0"
+        ref="headerWrapper"
+        class="header-wrapper container absolute left-0 lg:left-1/2 lg:-translate-x-1/2 z-50 top-0"
         :data-open="isOpen"
+        :data-light="isLight"
     >
         <div
             class="py-4 flex h-fit items-center header justify-end gap-3 lg:gap-12"
         >
-            <HeaderLogo :light="isOpen" />
+            <HeaderLogo :light="isLight" />
 
             <a
                 :href="`tel:${phoneNumber}`"
@@ -163,6 +188,9 @@ var isOpen = ref(false)
 <style>
 .header-wrapper {
     @apply grid grid-rows-[4.5rem_0fr] lg:grid-rows-[auto_auto] transition-all overflow-hidden lg:overflow-visible text-white;
+}
+.header-wrapper[data-light='true'] {
+    @apply text-accent;
 }
 .header-wrapper .header {
     @apply transition-colors;

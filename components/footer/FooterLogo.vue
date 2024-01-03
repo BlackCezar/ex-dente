@@ -12,7 +12,6 @@ var logoSrc = computed(() => {
         typeof logo.value === 'object' &&
         logo.value.logoDark.data?.length
     ) {
-        console.log(logo.value.logoDark.data)
         return `${appConfig.assetsUri}${logo.value.logoDark.data[0].attributes.url}`
     }
     return ''
