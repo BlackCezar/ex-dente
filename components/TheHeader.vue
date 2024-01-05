@@ -37,7 +37,7 @@ watch(
     },
 )
 watchEffect(() => {
-    isLight.value = isOpen.value
+    if (!isLight.value) isLight.value = isOpen.value
 })
 </script>
 

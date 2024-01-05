@@ -28,6 +28,9 @@ export default defineNuxtConfig({
     tailwindcss: {
         cssPath: '~/assets/css/app.css',
     },
+    pinia: {
+      storesDirs: ['./store/**']
+    },
     apollo: {
         clients: {
             default: {

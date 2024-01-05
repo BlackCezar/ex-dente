@@ -3,14 +3,9 @@ import { useQueries } from '#imports'
 import type { Services, ServicesItem } from '~/types/global.type'
 import { useGlobalStore } from '~/store/global.store'
 
-var { servicesQuery } = useQueries()
-
-var { data } = await useAsyncQuery<Services>(servicesQuery)
-var activeService = ref(data.value?.services?.data[0])
 var globalStore = useGlobalStore()
-var router = useRouter()
-
-globalStore.setServices(data.value?.services.data)
+var { services } = storeToRefs(globalStore)
+var activeService = ref(services.value?.[0])
 
 function toService(service: ServicesItem) {
     activeService.value = service
@@ -43,7 +38,7 @@ function toService(service: ServicesItem) {
                         class="flex snap-mandatory gap-3 snap-x lg:items-start lg:flex-col lg:gap-8 overflow-x-auto"
                     >
                         <li
-                            v-for="service of data?.services?.data"
+                            v-for="service of services"
                             class="snap-end lg:flex lg:items-center lg:gap-5"
                         >
                             <a

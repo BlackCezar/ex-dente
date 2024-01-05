@@ -1,21 +1,34 @@
 <template>
     <div>
-        <TheHeader />
+        <Suspense>
+            <TheHeader />
+            <template #fallback><UiPageSpinner /></template>
+        </Suspense>
         <NuxtPage />
         <Suspense>
             <TheFooter />
+            <template #fallback><UiPageSpinner /></template>
         </Suspense>
     </div>
 </template>
 <script setup lang="ts">
-import type { CommonConfig, MainMenu } from '~/types/global.type'
+import type {CommonConfig, MainMenu, Services} from '~/types/global.type'
 import { useGlobalStore } from '~/store/global.store'
 
 var globalStore = useGlobalStore()
-var { commonConfigQuery, mainMenuQuery } = useQueries()
-var { result: commonConfig } = useQuery<CommonConfig>(commonConfigQuery)
-var { result: mainMenu } = useQuery<MainMenu>(mainMenuQuery)
+var { commonConfigQuery, mainMenuQuery, servicesQuery } = useQueries()
 
-if (commonConfig.value) globalStore.setAppConfig(commonConfig.value)
-if (mainMenu.value) globalStore.setMainMenu(mainMenu.value)
+var { data: mainMenu } = await useAsyncQuery<MainMenu>(mainMenuQuery)
+var { data: commonConfig } =
+    await useAsyncQuery<CommonConfig>(commonConfigQuery)
+var { data: services } = await useAsyncQuery<Services>(servicesQuery)
+
+globalStore.setMainMenu(mainMenu.value)
+globalStore.setAppConfig(commonConfig.value)
+globalStore.setServices(services.value?.services.data)
+
+// if (commonConfig.value?.data.value)
+//     globalStore.setAppConfig(commonConfig.value?.data.value)
+// if (mainMenu.value?.data.value)
+//     globalStore.setMainMenu(mainMenu.value?.data.value)
 </script>
