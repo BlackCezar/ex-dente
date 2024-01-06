@@ -5,13 +5,13 @@ withDefaults(
     defineProps<{
         variant?: 'primary' | 'secondary'
         mode?: 'light' | 'dark'
-        full?: boolean,
+        full?: boolean
         type?: ButtonHTMLAttributes['type']
     }>(),
     {
         variant: 'primary',
         mode: 'light',
-        type: 'button'
+        type: 'button',
     },
 )
 </script>
@@ -25,7 +25,7 @@ withDefaults(
         } grid`"
     >
         <span
-            class="transition-transform"
+            class="transition-transform lg:text-[1.125rem]"
             :class="{
                 'translate-x-3 group-hover/btn:-translate-x-0':
                     variant === 'primary',
@@ -35,7 +35,7 @@ withDefaults(
         </span>
         <svgo-arrow-right-bold
             v-if="['primary'].includes(variant)"
-            class="opacity-0 transition-[opacity_transform] -translate-x-1 group-hover/btn:translate-x-0 group-hover/btn:opacity-100 text-[1.25rem]"
+            class="opacity-0 !mb-0 transition-[opacity_transform] -translate-x-1 group-hover/btn:translate-x-0 group-hover/btn:opacity-100 text-[1.25rem] lg:text-[1.5rem]"
         />
     </button>
 </template>
@@ -51,76 +51,71 @@ withDefaults(
 
 /* Primary - Light */
 .btn.primary.light {
-	color: hsla(0, 0%, 99%, 1);
-	background-color: hsla(213, 63%, 12%, 1);
+    color: hsla(0, 0%, 99%, 1);
+    background-color: hsla(213, 63%, 12%, 1);
 }
 .btn.primary.light:hover {
-	background-color: hsla(212, 79%, 19%, 0.9);
+    background-color: hsla(212, 79%, 19%, 0.9);
 }
 .btn.primary.light:active {
-	background-color: hsla(197, 60%, 78%, 0.8);
-	color: hsla(213, 63%, 12%, 1);
+    background-color: hsla(197, 60%, 78%, 0.8);
+    color: hsla(213, 63%, 12%, 1);
 }
 .btn.primary.light:disabled {
-	color: hsla(210, 7%, 95%, 0.2);
-	background-color: hsla(213, 63%, 12%, 0.2);
+    color: hsla(210, 7%, 95%, 0.2);
+    background-color: hsla(213, 63%, 12%, 0.2);
 }
 /* Primary - Dark */
 .btn.primary.dark {
-	color: hsla(213, 63%, 12%, 1);
-	background-color: hsla(0, 0%, 99%, 1);
+    color: hsla(213, 63%, 12%, 1);
+    background-color: hsla(0, 0%, 99%, 1);
 }
 .btn.primary.dark:hover {
-	background-color: hsla(0, 0%, 99%, 1);
+    background-color: hsla(0, 0%, 99%, 1);
 }
 .btn.primary.dark:active {
-	background-color: hsla(197, 58%, 87%, 0.8);
-	color: hsla(213, 63%, 12%, 1);
+    background-color: hsla(197, 58%, 87%, 0.8);
+    color: hsla(213, 63%, 12%, 1);
 }
 .btn.primary.dark:disabled {
-	color: hsla(213, 63%, 12%, 0.25);
-	background-color: hsla(0, 0%, 99%, 0.25);
+    color: hsla(213, 63%, 12%, 0.25);
+    background-color: hsla(0, 0%, 99%, 0.25);
 }
 
 /* Secondary - Light */
 .btn.secondary.light {
-	color: hsla(0, 0%, 99%, 1);
-	background-color: hsla(213, 63%, 12%, 1);
-	border: 1px solid hsla(0, 0%, 99%, 0.5);
+    color: hsla(0, 0%, 99%, 1);
+    background-color: hsla(213, 63%, 12%, 1);
+    border: 1px solid hsla(0, 0%, 99%, 0.5);
 }
 .btn.secondary.light:hover {
-	border: 1px solid hsla(0, 0%, 99%, 1);
+    border: 1px solid hsla(0, 0%, 99%, 1);
 }
 .btn.secondary.light:active {
-	background-color: hsla(0, 0%, 99%, 1);
-	color: hsla(213, 63%, 12%, 1);
-	border-color: hsla(0, 0%, 99%, 1);
+    background-color: hsla(0, 0%, 99%, 1);
+    color: hsla(213, 63%, 12%, 1);
+    border-color: hsla(0, 0%, 99%, 1);
 }
 .btn.secondary.light:disabled {
-	border-color: hsla(0, 0%, 99%, 0.3);
-	color: hsla(0, 0%, 99%, 0.3);
+    border-color: hsla(0, 0%, 99%, 0.3);
+    color: hsla(0, 0%, 99%, 0.3);
 }
 /* Secondary - Dark */
 .btn.secondary.dark {
-	color: hsl(0, 0%, 100%);
-	background-color: hsla(213, 63%, 12%, 1);
-	border: 1px solid hsla(0, 0%, 99%, 0.5);
+    color: hsl(0, 0%, 100%);
+    background-color: hsla(213, 63%, 12%, 1);
+    border: 1px solid hsla(0, 0%, 99%, 0.5);
 }
 .btn.secondary.dark:hover {
-	border: 1px solid hsla(0, 0%, 99%, 1);
+    border: 1px solid hsla(0, 0%, 99%, 1);
 }
 .btn.secondary.dark:active {
-	background-color: hsla(0, 0%, 99%, 1);
-	color: hsla(213, 63%, 12%, 1);
-	border-color: hsla(0, 0%, 99%, 1);
+    background-color: hsla(0, 0%, 99%, 1);
+    color: hsla(213, 63%, 12%, 1);
+    border-color: hsla(0, 0%, 99%, 1);
 }
 .btn.secondary.dark:disabled {
-	border-color: hsla(0, 0%, 99%, 0.3);
-	color: hsla(0, 0%, 99%, 0.3);
+    border-color: hsla(0, 0%, 99%, 0.3);
+    color: hsla(0, 0%, 99%, 0.3);
 }
-
-
-
-
-
 </style>

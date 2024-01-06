@@ -32,6 +32,7 @@ export default {
                 'secondary-before': 'hsla(197, 58%, 87%, 0.8)', // #A7D6E9CC
                 'secondary-disabled': 'hsla(197, 58%, 87%, 0.3)', // #F0F1F2
                 blue: 'hsla(212, 79%, 19%, 1)', // #0A2D56
+                gray: 'hsl(210, 7%, 95%)', // #F0F1F2
                 'system-success': 'hsl(101, 49%, 66%)', // #98D27C
                 'system-danger': 'hsl(4, 66%, 66%)', // #E1766F
                 'system-warning': 'hsl(40, 93%, 71%)', // #FACB71

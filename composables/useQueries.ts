@@ -596,6 +596,68 @@ export default function useQueries() {
         }
     `
 
+    var servicePageQuery = gql`
+        query ServicesPAge($filters: ServiceFiltersInput) {
+            services(filters: $filters) {
+                data {
+                    id
+                    attributes {
+                        slug
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        sub_services {
+                            data {
+                                id
+                                attributes {
+                                    slug
+                                    title
+                                }
+                            }
+                        }
+                        subtitle
+                        title
+                        description
+                        doctors {
+                            data {
+                                id
+                                attributes {
+                                    specification
+                                    slug
+                                    name
+                                    image {
+                                        data {
+                                            attributes {
+                                                alternativeText
+                                                caption
+                                                formats
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     return {
         newsPosts,
         newsQuery,
@@ -607,6 +669,7 @@ export default function useQueries() {
         salesPageQuery,
         commonConfigQuery,
         salesPosts,
+        servicePageQuery,
         headerQuery,
         aboutPageQuery,
         homePage,

@@ -26,25 +26,4 @@ defineProps<{
     </template>
 </template>
 
-<style>
-.content p {
-    @apply text-accent text-opacity-70 text-[1.125rem] lg:text-[1.375rem] leading-[1.75rem] lg:leading-[2.25rem];
-}
-.content p:has(+ h1),
-.content p:has(+ h2),
-.content p:has(+ h3),
-.content p:has(+ h4),
-.content p:has(+ h5),
-.content p:has(+ h6) {
-    @apply mb-10 lg:mb-12;
-}
-
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
-    @apply mb-5 lg:mb-7 font-[Mignon] font-medium  text-[1.125rem]  lg:font-normal lg:text-[1.75rem];
-}
-</style>
+<style></style>

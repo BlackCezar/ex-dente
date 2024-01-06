@@ -39,6 +39,7 @@ function toService(service: ServicesItem) {
                     >
                         <li
                             v-for="service of services"
+                            :key="service.id"
                             class="snap-end lg:flex lg:items-center lg:gap-5"
                         >
                             <a
