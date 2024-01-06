@@ -13,11 +13,11 @@ var { data } = await useAsyncQuery<HomePage>(homePage)
 
 useSeoMeta({
     ogImage:
-        data.value.homePage.data.attributes.seo.sharedImage.media.data
-            .attributes.url,
+        data.value.homePage.data.attributes.seo.sharedImage.media?.data
+            ?.attributes.url,
     ogImageUrl:
-        data.value.homePage.data.attributes.seo.sharedImage.media.data
-            .attributes.url,
+        data.value.homePage.data.attributes.seo.sharedImage.media?.data
+            ?.attributes.url,
     ogImageAlt: data.value.homePage.data.attributes.seo.sharedImage.alt,
     title: data.value.homePage.data.attributes.title,
     keywords: data.value.homePage.data.attributes.seo.keywords,

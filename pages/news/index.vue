@@ -8,6 +8,7 @@ import type {
 import useQueries from '~/composables/useQueries'
 import UiPageSpinner from '~/components/ui/PageSpinner.vue'
 import UiPagePagination from '~/components/ui/PagePagination.vue'
+import { useSeoMeta } from '#imports'
 
 var { newsQuery, newsPosts } = useQueries()
 var { data } = await useAsyncQuery<NewsQuery>(newsQuery)
@@ -22,6 +23,7 @@ var paginationVariables = ref({
 var {
     data: posts,
     execute,
+    error,
     pending,
 } = await useAsyncQuery<NewsPostsQuery>(newsPosts, paginationVariables.value)
 
@@ -49,11 +51,29 @@ function setPage(val: number) {
     })
     execute()
 }
+onMounted(execute)
+
+if (data.value.newsListing.data.attributes.seo)
+    useSeoMeta({
+        ogImage:
+            data.value.newsListing.data.attributes.seo.sharedImage.media?.data
+                ?.attributes.url,
+        ogImageUrl:
+            data.value.newsListing.data.attributes.seo.sharedImage.media?.data
+                ?.attributes.url,
+        ogImageAlt: data.value.newsListing.data.attributes.seo.sharedImage.alt,
+        title: data.value.newsListing.data.attributes.title,
+        keywords: data.value.newsListing.data.attributes.seo.keywords,
+        description: data.value.newsListing.data.attributes.seo.metaDescription,
+        ogDescription:
+            data.value.newsListing.data.attributes.seo.metaDescription,
+        ogTitle: data.value.newsListing.data.attributes.seo.metaTitle,
+    })
 </script>
 
 <template>
     <div class="vertical-padding bg-white">
-        <div class="container">
+        <div class="container mx-auto">
             <BreadCrumbs
                 is-dark
                 :list="breadCrumbs"
@@ -73,7 +93,7 @@ function setPage(val: number) {
                         class="grid pb-[3.25rem] lg:pb-[3.75rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[3rem] gap-x-10 lg:gap-y-[7.5rem]"
                     >
                         <template
-                            v-for="item of posts.newsPosts.data"
+                            v-for="item of posts?.newsPosts.data"
                             :key="item.id"
                         >
                             <NewsItem is-dark :article="item" />
@@ -83,7 +103,9 @@ function setPage(val: number) {
                         @show-more="showMore"
                         @set-page="setPage"
                         :page="paginationVariables.pagination.page"
-                        :page-count="posts.newsPosts.meta.pagination.pageCount"
+                        :page-count="
+                            posts?.newsPosts.meta.pagination.pageCount ?? 0
+                        "
                     />
                 </div>
             </div>

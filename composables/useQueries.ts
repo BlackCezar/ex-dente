@@ -423,13 +423,190 @@ export default function useQueries() {
         }
     `
 
+    var salesPosts = gql`
+        query SalesPosts($pagination: PaginationArg) {
+            promos(pagination: $pagination) {
+                data {
+                    id
+                    attributes {
+                        slug
+                        subtitle
+                        title
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                            }
+                        }
+                    }
+                }
+                meta {
+                    pagination {
+                        page
+                        pageCount
+                        total
+                        pageSize
+                    }
+                }
+            }
+        }
+    `
+
+    var salesPageQuery = gql`
+        query SalesPost($filters: PromoFiltersInput) {
+            promos(filters: $filters) {
+                data {
+                    id
+                    attributes {
+                        slug
+                        subtitle
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                            }
+                        }
+                        publishedAt
+                        description
+                    }
+                }
+            }
+        }
+    `
+
+    var newsPageQuery = gql`
+        query Query($filters: NewsPostFiltersInput) {
+            newsPosts(filters: $filters) {
+                data {
+                    id
+                    attributes {
+                        publishedAt
+                        avatar {
+                            data {
+                                attributes {
+                                    formats
+                                    alternativeText
+                                    caption
+                                }
+                            }
+                        }
+                        title
+                        slug
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        description
+                        body {
+                            ... on ComponentTextText {
+                                id
+                                text
+                            }
+                            ... on ComponentSlidersSlider {
+                                id
+                                label
+                                banner {
+                                    data {
+                                        attributes {
+                                            formats
+                                            alternativeText
+                                            caption
+                                        }
+                                    }
+                                }
+                                style
+                            }
+                            ... on Error {
+                                code
+                                message
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    var salesPage = gql`
+        query SalesPage {
+            promoListing {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     return {
         newsPosts,
         newsQuery,
         socialsQuery,
         footerQuery,
+        newsPageQuery,
         mainMenuQuery,
+        salesPage,
+        salesPageQuery,
         commonConfigQuery,
+        salesPosts,
         headerQuery,
         aboutPageQuery,
         homePage,

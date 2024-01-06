@@ -117,7 +117,13 @@ export interface TSeo {
     sharedImage: {
         __typename: 'ComponentSharedSharedImage'
         alt: string
-        media: UploadFileEntityResponse
+        media?: {
+            data?: {
+                attributes: {
+                    url: string
+                }
+            }
+        }
     }
 }
 
@@ -310,7 +316,17 @@ export type ComponentTextBenefit = {
 }
 export type ComponentSlidersSlider = {
     __typename: 'ComponentSlidersSlider'
-    banner: UploadFileEntityResponse
+    banner: {
+        data: {
+            id: string
+            __typename: 'UploadFileEntity'
+            attributes: {
+                formats: TImageFormats
+                caption?: string
+                alternativeText?: string
+            }
+        }[]
+    }
     label: string
     id: string
 }
@@ -404,6 +420,17 @@ export interface NewsQuery {
     }
 }
 
+export type TMeta = {
+    __typename: 'ResponseCollectionMeta'
+    pagination: {
+        __typename: 'Pagination'
+        pageCount: number
+        total: number
+        pageSize: number
+        page: number
+    }
+}
+
 export interface NewsPostsQuery {
     newsPosts: {
         __typename: 'NewsPostEntityResponseCollection'
@@ -415,16 +442,7 @@ export interface NewsPostsQuery {
                 'avatar' | 'title' | 'slug' | 'publishedAt'
             >
         }[]
-        meta: {
-            __typename: 'ResponseCollectionMeta'
-            pagination: {
-                __typename: 'Pagination'
-                pageCount: number
-                total: number
-                pageSize: number
-                page: number
-            }
-        }
+        meta: TMeta
     }
 }
 

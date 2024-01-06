@@ -19,6 +19,10 @@ var config = useAppConfig()
                 loop
                 slidesPerView="auto"
                 :effect="'coverflow'"
+                :autoplay="{
+                    delay: 7000,
+                    disableOnInteraction: true,
+                }"
                 :modules="[Autoplay, Pagination, EffectCoverflow]"
                 :coverflowEffect="{
                     rotate: 0,
