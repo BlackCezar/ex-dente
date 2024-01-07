@@ -179,6 +179,7 @@ export default function useQueries() {
                             style
                             banner {
                                 data {
+                                    id
                                     attributes {
                                         formats
                                         alternativeText
@@ -260,6 +261,101 @@ export default function useQueries() {
                         }
                         title
                         seoText
+                    }
+                }
+            }
+        }
+    `
+
+    var subServicePageQuery = gql`
+        query SubServices($filters: SubServiceFiltersInput) {
+            subServices(filters: $filters) {
+                data {
+                    attributes {
+                        title
+                        slug
+                        subtitle
+                        seo {
+                            keywords
+                            metaDescription
+                            metaTitle
+                            preventIndexing
+                            sharedImage {
+                                alt
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                            caption
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        doctors {
+                            data {
+                                attributes {
+                                    image {
+                                        data {
+                                            attributes {
+                                                alternativeText
+                                                caption
+                                                formats
+                                            }
+                                        }
+                                    }
+                                    name
+                                    specification
+                                }
+                            }
+                        }
+                        description
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    url
+                                }
+                                id
+                            }
+                        }
+                        service {
+                            data {
+                                attributes {
+                                    title
+                                    slug
+                                }
+                            }
+                        }
+                        price_sections {
+                            data {
+                                attributes {
+                                    label
+                                    price {
+                                        price
+                                        id
+                                        description
+                                        style
+                                    }
+                                }
+                                id
+                            }
+                        }
+                        galary {
+                            label
+                            id
+                            banner {
+                                data {
+                                    attributes {
+                                        alternativeText
+                                        caption
+                                        formats
+                                    }
+                                    id
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -596,6 +692,19 @@ export default function useQueries() {
         }
     `
 
+    var subServicesQuery = gql`
+        query SubServices($filters: SubServiceFiltersInput) {
+            subServices(filters: $filters) {
+                data {
+                    attributes {
+                        title
+                        slug
+                    }
+                }
+            }
+        }
+    `
+
     var servicePageQuery = gql`
         query ServicesPAge($filters: ServiceFiltersInput) {
             services(filters: $filters) {
@@ -659,23 +768,31 @@ export default function useQueries() {
     `
 
     return {
+        // News
         newsPosts,
         newsQuery,
-        socialsQuery,
-        footerQuery,
         newsPageQuery,
-        mainMenuQuery,
+        // Services
+        servicePageQuery,
+        subServicePageQuery,
+        servicesQuery,
+        subServicesQuery,
+        // Sales
         salesPage,
         salesPageQuery,
-        commonConfigQuery,
         salesPosts,
-        servicePageQuery,
-        headerQuery,
-        aboutPageQuery,
+        // Main page
+        mainMenuQuery,
         homePage,
-        servicesQuery,
         homePageBenefitQuery,
         mainPageReviewsListQuery,
         mainPageNewsQuery,
+        // About page
+        aboutPageQuery,
+        // Common
+        socialsQuery,
+        commonConfigQuery,
+        headerQuery,
+        footerQuery,
     }
 }

@@ -4,6 +4,7 @@ import type { IBreadCrumb } from '~/types/global.type'
 import type { ServicePage } from '~/types/services.type'
 import { useSeoMeta } from '#imports'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
+import DirectionsList from '~/components/common/DirectionsList.vue'
 
 var route = useRoute()
 var { servicePageQuery } = useQueries()
@@ -81,43 +82,11 @@ if (data.value?.services.data[0].attributes.seo)
                         </article>
                     </div>
                 </div>
-                <div
-                    class="max-w-[34rem]"
-                    v-if="
-                        data.services.data[0].attributes.sub_services.data
-                            .length
-                    "
-                >
-                    <h3
-                        class="h3 mb-6 text-accent lg:mb-8 lg:text-[1.75rem] font-[Mignon] lg:font-normal"
-                    >
-                        Направления
-                    </h3>
-                    <nav>
-                        <ul class="flex flex-col gap-4 lg:gap-6">
-                            <li
-                                v-for="item of data.services.data[0].attributes
-                                    .sub_services.data"
-                                :key="item.id"
-                            >
-                                <nuxt-link
-                                    class="pl-5 lg:pr-8 lg:pl-7 py-3 pr-4 rounded-[0.25rem] lg:rounded-[0.375rem] hover:bg-secondary-before transition-colors bg-gray flex items-center justify-between gap-4"
-                                    :to="`/services/${route.params.slug}/${item.attributes.slug}`"
-                                >
-                                    <span
-                                        class="lg:text-[1.375rem] text-accent text-opacity-70"
-                                    >
-                                        {{ item.attributes.title }}
-                                    </span>
-                                    <svgo-arrow-right
-                                        filled
-                                        class="text-[1.5rem]"
-                                    />
-                                </nuxt-link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <DirectionsList
+                    title="Направления"
+                    :parent="route.params.slug"
+                    :list="data.services.data[0].attributes.sub_services.data"
+                />
             </div>
             <ServicesDoctorsScreen
                 :list="data.services.data[0].attributes.doctors.data"

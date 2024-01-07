@@ -29,7 +29,6 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
         title: data.value?.newsPosts.data?.[0].attributes.title ?? '',
     },
 ])
-
 if (data.value?.newsPosts.data[0].attributes.seo)
     useSeoMeta({
         ogImage:

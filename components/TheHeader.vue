@@ -36,9 +36,18 @@ watch(
             )
     },
 )
-watchEffect(() => {
-    if (!isLight.value) isLight.value = isOpen.value
-})
+watch(
+    () => isOpen.value,
+    () => {
+        if (isOpen.value) isLight.value = true
+        else {
+            isLight.value =
+                !!headerWrapper.value?.nextElementSibling?.classList.contains(
+                    'bg-white',
+                )
+        }
+    },
+)
 </script>
 
 <template>
@@ -80,9 +89,7 @@ watchEffect(() => {
                 >
             </template>
         </div>
-        <div
-            class="header-list lg:flex-row py-7 lg:py-4 items-center flex flex-col gap-9"
-        >
+        <div class="header-list lg:flex-row items-center flex flex-col gap-9">
             <template
                 v-for="button of header.header.data?.attributes.request_button"
             >
@@ -204,7 +211,12 @@ watchEffect(() => {
 }
 
 .header-list {
+    @apply py-7 lg:py-4;
+
     max-height: unset;
     min-height: 0;
+}
+.header-wrapper[data-open='false'] .header-list {
+    @apply pointer-events-none py-0;
 }
 </style>

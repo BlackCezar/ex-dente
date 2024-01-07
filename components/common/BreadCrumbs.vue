@@ -7,6 +7,8 @@ var props = defineProps<{
     isDark?: boolean
 }>()
 
+var scrollContainer = ref<HTMLOListElement | null>(null)
+
 useJsonld(() => ({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -17,18 +19,39 @@ useJsonld(() => ({
         item: item.path,
     })),
 }))
+
+function onScroll(ev: Event) {
+    if (scrollContainer.value)
+        scrollContainer.value.classList.add('scroll-blur')
+}
+function onScrollEnd(ev: Event) {
+    if (
+        scrollContainer.value &&
+        scrollContainer.value?.children[0].scrollWidth -
+            scrollContainer.value?.children[0].clientWidth ===
+            scrollContainer.value?.children[0].scrollLeft
+    )
+        scrollContainer.value.classList.remove('scroll-blur')
+}
 </script>
 
 <template>
     <nav
-        class="breadcrumbs"
+        class="breadcrumbs scroll-blur"
         :class="{
             'is-dark': isDark,
         }"
+        ref="scrollContainer"
     >
-        <ol>
-            <li v-for="item of list" :key="item.path">
-                <nuxt-link :to="item.path">{{ item.title }}</nuxt-link>
+        <ol
+            class="overflow-x-auto lg:flex lg:flex-wrap"
+            @scroll="onScroll"
+            @scrollend="onScrollEnd"
+        >
+            <li v-for="(item, index) of list" :key="item.path">
+                <nuxt-link class="whitespace-nowrap" :to="item.path">{{
+                    item.title
+                }}</nuxt-link>
                 <span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -65,10 +88,13 @@ useJsonld(() => ({
 }
 
 .breadcrumbs li a {
-    @apply text-opacity-40 text-white;
+    @apply text-opacity-40 text-white lowercase;
 }
 .breadcrumbs.is-dark li a {
-    @apply text-accent text-opacity-40;
+    @apply text-accent text-opacity-40 lowercase;
+}
+.breadcrumbs li a::first-letter {
+    text-transform: capitalize;
 }
 .breadcrumbs li a.router-link-active {
     @apply text-opacity-100;
@@ -78,5 +104,27 @@ useJsonld(() => ({
 }
 .breadcrumbs.is-dark svg {
     @apply text-accent text-opacity-40;
+}
+
+.breadcrumbs {
+    position: relative;
+}
+.breadcrumbs::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 0;
+    background: linear-gradient(
+        270deg,
+        #0b1c31 11.84%,
+        rgba(11, 28, 49, 0) 100%
+    );
+    width: 20%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+.scroll-blur::after {
+    opacity: 1;
 }
 </style>

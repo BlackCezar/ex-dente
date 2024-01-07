@@ -198,14 +198,35 @@ export interface IHomePageBenefitSlide {
         __typename: string
         data: {
             __typename: string
+            id: string
             attributes: {
                 formats: TImageFormats | null
                 alternativeText: string | null
                 caption: string | null
             }
-        }
+        }[]
     } | null
 }
+
+export interface ComponentPricePrice {
+    __typename: 'ComponentPricePrice'
+    price: number
+    description: string
+    id: string
+    style?: string
+}
+
+export interface PriceSectionEntity {
+    __typename: 'PriceSectionEntity'
+    id: string
+    attributes: PriceSection
+}
+export interface PriceSection {
+    __typename: 'PriceSection'
+    label: string
+    price: ComponentPricePrice[]
+}
+
 export interface IHomePageBenefit {
     __typename: string
     attributes: {

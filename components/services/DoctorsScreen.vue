@@ -4,7 +4,7 @@ import LeftButton from '~/components/ui/LeftButton.vue'
 import RightButton from '~/components/ui/RightButton.vue'
 
 defineProps<{
-    list: DoctorItem[]
+    list?: DoctorItem[]
 }>()
 
 var swiper = ref(null)
@@ -12,7 +12,7 @@ var config = useAppConfig()
 </script>
 
 <template>
-    <div>
+    <div v-if="list?.length">
         <div class="flex items-center justify-between lg:mb-[3rem] mb-7">
             <h3 class="h3 text-accent lg:text-[2.5rem] font-[Mignon]">
                 НАШИ ВРАЧИ
@@ -25,7 +25,7 @@ var config = useAppConfig()
         <div>
             <ClientOnly>
                 <Swiper
-                    class="w-screen !px-4 !-ml-4"
+                    class="w-screen lg:w-full !px-4 !-ml-4 lg:!px-0 lg:!ml-0"
                     @swiper="swiper = $event"
                     space-between="20"
                     :breakpoints="{
@@ -71,7 +71,9 @@ var config = useAppConfig()
                                         variant="primary"
                                         mode="dark"
                                         @click.stop=""
-                                        >Записаться на прием</UiButton
+                                        ><span class="whitespace-nowrap"
+                                            >Записаться на прием</span
+                                        ></UiButton
                                     >
                                 </div>
                                 <h3 class="h4 mb-1 font-[Mignon] text-accent">

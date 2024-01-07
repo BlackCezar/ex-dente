@@ -44,59 +44,56 @@ function onSlideChange(swiper: any) {
         >
             <template v-for="slide of slides" :key="slide.id">
                 <SwiperSlide class="aspect-[13/15] lg:aspect-[52.5/38.5]">
-                    <picture class="h-full w-full">
-                        <source
-                            media="(min-width: 1440px)"
-                            :srcset="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats
-                                    ?.large_x2.url
-                            "
-                        />
-                        <source
-                            media="(min-width: 1024px)"
-                            :srcset="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats
-                                    ?.medium_x2.url
-                            "
-                        />
-                        <source
-                            media="(min-width: 720px)"
-                            :srcset="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats
-                                    ?.small_x2.url
-                            "
-                        />
-                        <source
-                            media="(min-width: 480px)"
-                            :srcset="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats?.medium
-                                    .url
-                            "
-                        />
-                        <source
-                            media="(max-width: 479px)"
-                            :srcset="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats?.small
-                                    .url
-                            "
-                        />
-                        <img
-                            :src="
-                                appConfig.assetsUri +
-                                slide.banner?.data?.attributes?.formats
-                                    ?.medium_x2.url
-                            "
-                            class="object-cover object-center h-full w-full"
-                            :alt="
-                                slide.banner?.data?.attributes?.alternativeText
-                            "
-                        />
-                    </picture>
+                    <template
+                        v-for="banner of slide.banner?.data"
+                        :key="banner.id"
+                    >
+                        <picture class="h-full w-full">
+                            <source
+                                media="(min-width: 1440px)"
+                                :srcset="
+                                    appConfig.assetsUri +
+                                    banner.attributes?.formats?.large_x2.url
+                                "
+                            />
+                            <source
+                                media="(min-width: 1024px)"
+                                :srcset="
+                                    appConfig.assetsUri +
+                                    banner?.attributes?.formats?.medium_x2.url
+                                "
+                            />
+                            <source
+                                media="(min-width: 720px)"
+                                :srcset="
+                                    appConfig.assetsUri +
+                                    banner?.attributes?.formats?.small_x2.url
+                                "
+                            />
+                            <source
+                                media="(min-width: 480px)"
+                                :srcset="
+                                    appConfig.assetsUri +
+                                    banner?.attributes?.formats?.medium.url
+                                "
+                            />
+                            <source
+                                media="(max-width: 479px)"
+                                :srcset="
+                                    appConfig.assetsUri +
+                                    banner?.attributes?.formats?.small.url
+                                "
+                            />
+                            <img
+                                :src="
+                                    appConfig.assetsUri +
+                                    banner?.attributes?.formats?.medium_x2.url
+                                "
+                                class="object-cover object-center h-full w-full"
+                                :alt="banner?.attributes?.alternativeText"
+                            />
+                        </picture>
+                    </template>
                 </SwiperSlide>
             </template>
             <BenefitsPagination />
