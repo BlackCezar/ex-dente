@@ -90,7 +90,7 @@ if (data.value?.subServices.data[0].attributes.seo)
             <div>
                 <ServiceMainBanner
                     :data="data.subServices.data[0].attributes"
-                />
+                />wwd
             </div>
         </div>
         <div
