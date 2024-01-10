@@ -109,6 +109,11 @@ function onScrollEnd(ev: Event) {
 .breadcrumbs {
     position: relative;
 }
+@media (min-width: 1024px) {
+    .breadcrumbs::after {
+        display: none;
+    }
+}
 .breadcrumbs::after {
     content: '';
     position: absolute;
@@ -123,6 +128,9 @@ function onScrollEnd(ev: Event) {
     height: 100%;
     opacity: 0;
     transition: opacity 0.2s ease-out;
+}
+body:has(.header-wrapper[data-light='true']) .breadcrumbs::after {
+    background: linear-gradient(270deg, white 11.84%, white 100%);
 }
 .scroll-blur::after {
     opacity: 1;

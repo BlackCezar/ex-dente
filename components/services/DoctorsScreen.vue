@@ -44,48 +44,7 @@ var config = useAppConfig()
                     }"
                 >
                     <SwiperSlide v-for="item of list" :key="item.id">
-                        <article class="group">
-                            <nuxt-link :to="'/doctors/' + item.attributes.slug">
-                                <div
-                                    class="aspect-[3/4] relative overflow-hidden lg:aspect-[5/6] mb-5 rounded-[0.5rem] lg:mb-6"
-                                >
-                                    <img
-                                        class="group-hover:scale-105 w-full h-full transition-transform origin-top object-cover object-center"
-                                        :src="
-                                            config.assetsUri +
-                                            item.attributes.image.data
-                                                ?.attributes.formats.medium.url
-                                        "
-                                        :alt="
-                                            item.attributes.image.data
-                                                ?.attributes.alternativeText
-                                        "
-                                        :title="
-                                            item.attributes.image.data
-                                                ?.attributes.caption
-                                        "
-                                    />
-                                    <UiButton
-                                        class="absolute right-4 transition-opacity bottom-4 opacity-0 group-hover:opacity-100"
-                                        type="button"
-                                        variant="primary"
-                                        mode="dark"
-                                        @click.stop=""
-                                        ><span class="whitespace-nowrap"
-                                            >Записаться на прием</span
-                                        ></UiButton
-                                    >
-                                </div>
-                                <h3 class="h4 mb-1 font-[Mignon] text-accent">
-                                    {{ item.attributes.name }}
-                                </h3>
-                                <section
-                                    class="text-accent text-[0.875rem] text-opacity-50 lg:text-[1.125rem]"
-                                >
-                                    {{ item.attributes.specification }}
-                                </section>
-                            </nuxt-link>
-                        </article>
+                        <DoctorItem :article="item.attributes" />
                     </SwiperSlide>
                 </Swiper>
             </ClientOnly>

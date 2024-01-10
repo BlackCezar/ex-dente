@@ -203,6 +203,7 @@ export default function useQueries() {
                         slug
                         sub_services {
                             data {
+                                id
                                 attributes {
                                     title
                                     slug
@@ -519,6 +520,40 @@ export default function useQueries() {
         }
     `
 
+    var doctorsPosts = gql`
+        query Doctors(
+            $pagination: PaginationArg
+            $filters: DoctorFiltersInput
+        ) {
+            doctors(pagination: $pagination, filters: $filters) {
+                meta {
+                    pagination {
+                        page
+                        pageCount
+                        pageSize
+                        total
+                    }
+                }
+                data {
+                    id
+                    attributes {
+                        name
+                        slug
+                        specification
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
     var salesPosts = gql`
         query SalesPosts($pagination: PaginationArg) {
             promos(pagination: $pagination) {
@@ -767,6 +802,127 @@ export default function useQueries() {
         }
     `
 
+    var doctorsPageQuery = gql`
+        query DoctorsListing {
+            doctorsListing {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    var doctorPageQuery = gql`
+        query Doctors($filters: DoctorFiltersInput) {
+            doctors(filters: $filters) {
+                data {
+                    attributes {
+                        name
+                        slug
+                        specification
+                        experience
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                            }
+                        }
+                        certs {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                                id
+                            }
+                        }
+                        clinicAddress
+                        education
+                        information
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        sub_services {
+                            data {
+                                id
+                                attributes {
+                                    slug
+                                    title
+                                    service {
+                                        data {
+                                            attributes {
+                                                slug
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    var reviewsDoctorQuery = gql`
+        query Reviews(
+            $filters: ReviewFiltersInput
+            $pagination: PaginationArg
+        ) {
+            reviews(filters: $filters, pagination: $pagination) {
+                data {
+                    id
+                    attributes {
+                        review {
+                            name
+                            reviewText
+                        }
+                        publishedAt
+                    }
+                }
+            }
+        }
+    `
+
     return {
         // News
         newsPosts,
@@ -794,5 +950,12 @@ export default function useQueries() {
         commonConfigQuery,
         headerQuery,
         footerQuery,
+        // Doctors
+        doctorsPageQuery,
+        doctorsPosts,
+        doctorPageQuery,
+
+        // Reviews
+        reviewsDoctorQuery,
     }
 }

@@ -169,12 +169,14 @@ export interface HomePage {
 
 export interface IService {
     __typename: string
-    id: string
     title: string
     slug: string
     sub_services: {
         __typename: string
-        data: TData<IService>[]
+        data: {
+            id: string
+            attributes: IService
+        }
     }
 }
 
