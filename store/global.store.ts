@@ -6,6 +6,7 @@ export var useGlobalStore = defineStore('global', {
         config: null,
         mainMenu: null,
         services: [],
+        doctors: [],
     }),
     getters: {
         phoneNumber: (state) =>
@@ -20,6 +21,9 @@ export var useGlobalStore = defineStore('global', {
     actions: {
         setServices(services: any) {
             this.services = services
+        },
+        setDoctors(list: any) {
+            this.doctors = list
         },
         setAppConfig(config: CommonConfig) {
             this.config = config

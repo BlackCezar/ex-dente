@@ -12,7 +12,11 @@ export default defineNuxtConfig({
         '@vee-validate/nuxt',
         'nuxt-jsonld',
         '@nuxtjs/device',
+        'vue-yandex-maps/nuxt',
     ],
+    yandexMaps: {
+        apikey: 'bdf9c487-5d09-421c-949d-9d8c7f583836',
+    },
     googleFonts: {
         families: {
             'Proxima Nova': {
@@ -29,7 +33,7 @@ export default defineNuxtConfig({
         cssPath: '~/assets/css/app.css',
     },
     pinia: {
-      storesDirs: ['./store/**']
+        storesDirs: ['./store/**'],
     },
     apollo: {
         clients: {

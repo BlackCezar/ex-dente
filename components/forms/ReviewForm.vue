@@ -3,22 +3,24 @@ import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import UiTextArea from '~/components/ui/UiTextArea.vue'
 import UiRadio from '~/components/ui/UiRadio.vue'
+import { useGlobalStore } from '~/store/global.store'
+import { storeToRefs } from '#imports'
 
-defineProps<{
+var props = defineProps<{
     doctor?: {
         id: string
         name: string
     }
 }>()
 
-var { handleSubmit, isSubmitting } = useForm({
+var { handleSubmit, setFieldValue } = useForm({
     validationSchema: yup.object().shape({
-        name: yup.string().required(),
+        reviewName: yup.string().required(),
         reviewText: yup.string().optional(),
         reviewType: yup.string().required().oneOf(['clinic', 'doctor']),
-        doctor: yup.string().optional(),
-        clinic: yup.string().optional(),
-        sub_service: yup.string().optional(),
+        reviewDoctor: yup.string().optional(),
+        reviewClinic: yup.string().optional(),
+        reviewService: yup.string().optional(),
     }),
 })
 var onProcess = handleSubmit(async (values) => {})
@@ -33,6 +35,41 @@ var radioOptions = markRaw([
         value: 'doctor',
     },
 ])
+var globalStore = useGlobalStore()
+var { services, doctors } = storeToRefs(globalStore)
+var servicesOptions = computed(() =>
+    services.value?.map((service) => {
+        return {
+            value: service.id,
+            label: service.attributes.title,
+            children: service.attributes.sub_services.data?.map((subS) => ({
+                value: subS.id,
+                label: subS.attributes.title,
+            })),
+        }
+    }),
+)
+
+var doctorsOptions = computed(() =>
+    doctors.value.map((doc) => ({
+        value: doc.id,
+        label: doc.attributes.name,
+    })),
+)
+
+watch(
+    () => props.doctor,
+    () => {
+        console.log(props.doctor)
+        if (props.doctor?.id) {
+            setFieldValue('reviewDoctor', props.doctor.id)
+        }
+    },
+    {
+        deep: true,
+        immediate: true,
+    },
+)
 </script>
 
 <template>
@@ -44,7 +81,7 @@ var radioOptions = markRaw([
         </h4>
         <UiInput
             placeholder="Иван Иванов"
-            name="name"
+            name="reviewName"
             type="text"
             mode="light"
             label="Ваше имя*"
@@ -64,15 +101,17 @@ var radioOptions = markRaw([
         <div class="flex flex-col lg:flex-row gap-5 lg:gap-10 lg:mb-12 mb-8">
             <UiSelect
                 class="w-full"
-                name="sub_service"
+                name="reviewService"
                 label="Направление"
                 placeholder="Любое направление"
+                :options="servicesOptions"
             />
             <UiSelect
                 class="w-full"
-                name="sub_service"
+                name="reviewDoctor"
                 label="ФИО врача"
                 placeholder="Любой врач"
+                :options="doctorsOptions"
             />
         </div>
         <div class="flex flex-col gap-6 lg:flex-row lg:gap-10">

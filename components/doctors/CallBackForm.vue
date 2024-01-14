@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToServicesButton from '~/components/common/toServicesButton.vue'
+import RecordForm from '~/components/forms/RecordForm.vue'
 
 defineProps<{
     doctor: {
@@ -28,7 +28,7 @@ var config = useAppConfig()
                     alt="Изображение доктора"
                 />
             </div>
-            <RecordForm />
+            <RecordForm :doctor="doctor" />
         </div>
     </div>
 </template>

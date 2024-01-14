@@ -67,7 +67,6 @@ var config = useAppConfig()
                                     item.attributes.formats.large_x2.url
                                 "
                                 click-message="Нажмите для зума"
-                                :alt="item.attributes.alternativeText"
                             />
                         </div>
                     </SwiperSlide>

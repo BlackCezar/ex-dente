@@ -520,6 +520,29 @@ export default function useQueries() {
         }
     `
 
+    var doctorsListQuery = gql`
+        query Doctors {
+            doctors {
+                data {
+                    id
+                    attributes {
+                        name
+                        slug
+                        specification
+                        image {
+                            data {
+                                attributes {
+                                    alternativeText
+                                    caption
+                                    formats
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
     var doctorsPosts = gql`
         query Doctors(
             $pagination: PaginationArg
@@ -836,6 +859,7 @@ export default function useQueries() {
         query Doctors($filters: DoctorFiltersInput) {
             doctors(filters: $filters) {
                 data {
+                    id
                     attributes {
                         name
                         slug
@@ -923,6 +947,44 @@ export default function useQueries() {
         }
     `
 
+    var contactsPageQuery = gql`
+        query ContactPage {
+            contactPage {
+                data {
+                    attributes {
+                        title
+                        yandexMapsToken
+                        clinics {
+                            data {
+                                id
+                                attributes {
+                                    address
+                                    coordinates
+                                    email
+                                    label
+                                    phone
+                                    socials {
+                                        url
+                                        label
+                                        id
+                                        icon {
+                                            data {
+                                                attributes {
+                                                    url
+                                                }
+                                            }
+                                        }
+                                    }
+                                    workingHours
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     return {
         // News
         newsPosts,
@@ -954,8 +1016,10 @@ export default function useQueries() {
         doctorsPageQuery,
         doctorsPosts,
         doctorPageQuery,
-
+        doctorsListQuery,
         // Reviews
         reviewsDoctorQuery,
+        // Contacts
+        contactsPageQuery,
     }
 }

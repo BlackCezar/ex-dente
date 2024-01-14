@@ -1,4 +1,5 @@
 import type { ApplicationEvents } from '~/plugins/event-bus'
+import type { DoctorItem } from '~/types/services.type'
 
 export interface MenuTest {
     __typename: string
@@ -49,6 +50,7 @@ export interface GlobalStore {
     config: null | CommonConfig
     mainMenu: null | MainMenu
     services: ServicesItem[]
+    doctors: DoctorItem[]
 }
 
 export interface IConfig {
@@ -176,7 +178,7 @@ export interface IService {
         data: {
             id: string
             attributes: IService
-        }
+        }[]
     }
 }
 
@@ -523,4 +525,47 @@ export type TImageFormats = {
 export type IBreadCrumb = {
     path: string
     title: string
+}
+
+export interface ISocialItem {
+    __typename: 'ComponentSocialsSocialNetwork'
+    url: string
+    label?: string
+    id: string
+    icon: {
+        data: {
+            attributes: {
+                url: string
+            }
+        }[]
+    }
+}
+
+export interface IClinic {
+    __typename: 'ClinicEntity'
+    id: string
+    attributes: {
+        __typename: 'Clinic'
+        address: string
+        coordinates: string
+        email: string
+        label: string
+        phone: string
+        workingHours: ITextItems[]
+        socials: ISocialItem[]
+    }
+}
+
+export interface ContactPage {
+    contactPage: {
+        data: {
+            attributes: {
+                title: string
+                yandexMapsToken?: string
+                clinics: {
+                    data: IClinic[]
+                }
+            }
+        }
+    }
 }

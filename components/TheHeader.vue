@@ -217,6 +217,6 @@ watch(
     min-height: 0;
 }
 .header-wrapper[data-open='false'] .header-list {
-    @apply pointer-events-none py-0;
+    @apply py-0;
 }
 </style>
