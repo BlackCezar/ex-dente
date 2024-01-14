@@ -9,6 +9,7 @@ var props = defineProps<{
         }[]
     }[]
     name: string
+    label?: string
     placeholder?: string
     mode?: 'light' | 'dark'
     modelValue?: string | null
@@ -18,35 +19,45 @@ const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
-    <div class="relative w-fit flex items-center">
-        <select
-            :name="name"
-            :value="props.modelValue"
-            @input="emit('update:modelValue', $event.target.value)"
-            :data-mode="mode ? mode : 'light'"
-        >
-            <option v-if="placeholder" selected disabled value="">
-                {{ placeholder }}
-            </option>
-            <optgroup
-                v-for="group of options"
-                :key="group.value"
-                :label="group.label"
-            >
-                <option
-                    v-for="subG of group.children"
-                    :key="subG.value"
-                    :value="subG.value"
+    <label class="flex flex-col gap-2 w-full">
+        <span class="text-accent" v-if="label">{{ label }}</span>
+        <span class="relative w-full flex items-center">
+            <Field :name="name" v-slot="{ meta, field }">
+                <select
+                    :name="name"
+                    :value="props.modelValue"
+                    @input="emit('update:modelValue', $event.target.value)"
+                    :data-mode="mode ? mode : 'light'"
+                    v-bind="field"
+                    :class="{
+                        valid: meta.valid && meta.touched,
+                        invalid: !meta.valid && meta.touched,
+                    }"
                 >
-                    {{ subG.label }}
-                </option>
-            </optgroup>
-        </select>
-        <svgo-chevron-down
-            filled
-            class="text-[1.5rem] lg:text-[2rem] absolute text-accent text-opacity-50 right-6"
-        />
-    </div>
+                    <option v-if="placeholder" selected disabled value="">
+                        {{ placeholder }}
+                    </option>
+                    <optgroup
+                        v-for="group of options"
+                        :key="group.value"
+                        :label="group.label"
+                    >
+                        <option
+                            v-for="subG of group.children"
+                            :key="subG.value"
+                            :value="subG.value"
+                        >
+                            {{ subG.label }}
+                        </option>
+                    </optgroup>
+                </select>
+            </Field>
+            <svgo-chevron-down
+                filled
+                class="text-[1.5rem] lg:text-[2rem] absolute text-accent text-opacity-50 right-6"
+            />
+        </span>
+    </label>
 </template>
 
 <style scoped>

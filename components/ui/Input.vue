@@ -12,9 +12,13 @@ defineProps<{
 </script>
 
 <template>
-    <Field :name="name" :type="type ? type : 'text'" v-slot="{ meta, field }">
-        <label class="input-label" :data-mode="mode ? mode : 'dark'"
-            ><span>{{ label }}</span>
+    <label class="input-label" :data-mode="mode ? mode : 'dark'"
+        ><span>{{ label }}</span>
+        <Field
+            :name="name"
+            :type="type ? type : 'text'"
+            v-slot="{ meta, field }"
+        >
             <input
                 :autocomplete="autocomplete"
                 class="input"
@@ -27,8 +31,8 @@ defineProps<{
                 v-maska
                 :data-maska="type === 'tel' ? '+7 ### ### ##-##' : null"
             />
-        </label>
-    </Field>
+        </Field>
+    </label>
 </template>
 
 <style>
@@ -57,6 +61,18 @@ defineProps<{
     @apply text-accent leading-[1.625rem];
 }
 .input-label[data-mode='light'] .input {
-    @apply bg-gray rounded-[0.375rem] pl-6 pr-3 py-4 text-[1.125rem] text-accent max-h-[3.75rem];
+    @apply bg-gray rounded-[0.375rem] border pl-6 pr-3 py-4 text-[1.125rem] text-accent max-h-[3.75rem];
+}
+.input-label[data-mode='light'] .input.valid {
+    @apply border-system-success;
+}
+.input-label[data-mode='light'] .input.invalid {
+    @apply border-system-danger;
+}
+.input-label[data-mode='light'] .input:focus {
+    @apply border-secondary-before;
+}
+.input-label[data-mode='light'] .input:disabled {
+    @apply text-opacity-50 border-gray;
 }
 </style>

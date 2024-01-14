@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
     <div
-        class="w-screen grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[7.75rem] items-center"
+        class="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[7.75rem] items-center"
     >
         <div class="hidden lg:block">
             <img src="~/assets/imgs/dentists-instruments.png" alt="" />

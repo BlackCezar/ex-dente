@@ -4,6 +4,7 @@ import DoctorMainBanner from '~/components/doctors/MainBanner.vue'
 import DoctorInfoScreen from '~/components/doctors/InfoScreen.vue'
 import DoctorCertsScreen from '~/components/doctors/CertsScreen.vue'
 import ReviewsScreen from '~/components/reviews/ReviewScreen.vue'
+import DoctorCallBackForm from '~/components/doctors/CallBackForm.vue'
 import type { IBreadCrumb } from '~/types/global.type'
 import type { DoctorPage } from '~/types/doctors.type'
 import type { DoctorReviews } from '~/types/reviews.type'
@@ -87,6 +88,14 @@ var reviewsList = computed(() =>
                 class="lg:pb-[11.25rem] pb-[5rem]"
                 :doctor="{
                     id: data.doctors.data[0].id,
+                    name: data.doctors.data[0].attributes.name,
+                }"
+            />
+            <DoctorCallBackForm
+                :doctor="{
+                    id: data.doctors.data[0].id,
+                    img: data.doctors.data[0].attributes.image.data.attributes
+                        .formats.medium.url,
                     name: data.doctors.data[0].attributes.name,
                 }"
             />

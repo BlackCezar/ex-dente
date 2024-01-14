@@ -8,7 +8,9 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex flex-col lg:flex-row gap-[3.75rem] lg:gap-[5rem]">
+    <div
+        class="flex flex-col lg:flex-row gap-[3.75rem] lg:justify-between lg:gap-[5rem]"
+    >
         <div class="flex flex-col gap-10 lg:gap-[6.25rem] info max-w-[62rem]">
             <section v-if="doctor.specification">
                 <h2>Специализация</h2>
@@ -34,7 +36,9 @@ defineProps<{
                 Услуги
             </h3>
             <nav>
-                <ul class="flex flex-col w-full lg:w-[20rem] gap-4 lg:gap-6">
+                <ul
+                    class="flex flex-col w-full lg:max-w-[25rem] gap-4 lg:gap-6"
+                >
                     <li
                         v-for="item of doctor.sub_services.data"
                         :key="item.id"
