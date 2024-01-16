@@ -1,4 +1,3 @@
-import type { ApplicationEvents } from '~/plugins/event-bus'
 import type { DoctorItem } from '~/types/services.type'
 
 export interface MenuTest {
@@ -37,6 +36,7 @@ export interface ILink {
 export interface MainMenu {
     menuTest?: MenuTest
 }
+
 export interface CommonConfig {
     commonConfig: CommonConfigClass
 }
@@ -187,6 +187,7 @@ export interface ServicesItem {
     id: string
     attributes: IService
 }
+
 export interface Services {
     services: {
         __typename: string
@@ -225,6 +226,7 @@ export interface PriceSectionEntity {
     id: string
     attributes: PriceSection
 }
+
 export interface PriceSection {
     __typename: 'PriceSection'
     label: string
@@ -241,6 +243,7 @@ export interface IHomePageBenefit {
         slider: IHomePageBenefitSlide[]
     }
 }
+
 export interface HomePageBenefit {
     homePageBenefit: {
         __typename: string
@@ -280,6 +283,7 @@ export type TReview = {
     id: string
     reviewText: string
 }
+
 export interface IReview {
     __typename: 'ReviewEntity'
     id: string
@@ -289,6 +293,7 @@ export interface IReview {
         review: (TReview & TClinicReview) | (TReview & TDoctorReview)
     }
 }
+
 export interface ReviewsList {
     reviews: {
         __typename: string
@@ -567,5 +572,80 @@ export interface ContactPage {
                 }
             }
         }
+    }
+}
+
+export interface ComponentMenuLink {
+    __typename: 'ComponentMenuLink'
+    id: string
+    label: string
+    url: string
+    style: 'link'
+}
+
+export interface CustomerPage {
+    textPages: {
+        data: {
+            attributes: {
+                title: string
+                textRich: string
+                seo?: TSeo
+            }
+        }[]
+    }
+}
+
+export interface CustomersPage {
+    clientInformation: {
+        data: {
+            attributes: {
+                title: string
+                seo?: TSeo
+                informationPagesListing: ComponentMenuLink[]
+            }
+        }
+    }
+}
+
+export interface TTag {
+    id: string
+    attributes: {
+        title: string
+        slug: string
+    }
+}
+
+export interface TAnswer {
+    id: string
+    attributes: {
+        text: string
+        title: string
+        tag: {
+            data?: {
+                id: string
+            }
+        }
+    }
+}
+
+export interface FAQPage {
+    tags: {
+        data: TTag[]
+    }
+
+    answersListing: {
+        data: {
+            attributes: {
+                title: string
+                seo?: TSeo
+            }
+        }
+    }
+}
+
+export interface AnswersQuery {
+    answers: {
+        data: TAnswer[]
+        meta: TMeta
     }
 }

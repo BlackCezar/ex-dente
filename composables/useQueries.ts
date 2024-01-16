@@ -985,6 +985,140 @@ export default function useQueries() {
         }
     `
 
+    var customersPageQuery = gql`
+        query CustomersPage {
+            clientInformation {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                        informationPagesListing {
+                            ... on ComponentMenuLink {
+                                id
+                                label
+                                url
+                                style
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    var customerPageQuery = gql`
+        query CustomerPage($filters: TextPageFiltersInput) {
+            textPages(filters: $filters) {
+                data {
+                    attributes {
+                        title
+                        textRich
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    var faqPageQuery = gql`
+        query Attributes {
+            tags {
+                data {
+                    id
+                    attributes {
+                        title
+                        slug
+                    }
+                }
+            }
+            answersListing {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+    var answersQuery = gql`
+        query Attributes(
+            $pagination: PaginationArg
+            $filters: AnswerFiltersInput
+        ) {
+            answers(pagination: $pagination, filters: $filters) {
+                data {
+                    id
+                    attributes {
+                        text
+                        title
+                        tag {
+                            data {
+                                id
+                            }
+                        }
+                    }
+                }
+                meta {
+                    pagination {
+                        pageCount
+                    }
+                }
+            }
+        }
+    `
+
     return {
         // News
         newsPosts,
@@ -1021,5 +1155,11 @@ export default function useQueries() {
         reviewsDoctorQuery,
         // Contacts
         contactsPageQuery,
+        // Customers page
+        customersPageQuery,
+        customerPageQuery,
+        // FAQ
+        faqPageQuery,
+        answersQuery,
     }
 }

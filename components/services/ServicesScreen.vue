@@ -44,7 +44,7 @@ function toService(service: ServicesItem) {
                         >
                             <a
                                 @click.prevent="toService(service)"
-                                class="text-[1.125rem] transition-colors hover:lg:text-opacity-100 lg:text-[2.5rem] lg:px-0 block text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2"
+                                class="text-[1.125rem] transition-colors hover:lg:text-opacity-100 lg:text-left lg:text-[2.5rem] lg:px-0 block text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2"
                                 :href="`/services/${service.attributes.slug}`"
                                 :class="{
                                     'text-opacity-100 bg-[#A7D6E9CC] ':
@@ -54,7 +54,6 @@ function toService(service: ServicesItem) {
                                 }"
                             >
                                 {{ service.attributes.title }}
-                                {{ service.attributes.id }}
                             </a>
                             <a
                                 v-if="service.id === activeService?.id"
