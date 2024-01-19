@@ -1,14 +1,9 @@
 <script setup lang="ts">
+import type { SelectOption } from '~/types/global.type'
+
 var props = withDefaults(
     defineProps<{
-        options: {
-            value: string
-            label: string
-            children?: {
-                value: string
-                label: string
-            }[]
-        }[]
+        options: SelectOption[]
         name: string
         label?: string
         placeholder?: string
@@ -24,8 +19,8 @@ var props = withDefaults(
 )
 
 const emit = defineEmits(['update:modelValue'])
-var deepOptions = computed(() =>
-    props.options?.some((item) => item.children?.length),
+var deepOptions = computed(
+    () => props.options?.some((item) => item.children?.length),
 )
 
 var { meta, value, handleChange } = useField(() => props.name)

@@ -52,15 +52,16 @@ function setPage(val: number) {
 }
 onMounted(execute)
 
-if (data.value.promoListing.data.attributes.seo)
+if (data.value.promoListing.data.attributes.seo) {
     useSeoMeta({
         ogImage:
-            data.value.promoListing.data.attributes.seo.sharedImage.media?.data
+            data.value.promoListing.data.attributes.seo.sharedImage?.media?.data
                 ?.attributes.url,
         ogImageUrl:
-            data.value.promoListing.data.attributes.seo.sharedImage.media?.data
+            data.value.promoListing.data.attributes.seo.sharedImage?.media?.data
                 ?.attributes.url,
-        ogImageAlt: data.value.promoListing.data.attributes.seo.sharedImage.alt,
+        ogImageAlt:
+            data.value.promoListing.data.attributes.seo.sharedImage?.alt,
         title: data.value.promoListing.data.attributes.title,
         keywords: data.value.promoListing.data.attributes.seo.keywords,
         description:
@@ -69,6 +70,11 @@ if (data.value.promoListing.data.attributes.seo)
             data.value.promoListing.data.attributes.seo.metaDescription,
         ogTitle: data.value.promoListing.data.attributes.seo.metaTitle,
     })
+} else {
+    useHead({
+        title: 'Акции',
+    })
+}
 </script>
 
 <template>

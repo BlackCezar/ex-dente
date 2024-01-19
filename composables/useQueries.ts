@@ -387,6 +387,47 @@ export default function useQueries() {
         }
     `
 
+    var reviewsPosts = gql`
+        query reviewsPosts(
+            $pagination: PaginationArg
+            $filters: ReviewFiltersInput
+            $sort: [String]
+        ) {
+            reviews(pagination: $pagination, filters: $filters, sort: $sort) {
+                meta {
+                    pagination {
+                        pageCount
+                    }
+                }
+                data {
+                    id
+                    attributes {
+                        publishedAt
+                        review {
+                            name
+                            reviewText
+                            reviewType
+                            doctor {
+                                data {
+                                    attributes {
+                                        name
+                                    }
+                                }
+                            }
+                            clinic {
+                                data {
+                                    attributes {
+                                        label
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     var mainPageReviewsListQuery = gql`
         query ReviewsQuery($pagination: PaginationArg) {
             reviews(pagination: $pagination) {
@@ -927,6 +968,36 @@ export default function useQueries() {
         }
     `
 
+    var reviewsPageQuery = gql`
+        query ReviewsPage {
+            straniczaOtzyvov {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     var reviewsDoctorQuery = gql`
         query Reviews(
             $filters: ReviewFiltersInput
@@ -1153,6 +1224,8 @@ export default function useQueries() {
         doctorsListQuery,
         // Reviews
         reviewsDoctorQuery,
+        reviewsPageQuery,
+        reviewsPosts,
         // Contacts
         contactsPageQuery,
         // Customers page

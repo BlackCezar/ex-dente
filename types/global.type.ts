@@ -116,7 +116,7 @@ export interface TSeo {
     metaDescription: string
     metaTitle: string
     preventIndexing: boolean
-    sharedImage: {
+    sharedImage?: {
         __typename: 'ComponentSharedSharedImage'
         alt: string
         media?: {
@@ -152,6 +152,12 @@ export interface TSlide {
             }
         }
     } | null
+}
+
+export interface SelectOption {
+    value: string
+    label: string
+    children?: SelectOption[]
 }
 
 export interface HomePage {
@@ -225,6 +231,17 @@ export interface PriceSectionEntity {
     __typename: 'PriceSectionEntity'
     id: string
     attributes: PriceSection
+}
+
+export interface ReviewsPage {
+    straniczaOtzyvov: {
+        data: {
+            attributes: {
+                title: string
+                seo?: TSeo
+            }
+        }
+    }
 }
 
 export interface PriceSection {
@@ -647,5 +664,42 @@ export interface AnswersQuery {
     answers: {
         data: TAnswer[]
         meta: TMeta
+    }
+}
+
+export interface ReviewPostsQuery {
+    reviews: {
+        __typename: 'ReviewEntityResponseCollection'
+        meta: TMeta
+        data: {
+            __typename: 'ReviewEntity'
+            id: string
+            attributes: {
+                __typename: 'Review'
+                publishedAt: string
+                review: {
+                    __typename: 'ComponentFormReviewForm'
+                    name: string
+                    reviewText: string
+                    doctor: {
+                        __typename: 'DoctorEntityResponse'
+                        data?: null
+                    }
+                    clinic?: {
+                        __typename: 'ClinicEntityResponse'
+                        data: {
+                            __typename: 'ClinicEntityResponse'
+                            data: {
+                                __typename: 'ClinicEntity'
+                                attributes: {
+                                    __typename: 'Clinic'
+                                    label: string
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }[]
     }
 }
