@@ -703,3 +703,17 @@ export interface ReviewPostsQuery {
         }[]
     }
 }
+
+export interface CookiesAnnouncement {
+    cookiesAnnouncement: {
+        __typename: 'CookiesAnnouncementEntityResponse'
+        data: {
+            __typename: 'CookiesAnnouncementEntity'
+            attributes: {
+                __typename: 'CookiesAnnouncement'
+                description: string
+                label: string
+            }
+        }
+    }
+}
