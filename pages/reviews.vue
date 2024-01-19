@@ -90,29 +90,6 @@ var filters = ref({
             reviewType: {
                 in: values.reviewType ?? [],
             },
-            or: [
-                {
-                    clinic: {
-                        id: {
-                            eq: values.clinicId ?? null,
-                        },
-                    },
-                },
-                {
-                    sub_service: {
-                        id: {
-                            eq: values.serviceId ?? null,
-                        },
-                    },
-                },
-                {
-                    doctor: {
-                        id: {
-                            eq: values.doctorId ?? null,
-                        },
-                    },
-                },
-            ],
         },
     },
     pagination: {
@@ -130,7 +107,8 @@ var {
 } = useQuery<ReviewPostsQuery>(reviewsPosts, filters.value)
 
 function showMore() {
-    setFieldValue('pageSize', (values.pageSize += 5))
+    setFieldValue('pageSize', values.pageSize + 5)
+    filters.value.pagination.pageSize = values.pageSize
     fetchMore({
         variables: filters.value,
     })
@@ -176,29 +154,6 @@ function reFetch() {
                 reviewType: {
                     in: values.reviewType ?? [],
                 },
-                or: [
-                    {
-                        clinic: {
-                            id: {
-                                eq: values.clinicId ?? null,
-                            },
-                        },
-                    },
-                    {
-                        sub_service: {
-                            id: {
-                                eq: values.serviceId ?? null,
-                            },
-                        },
-                    },
-                    {
-                        doctor: {
-                            id: {
-                                eq: values.doctorId ?? null,
-                            },
-                        },
-                    },
-                ],
             },
         },
         pagination: {
@@ -206,6 +161,36 @@ function reFetch() {
             pageSize: values.pageSize,
         },
     }
+    if (values.serviceId)
+        filters.value.filters.review = {
+            ...filters.value.filters.review,
+            sub_service: {
+                id: {
+                    eq: values.serviceId,
+                },
+            },
+        }
+
+    if (values.doctorId)
+        filters.value.filters.review = {
+            ...filters.value.filters.review,
+            doctor: {
+                id: {
+                    eq: values.doctorId,
+                },
+            },
+        }
+
+    if (values.clinicId)
+        filters.value.filters.review = {
+            ...filters.value.filters.review,
+            clinic: {
+                id: {
+                    eq: values.clinicId,
+                },
+            },
+        }
+
     refetch(filters.value)
 }
 </script>
@@ -284,6 +269,7 @@ function reFetch() {
                                 <ReviewItem :review="item" />
                             </template>
                         </div>
+
                         <UiPagePagination
                             @show-more="showMore"
                             @set-page="setPage"

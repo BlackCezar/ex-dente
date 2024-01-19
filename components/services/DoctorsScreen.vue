@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DoctorItem } from '~/types/services.type'
+import DoctorItemSlide from '~/components/doctors/DoctorItem.vue'
 import LeftButton from '~/components/ui/LeftButton.vue'
 import RightButton from '~/components/ui/RightButton.vue'
 
@@ -44,7 +45,7 @@ var config = useAppConfig()
                     }"
                 >
                     <SwiperSlide v-for="item of list" :key="item.id">
-                        <DoctorItem :article="item.attributes" />
+                        <DoctorItemSlide :article="item.attributes" />
                     </SwiperSlide>
                 </Swiper>
             </ClientOnly>

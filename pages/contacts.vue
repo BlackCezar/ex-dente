@@ -2,14 +2,12 @@
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { ContactPage, IBreadCrumb, IClinic } from '~/types/global.type'
 import useQueries from '~/composables/useQueries'
-import markerIcon from '~/assets/imgs/marker.svg?path'
 import {
     YandexMap,
     YandexMapDefaultFeaturesLayer,
     YandexMapDefaultSchemeLayer,
-    YandexMapMarker,
-    YandexMapControls,
     YandexMapEntity,
+    YandexMapMarker,
 } from 'vue-yandex-maps'
 import type { YMap } from '@yandex/ymaps3-types'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
@@ -82,13 +80,15 @@ var config = useAppConfig()
                         <yandex-map-default-features-layer />
                         <yandex-map-entity>
                             <div class="map-list">
-                                <div class="map-list-inner">
+                                <div class="map-list-inner flex flex-col">
                                     <section
                                         class="px-7 font-[Mignon] h4 pt-[2.75rem] pb-8 lg:block hidden"
                                     >
                                         Филиалы exellentDENT
                                     </section>
-                                    <div class="flex flex-col">
+                                    <div
+                                        class="flex flex-col overflow-y-auto max-h-auto"
+                                    >
                                         <article
                                             v-for="item of data.contactPage.data
                                                 .attributes.clinics.data"
@@ -231,6 +231,7 @@ var config = useAppConfig()
 .ymaps {
     @apply lg:aspect-[107/48] aspect-[20/35] w-full h-full;
 }
+
 .marker {
     @apply w-9 lg:w-[4.25rem] cursor-pointer h-9 lg:h-[4.25rem] transition-all;
     background-image: url(~/assets/imgs/marker.svg);
@@ -239,6 +240,7 @@ var config = useAppConfig()
     transform: translate(-50%, -100%);
     background-position: center;
 }
+
 .marker.active {
     @apply w-16 h-16 lg:h-[7.25rem] lg:w-[7.25rem];
 }
@@ -246,6 +248,7 @@ var config = useAppConfig()
 .map-list {
     @apply w-[calc(100%_-_2rem)] lg:w-[26%] lg:pb-24 lg:h-full block absolute left-4 lg:left-12 top-auto bottom-4 lg:bottom-auto lg:top-12;
 }
+
 .map-list-inner {
     @apply w-full h-full bg-white lg:p-4 rounded-[0.25rem] lg:rounded-[0.375rem] overflow-hidden;
 }

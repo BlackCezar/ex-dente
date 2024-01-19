@@ -19,8 +19,8 @@ var props = withDefaults(
 )
 
 const emit = defineEmits(['update:modelValue'])
-var deepOptions = computed(
-    () => props.options?.some((item) => item.children?.length),
+var deepOptions = computed(() =>
+    props.options?.some((item) => item.children?.length),
 )
 
 var { meta, value, handleChange } = useField(() => props.name)
@@ -40,7 +40,7 @@ var { meta, value, handleChange } = useField(() => props.name)
                     invalid: !meta.valid && meta.touched,
                 }"
             >
-                <option v-if="placeholder" selected disabled value="">
+                <option v-if="placeholder" selected value="">
                     {{ placeholder }}
                 </option>
                 <template v-if="deepOptions">
@@ -86,12 +86,15 @@ var { meta, value, handleChange } = useField(() => props.name)
 select[data-mode='light'] {
     @apply appearance-none cursor-pointer w-full transition-colors border pr-[3rem] lg:text-[1.125rem] border-gray outline-0 px-6 py-[0.88rem] text-accent text-opacity-80 rounded-[0.375rem] bg-gray;
 }
+
 select[data-mode='light']:focus {
     @apply border-secondary-before;
 }
+
 select[data-mode='light']:disabled {
     @apply text-opacity-50 border-gray;
 }
+
 select[data-mode='light'].valid {
     @apply border-system-success;
 }
@@ -103,12 +106,15 @@ select[data-mode='light'].invalid {
 select[data-mode='dark'] {
     @apply appearance-none lg:text-[1.375rem] accent-accent cursor-pointer w-full transition-colors border-b pr-[3rem] border-b-white border-opacity-40 outline-0 py-[0.88rem] text-white text-opacity-80 bg-accent;
 }
+
 select[data-mode='dark']:focus {
     @apply border-opacity-80;
 }
+
 select[data-mode='dark']:disabled {
     @apply opacity-40 border-opacity-40;
 }
+
 select[data-mode='dark'].valid {
     @apply border-b-system-success border-opacity-100;
 }

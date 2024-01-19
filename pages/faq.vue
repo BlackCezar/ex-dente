@@ -89,17 +89,31 @@ function setPage(val: number) {
                     :tags="data.tags.data"
                     @update="setTags"
                 />
-                <UiPageSpinner v-if="pending" />
+                <div v-if="pending" class="flex justify-center">
+                    <UiPageSpinner />
+                </div>
                 <div v-else>
-                    <div>
+                    <div
+                        class="flex flex-col gap-4 lg:gap-6 lg:mb-[3.75rem] mb-10"
+                    >
                         <details
                             v-for="post of posts.answers.data"
                             :key="post.id"
+                            class="pb-4 lg:pb-8"
                         >
-                            <summary>
-                                <span>{{ post.attributes.title }}</span>
+                            <summary
+                                class="flex px-4 lg:px-7 lg:pt-8 pt-4 gap-5 justify-between"
+                            >
+                                <span
+                                    class="text-accent lg:text-[1.375rem] text-opacity-70 lg:text-opacity-100"
+                                    >{{ post.attributes.title }}</span
+                                >
+                                <svgo-chevron-left class="icon-left" />
+                                <svgo-chevron-right class="icon-right" />
                             </summary>
-                            <p>
+                            <p
+                                class="text-[0.875rem] lg:text-[1.375rem] px-4 lg:px-7 text-accent text-opacity-60"
+                            >
                                 {{ post.attributes.text }}
                             </p>
                         </details>
@@ -116,4 +130,43 @@ function setPage(val: number) {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+details {
+    @apply bg-gray rounded-[0.375rem] cursor-pointer;
+}
+
+details[open] {
+    @apply bg-secondary transition-colors;
+}
+
+details summary {
+    outline: none;
+    transition: margin 150ms ease-out;
+}
+
+details[open] summary {
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+details .icon-left {
+    display: block;
+}
+
+details .icon-right {
+    display: none;
+}
+
+details[open] .icon-left {
+    display: none;
+}
+
+details[open] .icon-right {
+    display: block;
+}
+
+.icon-left,
+.icon-right {
+    @apply text-[1.5rem] lg:text-[1.75rem];
+}
+</style>

@@ -9,7 +9,10 @@ defineProps<{
 </script>
 
 <template>
-    <div class="max-w-[34rem] lg:min-w-[25rem]" v-if="list.length">
+    <div
+        class="directions-list max-w-[34rem] lg:min-w-[25rem]"
+        v-if="list.length"
+    >
         <h3
             class="h3 mb-6 text-accent lg:mb-8 lg:text-[1.75rem] font-[Mignon] lg:font-normal"
         >
@@ -35,4 +38,16 @@ defineProps<{
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.directions-list ul {
+    @apply pl-0 mb-0;
+}
+
+.directions-list li {
+    @apply list-none;
+}
+
+.directions-list li a {
+    @apply no-underline;
+}
+</style>

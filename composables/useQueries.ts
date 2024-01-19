@@ -1,4 +1,18 @@
 export default function useQueries() {
+    var cookiesQuery = gql`
+        query CookiesQuery {
+            cookiesAnnouncement {
+                data {
+                    attributes {
+                        description
+                        label
+                        style
+                    }
+                }
+            }
+        }
+    `
+
     var aboutPageQuery = gql`
         query Query {
             about {
@@ -12,6 +26,7 @@ export default function useQueries() {
                                 data {
                                     attributes {
                                         formats
+                                        url
                                     }
                                 }
                             }
@@ -302,6 +317,7 @@ export default function useQueries() {
                                                 alternativeText
                                                 caption
                                                 formats
+                                                url
                                             }
                                         }
                                     }
@@ -1217,6 +1233,7 @@ export default function useQueries() {
         commonConfigQuery,
         headerQuery,
         footerQuery,
+        cookiesQuery,
         // Doctors
         doctorsPageQuery,
         doctorsPosts,

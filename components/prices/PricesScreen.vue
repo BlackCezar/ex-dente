@@ -53,4 +53,29 @@ defineProps<{
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+details summary {
+    transition: margin 150ms ease-out;
+}
+
+details[open] summary {
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+details .arrow-left {
+    display: none;
+}
+
+details[open] .arrow-left {
+    display: block;
+}
+
+details[open] .arrow-down {
+    display: none;
+}
+
+.price-row:nth-child(even) {
+    @apply bg-gray text-accent;
+}
+</style>

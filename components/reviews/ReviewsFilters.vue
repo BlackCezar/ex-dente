@@ -44,14 +44,9 @@ var doctorsOptions = computed(() =>
 
 <template>
     <div class="gap-10 flex-col">
-        <div class="flex flex-col gap-3">
+        <div v-if="withSort" class="flex flex-col gap-3">
             <span>Сортировать:</span>
-            <UiSelect
-                v-if="withSort"
-                name="sort"
-                :options="sortOptions"
-                class="lg:w-[25rem]"
-            />
+            <UiSelect name="sort" :options="sortOptions" class="lg:w-[25rem]" />
         </div>
         <div class="flex flex-col gap-4">
             <UiCheckbox
@@ -67,12 +62,12 @@ var doctorsOptions = computed(() =>
         </div>
         <div class="flex flex-col gap-4">
             <UiSelect
-                name="services"
+                name="serviceId"
                 :options="servicesOptions"
                 placeholder="Все направления"
             />
             <UiSelect
-                name="doctors"
+                name="doctorId"
                 :options="doctorsOptions"
                 placeholder="Все врачи"
             />
