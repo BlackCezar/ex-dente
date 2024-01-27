@@ -12,24 +12,24 @@ defineProps<{
         class="flex flex-col lg:flex-row gap-[3.75rem] lg:justify-between lg:gap-[5rem]"
     >
         <div class="flex flex-col gap-10 lg:gap-[6.25rem] info max-w-[62rem]">
-            <section v-if="doctor.specification">
+            <section v-if="doctor?.specification">
                 <h2>Специализация</h2>
-                <p>{{ doctor.specification }}</p>
+                <p>{{ doctor?.specification }}</p>
             </section>
-            <section v-if="doctor.experience">
+            <section v-if="doctor?.experience">
                 <h2>Опыт работы</h2>
                 <p>{{ doctor.experience }}</p>
             </section>
-            <section v-if="doctor.education">
+            <section v-if="doctor?.education">
                 <h2>Образование</h2>
                 <p>{{ doctor.education }}</p>
             </section>
-            <section v-if="doctor.information">
+            <section v-if="doctor?.information">
                 <h2>Информация</h2>
-                <p>{{ doctor.information }}</p>
+                <p>{{ doctor?.information }}</p>
             </section>
         </div>
-        <div v-if="doctor.sub_services.data?.length">
+        <div v-if="doctor?.sub_services.data?.length">
             <h3
                 class="text-[1.25rem] font-semibold font-[Mignon] text-accent lg:text-[1.75rem] mb-6 lg:mb-8"
             >
@@ -46,11 +46,11 @@ defineProps<{
                     >
                         <nuxt-link
                             class="gap-2 flex items-center justify-between"
-                            :to="`/services/${item.attributes.service.data.attributes.slug}/${item.attributes.slug}`"
+                            :to="`/services/${item?.attributes.service.data?.attributes.slug}/${item?.attributes.slug}`"
                         >
                             <span
                                 class="text-opacity-70 lg:text-[1.375rem] text-accent"
-                                >{{ item.attributes.title }}</span
+                                >{{ item?.attributes.title }}</span
                             >
                             <svgo-arrow-right filled class="text-[1.5rem]" />
                         </nuxt-link>

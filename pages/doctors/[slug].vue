@@ -94,7 +94,7 @@ var reviewsList = computed(() =>
             <DoctorCallBackForm
                 :doctor="{
                     id: data.doctors.data[0].id,
-                    img: data.doctors.data[0].attributes.image.data.attributes
+                    img: data.doctors.data[0].attributes.image?.data?.attributes
                         .formats.medium.url,
                     name: data.doctors.data[0].attributes.name,
                 }"

@@ -22,7 +22,7 @@ function onSlideChange(swiper: any) {
 
 <template>
     <div
-        class="h-screen flex items-center justify-center lg:pt-[10rem] lg:min-h-screen lg:h-auto"
+        class="h-screen flex items-center justify-center lg:pt-[10rem] lg:min-h-[calc(100dvh_-_10rem)] lg:h-auto"
         ref="bannerEl"
         :class="{}"
         :style="{
@@ -30,7 +30,6 @@ function onSlideChange(swiper: any) {
             '--bg': '#0B1C31',
         }"
     >
-        <ClientOnly>
             <Swiper
                 :modules="[SwiperAutoplay]"
                 @swiper="onSwiperInit"
@@ -46,8 +45,8 @@ function onSlideChange(swiper: any) {
                         <div
                             class="aspect-square order-1 lg:order-2 slider-wrapper w-full max-w-[60vw]"
                         >
-                            <div class="slider-inner aspect-square w-[70%]">
-                                <picture class="w-full h-full relative z-30">
+                            <div class="slider-inner aspect-square w-[70%] flex items-center justify-center">
+                                <picture class="w-full  relative z-30">
                                     <source
                                         media="(min-width: 1440px)"
                                         :srcset="
@@ -108,7 +107,7 @@ function onSlideChange(swiper: any) {
                             </div>
                         </div>
                         <article
-                            class="text-white order-2 lg:order-1 px-4 lg:px-0 items-center flex flex-col lg:items-start"
+                            class="slide-hero text-white order-2 lg:order-1 px-4 lg:px-0 items-center flex flex-col lg:items-start"
                         >
                             <h1
                                 class="text-[1.75rem] text-center mb-3 lg:mb-8 font-bold lg:text-[3.75rem] uppercase font-[Mignon] lg:text-left"
@@ -130,13 +129,12 @@ function onSlideChange(swiper: any) {
                         </article>
                     </div>
                 </SwiperSlide>
-                <ToServicesButton />
+                <ToServicesButton class="bottom-[calc(50%_+_2rem)]" />
                 <MainSliderPagination
                     class="mx-auto justify-center mt-7 lg:mt-0 lg:justify-start lg:container"
                     :length="slides.length"
                 />
             </Swiper>
-        </ClientOnly>
     </div>
 </template>
 

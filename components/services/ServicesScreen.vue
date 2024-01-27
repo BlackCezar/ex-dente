@@ -1,6 +1,14 @@
+<style scoped lang="css">
+.snap-x::-webkit-scrollbar {
+    display: none;
+}
+.snap-x {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+</style>
 <script setup lang="ts">
-import { useQueries } from '#imports'
-import type { Services, ServicesItem } from '~/types/global.type'
+import type { ServicesItem } from '~/types/global.type'
 import { useGlobalStore } from '~/store/global.store'
 
 var globalStore = useGlobalStore()
@@ -9,11 +17,8 @@ var activeService = ref(services.value?.[0])
 
 function toService(service: ServicesItem) {
     activeService.value = service
-    if (service.attributes.sub_services.data.length) {
-    }
 }
 </script>
-
 <template>
     <div class="bg-white pb-10 pt-[3.75rem] lg:py-[10rem]">
         <div class="container mx-auto">
@@ -44,7 +49,7 @@ function toService(service: ServicesItem) {
                         >
                             <a
                                 @click.prevent="toService(service)"
-                                class="text-[1.125rem] transition-colors hover:lg:text-opacity-100 lg:text-left lg:text-[2.5rem] lg:px-0 block text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2"
+                                class="text-[1.125rem] h-full transition-colors hover:lg:text-opacity-100 lg:text-left lg:text-[2.5rem] lg:px-0 flex items-center justify-center text-center lg:bg-transparent text-[#0B1C31] rounded-[0.25rem] px-5 py-2"
                                 :href="`/services/${service.attributes.slug}`"
                                 :class="{
                                     'text-opacity-100 bg-[#A7D6E9CC] ':
@@ -65,51 +70,49 @@ function toService(service: ServicesItem) {
                         </li>
                     </ul>
                 </nav>
-                <div class="flex flex-col-reverse lg:flex-col">
-                    <UiButton
-                        variant="primary"
-                        mode="light"
-                        class="!w-full lg:!w-fit"
-                        >Записаться на прием</UiButton
-                    >
-                    <nav
-                        class="mb-8 lg:mb-0 lg:mt-14"
-                        v-if="
-                            activeService?.attributes?.sub_services.data.length
-                        "
-                    >
-                        <ul class="flex flex-col gap-3 lg:gap-4">
-                            <li class="hidden lg:block lg:mb-1">
-                                <a
-                                    href="#subServices"
-                                    class="text-accent text-[1.75rem]"
-                                    >Направления</a
+                <div class="block h-full">
+                <div class="sticky top-4">
+                    <div class="flex flex-col-reverse lg:flex-col">
+                        <UiButton
+                            variant="primary"
+                            mode="light"
+                            class="!w-full lg:!w-fit"
+                            @click="useEvent('scroll:callBack')"
+                            >Записаться на прием</UiButton
+                        >
+                        <nav
+                            class="mb-8 lg:mb-0 lg:mt-14"
+                            v-if="
+                                activeService?.attributes?.sub_services.data.length
+                            "
+                        >
+                            <ul class="flex flex-col gap-3 lg:gap-4">
+                                <li class="hidden lg:block lg:mb-1">
+                                    <a
+                                        href="#subServices"
+                                        class="text-accent text-[1.75rem]"
+                                        >Направления</a
+                                    >
+                                </li>
+                                <li
+                                    v-for="service of activeService?.attributes
+                                        .sub_services.data"
+                                        class="sub-service"
                                 >
-                            </li>
-                            <li
-                                v-for="service of activeService?.attributes
-                                    .sub_services.data"
-                            >
-                                <a
-                                    class="text-opacity-70 hover:text-opacity-100 text-[1.125rem] lg:text-[1.375rem] text-[#0B1C31]"
-                                    :href="`/services/${activeService?.attributes.slug}/${service.attributes.slug}`"
-                                    >{{ service.attributes.title }}</a
-                                >
-                            </li>
-                        </ul>
-                    </nav>
+                                    <a
+                                        class="text-opacity-70  hover:text-opacity-100 text-[1.125rem] lg:text-[1.375rem] text-[#0B1C31]"
+                                        :href="`/services/${activeService?.attributes.slug}/${service.attributes.slug}`"
+                                        >
+                                        <span class="uppercase">{{service.attributes?.title?.[0] ?? ''}}</span>
+                                        <span class="lowercase">{{ service.attributes?.title?.slice(1) ?? '' }}</span></a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
-<style scoped>
-.snap-x::-webkit-scrollbar {
-    display: none;
-}
-.snap-x {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-</style>

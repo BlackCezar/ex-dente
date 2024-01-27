@@ -25,7 +25,7 @@ withDefaults(
         } grid`"
     >
         <span
-            class="transition-transform lg:text-[1.125rem]"
+            class="transition-transform lg:text-[1.125rem] flex items-center gap-2"
             :class="{
                 'translate-x-3 group-hover/btn:-translate-x-0':
                     variant === 'primary',

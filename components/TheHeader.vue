@@ -4,6 +4,7 @@ import HeaderLogo from '~/components/common/header/HeaderLogo.vue'
 import type { Header } from '~/types/global.type'
 import { useGlobalStore } from '~/store/global.store'
 import { storeToRefs } from 'pinia'
+import SearchForm from '~/components/forms/SearchForm.vue'
 
 var { headerQuery } = useQueries()
 
@@ -18,7 +19,20 @@ var normalizedMainMenu = computed(
 var isOpen = ref(false)
 var route = useRoute()
 var isLight = ref(false)
+var isShowSearch = ref(false)
 var headerWrapper = ref<HTMLDivElement | null>(null)
+
+useListen('call:callBackForm', () => {
+    isLight.value = true;
+})
+
+useListen('close:callBackForm', () => {
+    isLight.value =
+        !!headerWrapper.value?.nextElementSibling?.classList.contains(
+            'bg-white',
+        )
+})
+
 
 onMounted(() => {
     isLight.value =
@@ -48,17 +62,41 @@ watch(
         }
     },
 )
+
+function buttonHandle(button) {
+    isOpen.value = false;
+    useEvent(button.url);
+    if (button.url.startsWith('call:')) {
+        // nextTick(() => {
+        //     isLight.value = true;
+        // })
+    }
+}
+
+function openSearch() {
+    isShowSearch.value = true;
+    isLight.value = true;
+    useEvent('call:searchOpen')
+}
+
+function closeSearch() {
+    isShowSearch.value = false;
+    isLight.value =
+                !!headerWrapper.value?.nextElementSibling?.classList.contains(
+                    'bg-white',
+                )
+}
 </script>
 
 <template>
     <div
         ref="headerWrapper"
-        class="header-wrapper container absolute left-0 lg:left-1/2 lg:-translate-x-1/2 z-50 top-0"
+        class="header-wrapper container left-0 lg:left-1/2 lg:-translate-x-1/2 z-50 top-0"
         :data-open="isOpen"
         :data-light="isLight"
     >
         <div
-            class="py-4 flex h-fit items-center header justify-end gap-3 lg:gap-12"
+            class="py-4 relative z-10 flex h-fit items-center header justify-end gap-3 lg:gap-12"
         >
             <HeaderLogo :light="isLight" />
 
@@ -68,7 +106,7 @@ watch(
             >
                 <span>{{ phoneNumber }}</span></a
             >
-            <button class="ml-auto lg:hidden w-9 h-9 text-4xl">
+            <button @click="openSearch" class="ml-auto lg:hidden w-9 h-9 text-4xl">
                 <svgo-search />
             </button>
             <button
@@ -79,24 +117,24 @@ watch(
                 <svgo-close v-else />
             </button>
             <template
-                v-for="button of header.header.data?.attributes.request_button"
+                v-for="button of header?.header?.data?.attributes.request_button"
             >
                 <UiButton
                     class="hidden lg:grid h-12"
-                    @click="useEvent(button.url)"
+                    @click="buttonHandle(button)"
                     variant="secondary"
-                    >{{ button.label }}</UiButton
+                    >{{ button.label }} </UiButton
                 >
             </template>
         </div>
-        <div class="header-list lg:flex-row items-center flex flex-col gap-9">
+        <div class="header-list z-10 relative lg:flex-row items-center flex flex-col gap-9">
             <template
-                v-for="button of header.header.data?.attributes.request_button"
+                v-for="button of header?.header?.data?.attributes.request_button"
             >
                 <UiButton
                     full
                     class="h-12 lg:hidden"
-                    @click="useEvent(button.url)"
+                    @click="buttonHandle(button)"
                     :variant="button.style"
                     >{{ button.label }}</UiButton
                 >
@@ -172,7 +210,7 @@ watch(
                 </ul>
             </nav>
             <div
-                class="mt-1 lg:ml-auto w-full flex flex-col lg:flex-row gap-3 lg:gap-5 lg:pb-0 lg:mt-0 pb-12 items-start lg:justify-end"
+                class="mt-1 lg:ml-auto w-full flex flex-col lg:flex-row gap-3 lg:gap-5 lg:pb-4 lg:mt-0 pb-12 items-start lg:justify-end"
             >
                 <a
                     :href="`tel:${phoneNumber}`"
@@ -180,30 +218,55 @@ watch(
                     ><svgo-phone class="text-[1.75rem]" />
                     <span>{{ phoneNumber }}</span></a
                 >
-                <button class="hidden lg:block text-[2rem]">
+                <button @click="openSearch" class="hidden lg:block text-[2rem]">
                     <svgo-search />
                 </button>
-                <button class="flex gap-3 items-center">
+                <a href="#" class="flex gap-3 items-center bvi-open">
                     <svgo-eye class="text-[1.75rem] lg:text-[2rem]" />
                     <span class="lg:hidden">Версия для слабовидящих</span>
-                </button>
+                </a>
             </div>
         </div>
+        <Transition
+        enter-active-class="duration-300 ease-out"
+            enter-from-class="transform opacity-0 -translate-y-4"
+            enter-to-class="opacity-100 translate-y-0"
+            leave-active-class="duration-200 ease-in"
+            leave-from-class="opacity-100 translate-y-0"
+            leave-to-class="transform opacity-0 -translate-y-4">
+            <div v-if="isShowSearch" class="bg-white h-full search-wrapper pt-[4.5rem] flex flex-col lg:pt-[8.3125rem]">
+                <SearchForm />
+                <div class="flex  search-close  justify-center pt-4 pb-10  lg:py-12">
+                    <button @click="closeSearch" class=""><svgo-close filled class="text-accent text-[2.5rem] lg:text-[5rem]" /></button>
+                </div>
+            </div>
+        </Transition>
     </div>
 </template>
 
 <style>
+.search-wrapper {
+    @apply w-full h-[100dvh] bg-white fixed left-0 top-0;
+}
+
 .header-wrapper {
-    @apply grid grid-rows-[4.5rem_0fr] lg:grid-rows-[auto_auto] transition-all overflow-hidden lg:overflow-visible text-white;
+    @apply grid absolute grid-rows-[4.5rem_0fr] lg:grid-rows-[auto_auto] transition-all overflow-hidden lg:overflow-visible text-white;
 }
 .header-wrapper[data-light='true'] {
-    @apply text-accent;
+    @apply text-accent ;
 }
 .header-wrapper .header {
     @apply transition-colors;
 }
 .header-wrapper[data-open='true'] {
-    @apply bg-white grid-rows-[4.5rem_1fr];
+    @apply bg-white grid-rows-[4.5rem_1fr] ;
+}
+.call-back-popup[data-open="true"] + .header-wrapper {
+    @apply fixed;
+}
+
+.header-wrapper:has(.search-wrapper) {
+    @apply fixed;
 }
 
 .header-wrapper[data-open='true'] {

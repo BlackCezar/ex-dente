@@ -122,6 +122,20 @@ export default function useQueries() {
         }
     `
 
+    var clinicsQuery = gql`
+        query {
+            clinics {
+            data {
+                id
+                attributes {
+                address
+                label
+                }
+            }
+            }
+        }
+    `
+
     var commonConfigQuery = gql`
         query CommonConfig {
             commonConfig {
@@ -310,6 +324,7 @@ export default function useQueries() {
                         }
                         doctors {
                             data {
+                                id
                                 attributes {
                                     image {
                                         data {
@@ -595,6 +610,11 @@ export default function useQueries() {
                                 }
                             }
                         }
+                        sub_services {
+                            data {
+                                id
+                            }
+                        }
                     }
                 }
             }
@@ -618,6 +638,7 @@ export default function useQueries() {
                     id
                     attributes {
                         name
+                        clinicAddress
                         slug
                         specification
                         image {
@@ -1206,6 +1227,26 @@ export default function useQueries() {
         }
     `
 
+    var createRequest = gql`
+    mutation Mutation($data: RequestInput!) {
+        createRequest(data: $data) {
+          data {
+            id
+          }
+        }
+      }
+    `
+
+    var createReviewMutation = gql`
+    mutation CreateReview($data: ReviewInput!) {
+        createReview(data: $data) {
+          data {
+            id
+          }
+        }
+    }
+    `
+
     return {
         // News
         newsPosts,
@@ -1245,11 +1286,16 @@ export default function useQueries() {
         reviewsPosts,
         // Contacts
         contactsPageQuery,
+        clinicsQuery,
         // Customers page
         customersPageQuery,
         customerPageQuery,
         // FAQ
         faqPageQuery,
         answersQuery,
+
+        // requests
+        createRequest,
+        createReviewMutation
     }
 }

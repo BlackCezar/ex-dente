@@ -1,7 +1,12 @@
 import mitt from 'mitt'
 
 export type ApplicationEvents = {
-    'call:callBackForm': void
+    'call:callBackForm': {
+        doctor: string
+    } | void
+    'close:callBackForm': void
+    'scroll:callBack': void
+    'call:searchOpen': void
 }
 
 export default defineNuxtPlugin(() => {

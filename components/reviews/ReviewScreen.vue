@@ -10,7 +10,7 @@ var swiper = ref(null)
 </script>
 
 <template>
-    <div>
+    <div v-if="list?.length">
         <div class="flex items-center justify-between lg:mb-[5rem] mb-7">
             <h2
                 class="font-[Mignon] font-semibold text-[1.5rem] lg:text-[2.5rem] uppercase text-accent"
@@ -22,6 +22,7 @@ var swiper = ref(null)
         <ClientOnly>
             <Swiper
                 @swiper="swiper = $event"
+                auto-height
                 :breakpoints="{
                     320: {
                         spaceBetween: 16,

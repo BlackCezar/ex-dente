@@ -3,9 +3,16 @@ import type { DoctorItem } from '~/types/services.type'
 
 var config = useAppConfig()
 
-defineProps<{
+var props = defineProps<{
     article: DoctorItem['attributes']
+    id: string
 }>()
+
+function onDoctorClick() {
+    useEvent('call:callBackForm', {
+        doctor: props.id
+    })
+}
 </script>
 
 <template>
@@ -24,11 +31,11 @@ defineProps<{
                     :title="article.image.data?.attributes.caption"
                 />
                 <UiButton
-                    class="absolute right-4 transition-opacity bottom-4 opacity-0 group-hover:opacity-100"
+                    class="absolute max-w-[90%] right-4 transition-opacity bottom-4 opacity-0 group-hover:opacity-100"
                     type="button"
                     variant="primary"
                     mode="dark"
-                    @click.stop=""
+                    @click.prevent.stop="onDoctorClick(article)"
                     ><span class="whitespace-nowrap"
                         >Записаться на прием</span
                     ></UiButton

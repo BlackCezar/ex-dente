@@ -68,6 +68,7 @@ var appConfig = useAppConfig()
                                     .formats.medium_x2.url
                             "
                             onerror="this.style.display='none'"
+                            loading="lazy"
                             :alt="
                                 article?.attributes.avatar?.data?.attributes
                                     ?.alternativeText

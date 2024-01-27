@@ -26,7 +26,7 @@ var config = useAppConfig()
         <div>
             <ClientOnly>
                 <Swiper
-                    class="w-screen lg:w-full !px-4 !-ml-4 lg:!px-0 lg:!ml-0"
+                    class="w-[calc(100%_+_2rem)] lg:w-full !pl-4 !-ml-4 lg:!px-0 lg:!ml-0 overflow-x-hidden max-w-screen"
                     @swiper="swiper = $event"
                     space-between="20"
                     :breakpoints="{
@@ -45,7 +45,7 @@ var config = useAppConfig()
                     }"
                 >
                     <SwiperSlide v-for="item of list" :key="item.id">
-                        <DoctorItemSlide :article="item.attributes" />
+                        <DoctorItemSlide :id="item.id" :article="item.attributes" />
                     </SwiperSlide>
                 </Swiper>
             </ClientOnly>

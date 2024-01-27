@@ -2,6 +2,7 @@
 var props = defineProps<{
     label: string
     name: string
+    hideInput?: boolean
     value: string
 }>()
 
@@ -19,12 +20,15 @@ var { handleChange, checked } = useField(() => props.name, undefined, {
             <input
                 :name="name"
                 type="checkbox"
+                :class="{
+                    'hidden': hideInput
+                }"
                 :checked="checked"
                 @change="handleChange(value)"
                 :value="value"
             />
         </Field>
-        <span class="text-[1.125rem] text-accent">{{ label }}</span>
+        <span class="text-[1.125rem] text-accent whitespace-nowrap">{{ label }}</span>
     </label>
 </template>
 

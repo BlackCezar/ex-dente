@@ -3,7 +3,6 @@ import useQueries from '~/composables/useQueries'
 import type { SubServicePage, SubServicesList } from '~/types/services.type'
 import type { IBreadCrumb } from '~/types/global.type'
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
-import { useSeoMeta } from '#imports'
 import ServiceMainBanner from '~/components/services/ServiceMainBanner.vue'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
 import DirectionsList from '~/components/common/DirectionsList.vue'
@@ -60,24 +59,8 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
     },
 ])
 
-if (data.value?.subServices.data[0].attributes.seo)
-    useSeoMeta({
-        ogImage:
-            data.value.subServices.data[0].attributes.seo.sharedImage?.media
-                ?.data?.attributes.url,
-        ogImageUrl:
-            data.value.subServices.data[0].attributes.seo.sharedImage?.media
-                ?.data?.attributes.url,
-        ogImageAlt:
-            data.value.subServices.data[0].attributes.seo.sharedImage?.alt,
-        title: data.value.subServices.data[0].attributes.title,
-        keywords: data.value.subServices.data[0].attributes.seo.keywords,
-        description:
-            data.value.subServices.data[0].attributes.seo.metaDescription,
-        ogDescription:
-            data.value.subServices.data[0].attributes.seo.metaDescription,
-        ogTitle: data.value.subServices.data[0].attributes.seo.metaTitle,
-    })
+useSeo(data.value.subServices.data[0].attributes.title ?? 'Услуга', data.value.subServices.data[0].attributes.seo)
+
 </script>
 
 <template>
@@ -90,7 +73,7 @@ if (data.value?.subServices.data[0].attributes.seo)
             <div>
                 <ServiceMainBanner
                     :data="data.subServices.data[0].attributes"
-                />wwd
+                />
             </div>
         </div>
         <div

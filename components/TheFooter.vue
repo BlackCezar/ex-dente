@@ -17,7 +17,7 @@ var { data: socials } = await useAsyncQuery<Socials>(socialsQuery)
         >
             <FooterInfo
                 :socials="socials"
-                :copyright="data.footer.data.attributes.copyright"
+                :copyright="data?.footer?.data.attributes.copyright"
             />
             <FooterMenu />
             <LazyFooterServices />
@@ -25,7 +25,7 @@ var { data: socials } = await useAsyncQuery<Socials>(socialsQuery)
         </div>
         <FooterDisclaimer
             class="container mx-auto"
-            :data="data.footer.data.attributes"
+            :data="data?.footer?.data.attributes"
         />
     </div>
 </template>

@@ -20,7 +20,7 @@ var appConfig = useAppConfig()
         <nav class="order-1 lg:order-3 mb-10 lg:mb-0">
             <ul class="flex gap-4">
                 <li
-                    v-for="social of socials.socialNetworkSection.data
+                    v-for="social of socials?.socialNetworkSection.data
                         .attributes.socialNetwork"
                     :key="social.id"
                 >

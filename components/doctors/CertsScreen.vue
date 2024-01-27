@@ -14,7 +14,7 @@ var config = useAppConfig()
 </script>
 
 <template>
-    <div>
+    <div v-if="certs?.length">
         <div
             class="flex justify-between mb-7 lg:mb-[2.375rem] items-center flex-col lg:flex-row"
         >
@@ -55,7 +55,6 @@ var config = useAppConfig()
                         >
                             <vue-image-zoomer
                                 click-zoom
-                                class="object-contain"
                                 lazyload
                                 :regular="
                                     config.assetsUri +

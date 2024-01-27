@@ -37,6 +37,7 @@ var swiper = ref(null)
                             slidesPerView: 3,
                         },
                     }"
+                    auto-height
                 >
                     <template
                         v-for="review of data.reviews.data"

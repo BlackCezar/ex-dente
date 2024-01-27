@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { CustomersPage, IBreadCrumb } from '~/types/global.type'
-import { useSeoMeta } from '#imports'
 
 var { customersPageQuery } = useQueries()
 var { data } = await useAsyncQuery<CustomersPage>(customersPageQuery)
@@ -19,28 +18,8 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
     },
 ])
 
-if (data.value?.clientInformation.data.attributes.seo)
-    useSeoMeta({
-        ogImage:
-            data.value.clientInformation.data.attributes.seo.sharedImage.media
-                ?.data?.attributes.url,
-        ogImageUrl:
-            data.value.clientInformation.data.attributes.seo.sharedImage.media
-                ?.data?.attributes.url,
-        ogImageAlt:
-            data.value.clientInformation.data.attributes.seo.sharedImage.alt,
-        title: data.value.clientInformation.data.attributes.title,
-        keywords: data.value.clientInformation.data.attributes.seo.keywords,
-        description:
-            data.value.clientInformation.data.attributes.seo.metaDescription,
-        ogDescription:
-            data.value.clientInformation.data.attributes.seo.metaDescription,
-        ogTitle: data.value.clientInformation.data.attributes.seo.metaTitle,
-    })
-else
-    useHead({
-        title: 'Для пациентов',
-    })
+
+useSeo(data.value.clientInformation.data.attributes.title ?? 'Для пациентов', data.value.clientInformation.data.attributes.seo)
 </script>
 
 <template>

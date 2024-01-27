@@ -7,17 +7,19 @@ import DoctorItem from '~/components/doctors/DoctorItem.vue'
 import UiPagePagination from '~/components/ui/PagePagination.vue'
 import { useGlobalStore } from '~/store/global.store'
 import { storeToRefs } from '#imports'
+import {useSeo} from '~/composables/useSeo'
+import * as yup from 'yup'
 
 var route = useRoute()
 var router = useRouter()
-var activeService = ref(null)
+var {values} = useForm({
+    validationSchema: yup.object().shape({
+        service: yup.string().optional()
+    })
+})
 var paginationVariables = ref({
     filters: {
-        sub_services: {
-            id: {
-                eq: activeService.value,
-            },
-        },
+        sub_services: undefined,
     },
     pagination: {
         pageSize: 8,
@@ -74,16 +76,47 @@ var servicesOptions = computed(() =>
 )
 
 watch(
-    () => activeService.value,
+    () => values.service,
     () => {
-        paginationVariables.value.filters.sub_services.id.eq =
-            activeService.value
+        if (values.service) paginationVariables.value.filters.sub_services = 
+        { 
+            id: {
+                eq: values.service
+            }
+        }; else {
+            paginationVariables.value.filters.sub_services = undefined
+        }
+            
         execute()
     },
     {
         deep: true,
     },
 )
+
+useSeo(data.value.doctorsListing.data.attributes.title ?? 'Наши врачи', data.value.doctorsListing.data.attributes.seo)
+useJsonld(() => ({
+    '@context': 'https://schema.org',
+    "@type": "ItemList",
+    itemListElement: posts.value?.doctors?.data.map(doc => ({
+        "@type": "Person",
+        "@id": doc.id,
+        name: doc.attributes.name,
+        jobTitle: doc.attributes.specification,
+        url: `/doctors/${doc.attributes.slug}`,
+        image: doc.attributes.image.data?.attributes.formats.medium.url,
+        memberOf: {
+            "@type": "Hospital",
+            name: doc.attributes.clinicAddress,
+            address: {
+                "@type": "PostalAddress",
+                "addressLocality": doc.attributes.clinicAddress,
+                addressRegion: "Красноярск"
+            }
+        }
+
+    }))
+}))
 </script>
 
 <template>
@@ -102,13 +135,12 @@ watch(
                 >
                     {{ data.doctorsListing.data.attributes.title }}
                 </h1>
-                <UiSelect
-                    class="max-w-[25rem]"
-                    name="service"
-                    :options="servicesOptions"
-                    placeholder="Все направления"
-                    v-model="activeService"
-                />
+                    <UiSelect
+                        class="max-w-[25rem]"
+                        name="service"
+                        :options="servicesOptions"
+                        placeholder="Все направления"
+                    />
             </div>
             <div class="pt-6 lg:pt-[5rem]">
                 <div v-if="pending" class="flex justify-center">
@@ -122,7 +154,7 @@ watch(
                             v-for="item of posts.doctors.data"
                             :key="item.id"
                         >
-                            <DoctorItem :article="item.attributes" />
+                            <DoctorItem :id="item.id" :article="item.attributes" />
                         </template>
                     </div>
                     <UiPagePagination

@@ -20,7 +20,7 @@ function onSlideChange(swiper: any) {
         class="flex gap-[2.81rem] lg:items-end pt-8 flex-col lg:flex-row lg:gap-10"
     >
         <div
-            class="max-w-full lg:max-w-[15rem] text-opacity-50 text-[0.875rem] text-accent"
+            class="max-w-full min-h-[8rem] overflow-ellipsis lg:max-w-[15rem] text-opacity-50 text-[0.875rem] text-accent"
         >
             {{ activeSlide.label }}
         </div>
@@ -48,7 +48,7 @@ function onSlideChange(swiper: any) {
                         v-for="banner of slide.banner?.data"
                         :key="banner.id"
                     >
-                        <picture class="h-full w-full">
+                        <picture class="h-full w-full" >
                             <source
                                 media="(min-width: 1440px)"
                                 :srcset="
@@ -90,7 +90,7 @@ function onSlideChange(swiper: any) {
                                     banner?.attributes?.formats?.medium_x2.url
                                 "
                                 class="object-cover object-center h-full w-full"
-                                :alt="banner?.attributes?.alternativeText"
+                                :alt="banner?.attributes?.alternativeText" loading="lazy"
                             />
                         </picture>
                     </template>

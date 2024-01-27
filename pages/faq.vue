@@ -70,6 +70,19 @@ function setPage(val: number) {
     })
     execute()
 }
+
+useJsonld(() => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: posts.value?.answers?.data.map(item => ({
+        '@type': 'Question',
+        name: item.attributes.title,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.attributes.text
+        }
+    }))
+}))
 </script>
 
 <template>
@@ -97,10 +110,12 @@ function setPage(val: number) {
                         class="flex flex-col gap-4 lg:gap-6 lg:mb-[3.75rem] mb-10"
                     >
                         <details
-                            v-for="post of posts.answers.data"
+                            v-for="post of posts?.answers?.data"
                             :key="post.id"
                             class="pb-4 lg:pb-8"
+                            :id="`post-${post.id}`"
                         >
+                            <a :href="`post-${post.id}`"></a>
                             <summary
                                 class="flex px-4 lg:px-7 lg:pt-8 pt-4 gap-5 justify-between"
                             >
@@ -121,7 +136,7 @@ function setPage(val: number) {
                     <PagePagination
                         @show-more="showMore"
                         @set-page="setPage"
-                        :page-count="posts?.answers.meta.pagination.pageCount"
+                        :page-count="posts?.answers?.meta.pagination.pageCount"
                         :page="variables.pagination.page"
                     />
                 </div>
@@ -167,6 +182,7 @@ details[open] .icon-right {
 
 .icon-left,
 .icon-right {
-    @apply text-[1.5rem] lg:text-[1.75rem];
+    @apply text-[1.5rem] min-w-[1.5rem] lg:text-[1.75rem] lg:min-w-[1.75rem];
+    margin-bottom: 0 !important;
 }
 </style>

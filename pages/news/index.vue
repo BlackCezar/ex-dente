@@ -8,7 +8,6 @@ import type {
 import useQueries from '~/composables/useQueries'
 import UiPageSpinner from '~/components/ui/PageSpinner.vue'
 import UiPagePagination from '~/components/ui/PagePagination.vue'
-import { useSeoMeta } from '#imports'
 
 var { newsQuery, newsPosts } = useQueries()
 var { data } = await useAsyncQuery<NewsQuery>(newsQuery)
@@ -53,22 +52,7 @@ function setPage(val: number) {
 }
 onMounted(execute)
 
-if (data.value.newsListing.data.attributes.seo)
-    useSeoMeta({
-        ogImage:
-            data.value.newsListing.data.attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageUrl:
-            data.value.newsListing.data.attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageAlt: data.value.newsListing.data.attributes.seo.sharedImage.alt,
-        title: data.value.newsListing.data.attributes.title,
-        keywords: data.value.newsListing.data.attributes.seo.keywords,
-        description: data.value.newsListing.data.attributes.seo.metaDescription,
-        ogDescription:
-            data.value.newsListing.data.attributes.seo.metaDescription,
-        ogTitle: data.value.newsListing.data.attributes.seo.metaTitle,
-    })
+useSeo(data.value.newsListing.data.attributes.title ?? 'Новости', data.value.newsListing.data.attributes.seo)
 </script>
 
 <template>

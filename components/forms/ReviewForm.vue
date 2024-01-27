@@ -6,6 +6,11 @@ import UiRadio from '~/components/ui/UiRadio.vue'
 import { useGlobalStore } from '~/store/global.store'
 import { storeToRefs } from '#imports'
 
+enum ReviewType {
+    Clinic = 'clinic',
+    Doctor = 'doctor'
+}
+
 var props = defineProps<{
     doctor?: {
         id: string
@@ -13,30 +18,64 @@ var props = defineProps<{
     }
 }>()
 
-var { handleSubmit, setFieldValue } = useForm({
+var { handleSubmit, setFieldValue, values, resetForm } = useForm<{
+    reviewService?: string
+    reviewName: string
+    reviewText: string
+    reviewType: ReviewType
+    reviewDoctor?: string
+    reviewClinic?: string
+}>({
     validationSchema: yup.object().shape({
         reviewName: yup.string().required(),
         reviewText: yup.string().optional(),
-        reviewType: yup.string().required().oneOf(['clinic', 'doctor']),
+        reviewType: yup.string().required().oneOf(Object.values(ReviewType)),
         reviewDoctor: yup.string().optional(),
         reviewClinic: yup.string().optional(),
         reviewService: yup.string().optional(),
     }),
+    initialValues: {
+        reviewName: '',
+        reviewText: '',
+        reviewType: ReviewType.Doctor,
+        reviewDoctor: undefined,
+        reviewClinic: undefined,
+        reviewService: undefined
+    }
 })
-var onProcess = handleSubmit(async (values) => {})
+var {createReviewMutation} = useQueries()
+var {mutate} = useMutation(createReviewMutation)
+
+var onProcess = handleSubmit(async (values) => {
+    await mutate({
+        data: {
+            review: {
+                clinic: values.reviewClinic,
+                doctor: values.reviewDoctor,
+                name: values.reviewName,
+                reviewType: values.reviewType,
+                reviewText: values.reviewText,
+                sub_service: values.reviewService
+            }
+        }
+    })
+    useNuxtApp().$toast.success('Ваша заявка отправлена')
+    resetForm() 
+})
 
 var radioOptions = markRaw([
     {
-        value: 'clinic',
+        value: ReviewType.Clinic,
         label: 'Отзыв о клинике',
     },
     {
         label: 'Отзыв о враче',
-        value: 'doctor',
+        value: ReviewType.Doctor,
     },
 ])
+
 var globalStore = useGlobalStore()
-var { services, doctors } = storeToRefs(globalStore)
+var { services, doctors, clinics } = storeToRefs(globalStore)
 var servicesOptions = computed(() =>
     services.value?.map((service) => {
         return {
@@ -44,23 +83,43 @@ var servicesOptions = computed(() =>
             label: service.attributes.title,
             children: service.attributes.sub_services.data?.map((subS) => ({
                 value: subS.id,
+                disabled: !doctors.value.some(doc => doc.attributes.sub_services.data.some(s => s.id === subS.id)),
                 label: subS.attributes.title,
             })),
         }
     }),
 )
 
-var doctorsOptions = computed(() =>
-    doctors.value.map((doc) => ({
+var doctorsOptions = computed(() => {
+    if (values.reviewService) {
+        const list =  doctors.value.filter(doctor => doctor.attributes.sub_services.data.some(s => s.id === values.reviewService)).map((doc) => ({
+            value: doc.id,
+            label: doc.attributes.name,
+        }))
+        if (list.length) {
+            setFieldValue('reviewDoctor', list[0].value)
+
+            return list
+        }  else {
+            setFieldValue('reviewDoctor', undefined)
+
+            return []
+        }
+    }
+    return doctors.value.map((doc) => ({
         value: doc.id,
         label: doc.attributes.name,
-    })),
-)
+    }))
+})
+
+var clinicsOptions = computed(() => clinics.value.map((clinic) => ({
+    value: clinic.id,
+    label: clinic.attributes.label
+})))
 
 watch(
     () => props.doctor,
     () => {
-        console.log(props.doctor)
         if (props.doctor?.id) {
             setFieldValue('reviewDoctor', props.doctor.id)
         }
@@ -73,7 +132,7 @@ watch(
 </script>
 
 <template>
-    <form @submit.prevent="onProcess" class="px-4">
+    <form @submit.prevent="onProcess" class="px-4 lg:pl-0 lg:pr-[6.25rem]">
         <h4
             class="font-[Mignon] text-accent lg:font-semibold lg:text-[3rem] text-[1.75rem] mb-10 lg:mb-12"
         >
@@ -98,21 +157,32 @@ watch(
             :options="radioOptions"
             name="reviewType"
         />
-        <div class="flex flex-col lg:flex-row gap-5 lg:gap-10 lg:mb-12 mb-8">
-            <UiSelect
-                class="w-full"
-                name="reviewService"
-                label="Направление"
-                placeholder="Любое направление"
-                :options="servicesOptions"
-            />
-            <UiSelect
-                class="w-full"
-                name="reviewDoctor"
-                label="ФИО врача"
-                placeholder="Любой врач"
-                :options="doctorsOptions"
-            />
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 lg:mb-12 mb-8">
+            <template v-if="values.reviewType === ReviewType.Clinic">
+                <UiSelect
+                    class="w-full"
+                    name="reviewClinic"
+                    label="Клиника"
+                    placeholder="Выберите клинику"
+                    :options="clinicsOptions"
+                />
+            </template>
+            <template v-else>
+                <UiSelect
+                    class="w-full"
+                    name="reviewService"
+                    label="Направление"
+                    placeholder="Любое направление"
+                    :options="servicesOptions"
+                />
+                <UiSelect
+                    class="w-full"
+                    name="reviewDoctor"
+                    label="ФИО врача"
+                    placeholder="Любой врач"
+                    :options="doctorsOptions"
+                />
+            </template>
         </div>
         <div class="flex flex-col gap-6 lg:flex-row lg:gap-10">
             <p

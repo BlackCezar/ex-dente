@@ -3,6 +3,7 @@ import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { useGlobalStore } from '~/store/global.store'
 import { storeToRefs } from '#imports'
+import { RequestType } from '~/types/global.type';
 
 var props = defineProps<{
     doctor?: {
@@ -12,7 +13,7 @@ var props = defineProps<{
     }
 }>()
 
-var { handleSubmit, setFieldValue } = useForm({
+var { handleSubmit, setFieldValue, resetForm } = useForm({
     validationSchema: yup.object().shape({
         selectedName: yup.string().required(),
         selectedPhone: yup.string().required(),
@@ -20,10 +21,31 @@ var { handleSubmit, setFieldValue } = useForm({
         selectedDoctor: yup.string().optional(),
     }),
 })
+var {createRequest: createRequestMutation} = useQueries();
+var {mutate} = useMutation(createRequestMutation)
 
-var onProcess = handleSubmit(async (values) => {})
+var onProcess = handleSubmit(async (values) => {
+    try {
+        await mutate({
+            data: {
+                request: {
+                    type: RequestType.Doctor,
+                    doctor: values.selectedDoctor,
+                    name: values.selectedName,
+                    phoneNumber: values.selectedPhone,
+                    sub_service: values.selectedService
+                }
+            }
+        }) 
+        useNuxtApp().$toast.success('Ваша заявка отправлена')
+        resetForm()
+    } catch (err) {
+        console.log(err)
+    }
+})
 var globalStore = useGlobalStore()
 var { services, doctors } = storeToRefs(globalStore)
+
 var servicesOptions = computed(() =>
     services.value?.map((service) => {
         return {
@@ -47,7 +69,6 @@ var doctorsOptions = computed(() =>
 watch(
     () => props.doctor,
     () => {
-        console.log(props.doctor)
         if (props.doctor?.id) {
             setFieldValue('selectedDoctor', props.doctor.id)
         }
@@ -98,7 +119,7 @@ watch(
                 Нажимая на кнопку «Отправить», вы даете свое согласие на
                 обработку персональных данных
             </p>
-            <UiButton mode="dark" class="lg:!w-[15rem] lg:min-w-[15rem] !w-full"
+            <UiButton @click="onProcess" mode="dark" class="lg:!w-[15rem] lg:min-w-[15rem] !w-full"
                 >Отправить</UiButton
             >
         </div>

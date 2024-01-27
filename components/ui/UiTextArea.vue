@@ -2,6 +2,7 @@
 var props = defineProps<{
     name: string
     placeholder?: string
+    label?: string;
     mode?: 'light' | 'dark'
     modelValue?: string | null
 }>()
@@ -9,7 +10,8 @@ const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
-    <label class="block">
+    <label class="flex flex-col gap-2">
+        <span v-if="label">{{ label }}</span>
         <Field :name="name" v-slot="{ meta, field }">
             <textarea
                 :name="name"

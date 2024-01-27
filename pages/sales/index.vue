@@ -3,7 +3,6 @@ import UiPagePagination from '~/components/ui/PagePagination.vue'
 import UiPageSpinner from '~/components/ui/PageSpinner.vue'
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { IBreadCrumb } from '~/types/global.type'
-import { useSeoMeta } from '#imports'
 import type { SalesPosts, SalesQuery } from '~/types/sales.type'
 import SaleItem from '~/components/sales/SaleItem.vue'
 
@@ -52,29 +51,8 @@ function setPage(val: number) {
 }
 onMounted(execute)
 
-if (data.value.promoListing.data.attributes.seo) {
-    useSeoMeta({
-        ogImage:
-            data.value.promoListing.data.attributes.seo.sharedImage?.media?.data
-                ?.attributes.url,
-        ogImageUrl:
-            data.value.promoListing.data.attributes.seo.sharedImage?.media?.data
-                ?.attributes.url,
-        ogImageAlt:
-            data.value.promoListing.data.attributes.seo.sharedImage?.alt,
-        title: data.value.promoListing.data.attributes.title,
-        keywords: data.value.promoListing.data.attributes.seo.keywords,
-        description:
-            data.value.promoListing.data.attributes.seo.metaDescription,
-        ogDescription:
-            data.value.promoListing.data.attributes.seo.metaDescription,
-        ogTitle: data.value.promoListing.data.attributes.seo.metaTitle,
-    })
-} else {
-    useHead({
-        title: 'Акции',
-    })
-}
+
+useSeo(data.value.promoListing.data.attributes.title ?? 'Акции', data.value.promoListing.data.attributes.seo)
 </script>
 
 <template>

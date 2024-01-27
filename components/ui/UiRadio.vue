@@ -16,10 +16,10 @@ const emit = defineEmits(['update:modelValue'])
 <template>
     <div class="flex gap-5 lg:gap-12 flex-wrap">
         <template v-for="option in options" :key="option.value">
-            <Field :name="name" :value="option.value" type="radio">
+            <Field :name="name" :value="option.value" type="radio" v-slot="{field}">
                 <label
                     class="flex gap-3 radio items-center lg:text-[1.125rem] text-accent"
-                    ><input type="radio" :name="name" :value="option.value" />{{
+                    ><input type="radio" :name="name" :value="option.value" v-bind="field" />{{
                         option.label
                     }}</label
                 ></Field

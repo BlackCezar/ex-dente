@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { CommonConfig, GlobalStore, MainMenu } from '~/types/global.type'
+import type { CommonConfig, GlobalStore, MainMenu, Clinics } from '~/types/global.type'
 
 export var useGlobalStore = defineStore('global', {
     state: (): GlobalStore => ({
@@ -7,6 +7,7 @@ export var useGlobalStore = defineStore('global', {
         mainMenu: null,
         services: [],
         doctors: [],
+        clinics: []
     }),
     getters: {
         phoneNumber: (state) =>
@@ -24,6 +25,9 @@ export var useGlobalStore = defineStore('global', {
         },
         setDoctors(list: any) {
             this.doctors = list
+        },
+        setClinics(list: Clinics['clinics']['data']) {
+            this.clinics = list
         },
         setAppConfig(config: CommonConfig) {
             this.config = config

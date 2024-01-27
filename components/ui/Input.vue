@@ -17,7 +17,7 @@ defineProps<{
         <Field
             :name="name"
             :type="type ? type : 'text'"
-            v-slot="{ meta, field }"
+            v-slot="{ meta, field, handleChange, value }"
         >
             <input
                 :autocomplete="autocomplete"
@@ -27,6 +27,8 @@ defineProps<{
                     valid: meta.valid && meta.touched,
                     invalid: !meta.valid && meta.touched,
                 }"
+                @input="handleChange"
+                :value="value"
                 v-bind="field"
                 v-maska
                 :data-maska="type === 'tel' ? '+7 ### ### ##-##' : null"
@@ -61,7 +63,7 @@ defineProps<{
     @apply text-accent leading-[1.625rem];
 }
 .input-label[data-mode='light'] .input {
-    @apply bg-gray rounded-[0.375rem] border pl-6 pr-3 py-4 text-[1.125rem] text-accent max-h-[3.75rem];
+    @apply bg-gray rounded-[0.375rem] border border-gray pl-6 pr-3 py-4 text-[1.125rem] text-accent max-h-[3.75rem];
 }
 .input-label[data-mode='light'] .input.valid {
     @apply border-system-success;
@@ -75,4 +77,5 @@ defineProps<{
 .input-label[data-mode='light'] .input:disabled {
     @apply text-opacity-50 border-gray;
 }
+
 </style>

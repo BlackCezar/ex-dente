@@ -15,7 +15,7 @@ var {data} = await useAsyncQuery<HomePageBenefit>(homePageBenefitQuery)
 		<h3 class="text-[1.125rem] lg:text-[1.75rem] lg:leading-[2.875rem] text-accent ">{{data.homePageBenefit.data?.attributes.subtitle}}</h3>
 	</section>
 	<section class="flex gap-8 lg:grid grid-cols-2 items-center flex-col">
-		<p class="text-accent text-[1.125rem] lg:text-[1.375rem] lg:order-2 text-opacity-50">{{data.homePageBenefit.data?.attributes.description}}</p>
+		<p class="text-accent lg:max-w-[35rem] text-[1.125rem] lg:text-[1.375rem] lg:order-2 text-opacity-50">{{data.homePageBenefit.data?.attributes.description}}</p>
 		<ToAboutButton />
 	</section>
 	<BenefitsSlider v-if="data.homePageBenefit.data?.attributes.slider?.length" :slides="data.homePageBenefit.data?.attributes.slider" />

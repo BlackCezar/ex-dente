@@ -2,7 +2,6 @@
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { IBreadCrumb } from '~/types/global.type'
 import type { ServicePage } from '~/types/services.type'
-import { useSeoMeta } from '#imports'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
 import DirectionsList from '~/components/common/DirectionsList.vue'
 
@@ -34,22 +33,8 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
     },
 ])
 
-if (data.value?.services.data[0].attributes.seo)
-    useSeoMeta({
-        ogImage:
-            data.value.services.data[0].attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageUrl:
-            data.value.services.data[0].attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageAlt: data.value.services.data[0].attributes.seo.sharedImage.alt,
-        title: data.value.services.data[0].attributes.title,
-        keywords: data.value.services.data[0].attributes.seo.keywords,
-        description: data.value.services.data[0].attributes.seo.metaDescription,
-        ogDescription:
-            data.value.services.data[0].attributes.seo.metaDescription,
-        ogTitle: data.value.services.data[0].attributes.seo.metaTitle,
-    })
+
+useSeo(data.value.services.data[0].attributes.title ?? 'Услуги', data.value.services.data[0].attributes.seo)
 </script>
 
 <template>

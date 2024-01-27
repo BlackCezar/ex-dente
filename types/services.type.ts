@@ -15,9 +15,15 @@ export interface DoctorItem {
     attributes: {
         __typename: 'Doctor'
         specification: string
+        clinicAddress: string
         slug: string
         name: string
         image: UploadFileEntityResponse
+        sub_services: {
+            data: {
+                id: string
+            }[]
+        }
     }
 }
 

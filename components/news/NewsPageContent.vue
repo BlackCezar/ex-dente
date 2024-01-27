@@ -2,7 +2,6 @@
 import type { NewsPageItem } from '~/types/news.type'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
 import RenderSlider from '~/components/common/RenderSlider.vue'
-import { Autoplay } from 'swiper/modules'
 
 defineProps<{
     data: NewsPageItem['attributes']
@@ -18,7 +17,7 @@ defineProps<{
             <RenderBlocks :text="item.text" />
         </article>
         <div
-            class="block col-span-2 col-start-1"
+            class="block lg:col-span-2 col-start-1"
             v-else-if="item.__typename === 'ComponentSlidersSlider'"
         >
             <RenderSlider class="mb-10 lg:mb-[5rem]" :data="item" />

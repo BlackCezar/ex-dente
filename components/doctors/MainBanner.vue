@@ -6,6 +6,9 @@ defineProps<{
 }>()
 
 var config = useAppConfig()
+function toRecordForm() {
+    useEvent('scroll:callBack')
+}
 </script>
 
 <template>
@@ -24,7 +27,7 @@ var config = useAppConfig()
                 Ведет прием на {{ doctor.clinicAddress }}
             </h2>
             <div class="hidden lg:block pt-[4rem]">
-                <UiButton mode="dark" class="">Записаться на прием</UiButton>
+                <UiButton @click="toRecordForm" mode="dark" class="">Записаться на прием</UiButton>
             </div>
         </section>
         <section class="lg:max-w-[34rem]">

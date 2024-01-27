@@ -143,4 +143,53 @@
 
 body {
     font-family: Proxima Nova, system-ui;
+    overscroll-behavior: none;
+    overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    body {
+        scroll-behavior: smooth;
+    }
+}
+
+body:has(div[data-modal="true"]), body:has(.search-wrapper), body:has(.header-wrapper[data-open="true"]) {
+    overflow-y: clip;
+}
+
+details, details summary {
+    appearance: none;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+html {
+    font-size: 16px !important;
+}
+
+@media (max-width: 1520px) {
+	html {
+		font-size: 14px !important;
+	}
+}
+@media (max-width: 1440px) {
+	html {
+		font-size: 13px !important;
+	}
+}
+@media (max-width: 1280px) {
+	html {
+		font-size: 12px !important;
+	}
+}
+
+@media (max-width: 1025px) {
+	html {
+		font-size: 18px !important;
+	}
+}
+@media (max-width: 768px) {
+	html {
+		font-size: 16px !important;
+	}
 }

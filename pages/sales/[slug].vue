@@ -4,7 +4,6 @@ import type { IBreadCrumb } from '~/types/global.type'
 import type { SalePage } from '~/types/sales.type'
 import RenderSlider from '~/components/common/RenderSlider.vue'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
-import { useSeoMeta } from '#imports'
 
 var route = useRoute()
 var { salesPageQuery } = useQueries()
@@ -16,7 +15,7 @@ var variables = ref({
     },
 })
 
-var { data } = await useAsyncQuery<SalePage>(salesPageQuery, variables)
+var { data } = await useAsyncQuery<SalePage>(salesPageQuery, variables.value)
 var breadCrumbs = markRaw<IBreadCrumb[]>([
     {
         path: '/',
@@ -32,21 +31,8 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
     },
 ])
 
-if (data.value.promos.data[0].attributes.seo)
-    useSeoMeta({
-        ogImage:
-            data.value.promos.data[0].attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageUrl:
-            data.value.promos.data[0].attributes.seo.sharedImage.media?.data
-                ?.attributes.url,
-        ogImageAlt: data.value.promos.data[0].attributes.seo.sharedImage.alt,
-        title: data.value.promos.data[0].attributes.title,
-        keywords: data.value.promos.data[0].attributes.seo.keywords,
-        description: data.value.promos.data[0].attributes.seo.metaDescription,
-        ogDescription: data.value.promos.data[0].attributes.seo.metaDescription,
-        ogTitle: data.value.promos.data[0].attributes.seo.metaTitle,
-    })
+
+useSeo(data.value.promos.data[0].attributes.title ?? 'Акция', data.value.promos.data[0].attributes.seo)
 </script>
 
 <template>
@@ -79,7 +65,7 @@ if (data.value.promos.data[0].attributes.seo)
                             :text="data.promos.data[0].attributes.description"
                         />
                     </section>
-                    <UiButton variant="primary">Записаться на прием</UiButton>
+                    <UiButton @click="useEvent('call:callBackForm')" variant="primary">Записаться на прием</UiButton>
                 </article>
             </div>
         </div>

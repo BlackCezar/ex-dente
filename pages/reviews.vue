@@ -6,7 +6,7 @@ import type {
     ReviewsPage,
     SelectOption,
 } from '~/types/global.type'
-import { useQueries, useSeoMeta } from '#imports'
+import { useQueries } from '#imports'
 import ReviewsFilters from '~/components/reviews/ReviewsFilters.vue'
 import ReviewItem from '~/components/reviews/ReviewItem.vue'
 import * as yup from 'yup'
@@ -24,6 +24,7 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
 
 var { reviewsPageQuery } = useQueries()
 var router = useRouter()
+var container = ref<HTMLDivElement | null>(null)
 var { data } = await useAsyncQuery<ReviewsPage>(reviewsPageQuery)
 
 var { values, setFieldValue } = useForm({
@@ -47,29 +48,7 @@ var { values, setFieldValue } = useForm({
     },
 })
 
-if (data.value.straniczaOtzyvov.data.attributes.seo) {
-    useSeoMeta({
-        ogImage:
-            data.value.straniczaOtzyvov.data.attributes.seo.sharedImage?.media
-                ?.data?.attributes?.url,
-        ogImageUrl:
-            data.value.straniczaOtzyvov.data.attributes.seo.sharedImage?.media
-                ?.data?.attributes?.url,
-        ogImageAlt:
-            data.value.straniczaOtzyvov.data.attributes.seo.sharedImage?.alt,
-        title: data.value.straniczaOtzyvov.data.attributes.title,
-        ogTitle: data.value.straniczaOtzyvov.data.attributes.title,
-        keywords: data.value.straniczaOtzyvov.data.attributes.seo.keywords,
-        description:
-            data.value.straniczaOtzyvov.data.attributes.seo.metaDescription,
-        ogDescription:
-            data.value.straniczaOtzyvov.data.attributes.seo.metaDescription,
-    })
-} else {
-    useHead({
-        title: 'Отзывы',
-    })
-}
+useSeo(data.value.straniczaOtzyvov.data.attributes.title ?? 'Отзывы', data.value.straniczaOtzyvov.data.attributes.seo)
 
 var sortOptions = markRaw<SelectOption[]>([
     {
@@ -121,7 +100,7 @@ async function setPage(val: number) {
             page: val,
         },
     })
-    await refetch(filters.value)
+    reFetch()
 }
 
 var isOpen = ref(false)
@@ -138,13 +117,25 @@ watch(
         }
     },
 )
-watch(() => values.doctorId, reFetch)
+watch(() => values.doctorId, () => {
+    setPage(1)
+    reFetch()
+})
 
-watch(() => values.serviceId, reFetch)
+watch(() => values.serviceId, () => {
+    setPage(1)
+    reFetch()
+})
 
-watch(() => values.clinicId, reFetch)
+watch(() => values.clinicId, () => {
+    setPage(1)
+    reFetch()
+})
 
-watch(() => values.reviewType, reFetch)
+watch(() => values.reviewType, () => {
+    setPage(1)
+    reFetch()
+})
 
 function reFetch() {
     filters.value = {
@@ -192,12 +183,15 @@ function reFetch() {
         }
 
     refetch(filters.value)
+    if (container.value) container.value.scrollIntoView({
+        behavior: 'smooth'
+    })
 }
 </script>
 
 <template>
     <div class="vertical-padding bg-white">
-        <div class="container mx-auto">
+        <div class="container mx-auto" ref="container">
             <BreadCrumbs
                 is-dark
                 :list="breadCrumbs"
@@ -269,6 +263,7 @@ function reFetch() {
                                 <ReviewItem :review="item" />
                             </template>
                         </div>
+                        <h3 v-else class="h3 text-accent font-[Mignon] text-center">Нет отзывов</h3>
 
                         <UiPagePagination
                             @show-more="showMore"

@@ -1,5 +1,11 @@
 import type { DoctorItem } from '~/types/services.type'
 
+
+export enum RequestType {
+    Doctor = 'Zapisatsya_k_vrachu',
+    Resume = 'Otpravit_rezyume',
+    Question = 'Zadat_vopros'
+}
 export interface MenuTest {
     __typename: string
     data: TData<IMenu>
@@ -50,6 +56,7 @@ export interface GlobalStore {
     config: null | CommonConfig
     mainMenu: null | MainMenu
     services: ServicesItem[]
+    clinics: Clinics['clinics']['data']
     doctors: DoctorItem[]
 }
 
@@ -157,7 +164,20 @@ export interface TSlide {
 export interface SelectOption {
     value: string
     label: string
+    disabled?: boolean
     children?: SelectOption[]
+}
+
+export interface Clinics {
+    clinics: {
+        data: {
+            id: string
+            attributes: {
+                label: string
+                address: string
+            }
+        }[]
+    }
 }
 
 export interface HomePage {
@@ -716,4 +736,13 @@ export interface CookiesAnnouncement {
             }
         }
     }
+}
+
+export interface SearchHits<T> {
+    estimatedTotalHits: number
+    limit: number
+    offset: number
+    query: string
+    processingTimeMs: number
+    hits: T[]
 }

@@ -38,6 +38,11 @@ var isShort = ref(true)
     transition: 300ms;
     justify-items: center;
 }
+@media screen and (min-width: 1024px) {
+    .seo-text-wrapper {
+    grid-template-rows: minmax(min-content, max-content) 1.5rem;
+    }
+}
 .seo-text-wrapper .md {
     position: relative;
     min-height: 0;

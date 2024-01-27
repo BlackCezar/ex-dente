@@ -2,7 +2,6 @@
 import vueMarkdown from 'vue-markdown-render'
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { CustomerPage, IBreadCrumb } from '~/types/global.type'
-import { useSeoMeta } from '#imports'
 
 var { customerPageQuery } = useQueries()
 var route = useRoute()
@@ -28,22 +27,7 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
     },
 ])
 
-if (data.value?.textPages.data?.[0]?.attributes.seo) {
-    var seo = data.value?.textPages.data?.[0].attributes.seo
-    useSeoMeta({
-        ogImage: seo?.sharedImage?.media?.data?.attributes.url,
-        ogImageUrl: seo?.sharedImage?.media?.data?.attributes.url,
-        ogImageAlt: seo?.sharedImage?.alt,
-        title: data.value.textPages.data[0].attributes.title,
-        keywords: seo.keywords,
-        description: seo.metaDescription,
-        ogDescription: seo.metaDescription,
-        ogTitle: seo.metaTitle,
-    })
-} else
-    useHead({
-        title: 'Для пациентов',
-    })
+useSeo(data.value.textPages.data[0].attributes.title ?? 'Для пациентов', data.value?.textPages.data?.[0].attributes.seo)
 </script>
 
 <template>

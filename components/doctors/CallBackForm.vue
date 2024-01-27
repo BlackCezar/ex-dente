@@ -9,10 +9,16 @@ defineProps<{
     }
 }>()
 var config = useAppConfig()
+var container = ref<HTMLDivElement | null>(null)
+useListen('scroll:callBack', () => {
+    if (container.value) container.value.scrollIntoView({
+        behavior: 'smooth'
+    })
+})
 </script>
 
 <template>
-    <div class="bg-accent">
+    <div class="bg-accent" ref="container">
         <div
             class="container mx-auto lg:items-center gap-4 lg:gap-12 grid-cols-1 grid lg:grid-cols-2"
         >
