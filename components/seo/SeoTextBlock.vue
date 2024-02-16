@@ -73,19 +73,19 @@ var isShort = ref(true)
     @apply mb-5 lg:mb-[3.75rem] uppercase;
 }
 .md h1 {
-    @apply text-[1.5rem] lg:text-[2.5rem] font-[Mignon] font-semibold;
+    @apply text-[1.5rem] lg:text-[2.5rem] font-serif font-semibold;
 }
 .md h2 {
-    @apply text-[1.375rem] lg:text-[2rem] font-[Mignon] font-semibold;
+    @apply text-[1.375rem] lg:text-[2rem] font-serif font-semibold;
 }
 .md h3 {
-    @apply text-[1.25rem] lg:text-[1.75rem] font-[Mignon] font-semibold;
+    @apply text-[1.25rem] lg:text-[1.75rem] font-serif font-semibold;
 }
 .md h4 {
-    @apply text-[1.125rem] lg:text-[1.5rem] font-[Mignon] font-semibold;
+    @apply text-[1.125rem] lg:text-[1.5rem] font-serif font-semibold;
 }
 .md h5 .md h6 {
-    @apply font-[Mignon] font-semibold;
+    @apply font-serif font-semibold;
 }
 .md ul {
     @apply list-disc list-inside lg:text-[1.125rem];

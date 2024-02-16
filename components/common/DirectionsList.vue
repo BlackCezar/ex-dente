@@ -14,7 +14,7 @@ defineProps<{
         v-if="list.length"
     >
         <h3
-            class="h3 mb-6 text-accent lg:mb-8 lg:text-[1.75rem] font-[Mignon] lg:font-normal"
+            class="h3 mb-6 text-accent lg:mb-8 lg:text-[1.75rem] font-serif lg:font-normal"
         >
             {{ title }}
         </h3>

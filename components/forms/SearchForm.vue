@@ -148,7 +148,7 @@ watch(() => value.value, () => {
         <form @submit.prevent="searchFetch" class=" pt-12 bg-white lg:pt-16 sticky top-0 ">
             <label for="" class="flex items-center relative">
                 <Field type="search" name="search" v-slot="{field}">
-                    <input type="search" placeholder="Введите запрос" v-bind="field" class="w-full text-accent text-opacity-70 py-[0.63rem] focus:outline-none bg-white appearance-none font-[Mignon] text-[1.125rem] lg:text-[1.75rem] transition-colors placeholder:text-opacity-70 border-opacity-20 placeholder:text-accent font-semibold border-b border-accent focus:border-opacity-60" />
+                    <input type="search" placeholder="Введите запрос" v-bind="field" class="w-full text-accent text-opacity-70 py-[0.63rem] focus:outline-none bg-white appearance-none font-serif text-[1.125rem] lg:text-[1.75rem] transition-colors placeholder:text-opacity-70 border-opacity-20 placeholder:text-accent font-semibold border-b border-accent focus:border-opacity-60" />
                 </Field>
                 <button type="submit" class="absolute right-0">
                     <svgo-arrow-right filled class="text-[2.5rem]" />
@@ -190,7 +190,7 @@ watch(() => value.value, () => {
     @apply text-[0.875rem] lg:text-[1.375rem] text-accent text-opacity-70;
 }
 .search-form nav li:first-child a {
-    @apply mb-1.5 text-[1.125rem] font-semibold font-[Mignon] text-opacity-70 text-accent lg:text-[1.5rem] lg:uppercase;
+    @apply mb-1.5 text-[1.125rem] font-semibold font-serif text-opacity-70 text-accent lg:text-[1.5rem] lg:uppercase;
 }
 
 input[type="search"]::-webkit-search-decoration,

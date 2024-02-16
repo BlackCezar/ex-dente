@@ -60,7 +60,7 @@ var config = useAppConfig()
                     />
                 </picture>
             </template>
-            <section class="about-text">
+            <section class="about-text" v-if="text?.length">
                 <RenderBlocks :text="text" />
             </section>
         </div>
@@ -87,6 +87,6 @@ var config = useAppConfig()
 .about-text h4,
 .about-text h5,
 .about-text h5 {
-    @apply font-[Mignon] text-[1.125rem] font-medium lg:text-[1.75rem] mb-10 lg:mb-[2.88rem] text-white;
+    @apply font-serif text-[1.125rem] font-medium lg:text-[1.75rem] mb-10 lg:mb-[2.88rem] text-white;
 }
 </style>

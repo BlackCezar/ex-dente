@@ -4,6 +4,8 @@ import CommonCallBackForm from '~/components/forms/CommonCallBackForm.vue'
 var isOpen = ref(false)
 var isDone = ref(false)
 var router = useRouter()
+var route = useRoute()
+
 
 useListen('call:callBackForm', () => {
     isOpen.value = true
@@ -22,6 +24,7 @@ function toMainPage() {
     isDone.value = false;
 }
 
+watch(() => route.path, closeModal)
 </script>
 <template>
     <div class="call-back-popup" :data-open="isOpen">
@@ -75,7 +78,7 @@ function toMainPage() {
                 </div>
                 <div v-else class="w-full pt-[4.5rem] lg:pt-[8.5rem] h-full mx-auto container">
                     <div class="relative flex flex-col items-center justify-center h-full w-full">
-                    <span class="mb-6 lg:mb-7 font-[Mignon] font-semibold text-accent text-[1.75rem] lg:text-[3rem]">Ваша заявка отправлена</span>
+                    <span class="mb-6 lg:mb-7 font-serif font-semibold text-accent text-[1.75rem] lg:text-[3rem]">Ваша заявка отправлена</span>
                     <svgo-check class="mb-[4rem] text-[5rem] lg:text-[8.75rem] text-secondary-before lg:mb-12" filled />
                     <UiButton @click="toMainPage">На главную</UiButton>
                     <button

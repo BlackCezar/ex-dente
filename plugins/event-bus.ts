@@ -7,6 +7,7 @@ export type ApplicationEvents = {
     'close:callBackForm': void
     'scroll:callBack': void
     'call:searchOpen': void
+    'call:changeHeaderColor': string
 }
 
 export default defineNuxtPlugin(() => {

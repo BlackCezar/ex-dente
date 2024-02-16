@@ -10,6 +10,7 @@ var { data } = await useAsyncQuery<NewsList>(mainPageNewsQuery, {
     pagination: {
         limit: 6,
     },
+    sort: 'publishedAt:desc',
 })
 </script>
 
@@ -20,7 +21,7 @@ var { data } = await useAsyncQuery<NewsList>(mainPageNewsQuery, {
                 class="mb-10 lg:mb-[4.37rem] flex items-center justify-between text-white"
             >
                 <h2
-                    class="text-white font-[Mignon] lg:text-[2.5rem] text-[1.5rem] font-semibold uppercase"
+                    class="text-white font-serif lg:text-[2.5rem] text-[1.5rem] font-semibold uppercase"
                 >
                     Новости
                 </h2>

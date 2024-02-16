@@ -17,7 +17,7 @@ function toRecordForm() {
     >
         <section>
             <h1
-                class="mb-3 text-white text-[1.75rem] font-semibold lg:text-[3rem] font-[Mignon]"
+                class="mb-3 text-white text-[1.75rem] font-semibold lg:text-[3rem] font-serif"
             >
                 {{ doctor.name }}
             </h1>

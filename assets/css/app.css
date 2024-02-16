@@ -13,8 +13,13 @@
 .content p:has(+ h3),
 .content p:has(+ h4),
 .content p:has(+ h5),
-.content p:has(+ h6) {
+.content p:has(+ h6)
+{
     @apply mb-10 lg:mb-12;
+}
+
+.content p:has(+ p) {
+    @apply mb-1 lg:mb-2;
 }
 
 .content ul {
@@ -31,7 +36,7 @@
 .content h4,
 .content h5,
 .content h6 {
-    @apply mb-5 lg:mb-7 font-[Mignon] font-medium  text-[1.125rem]  lg:font-normal lg:text-[1.75rem];
+    @apply mb-5 lg:mb-7 font-serif font-medium  text-[1.25rem]  lg:font-normal lg:text-[1.75rem];
 }
 
 .content a {
@@ -132,7 +137,7 @@
         }
     }
     .footer-main-link {
-        @apply text-[1.25rem] block mb-6 lg:mb-10 lg:text-[1.5rem] font-[Mignon] font-semibold leading-[1.6875rem] lg:leading-[1.8125rem] uppercase text-white text-opacity-80;
+        @apply text-[1.25rem] block mb-6 lg:mb-10 lg:text-[1.5rem] font-serif font-semibold leading-[1.6875rem] lg:leading-[1.8125rem] uppercase text-white text-opacity-80;
     }
 
     .footer-link {
@@ -162,6 +167,9 @@ details, details summary {
     background-image: none;
     -webkit-appearance: none;
 }
+details summary::-webkit-details-marker {
+    display:none;
+  }
 
 html {
     font-size: 16px !important;

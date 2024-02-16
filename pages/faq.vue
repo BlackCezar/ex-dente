@@ -3,6 +3,7 @@ import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { AnswersQuery, FAQPage, IBreadCrumb } from '~/types/global.type'
 import FaqFilters from '~/components/answers/FaqFilters.vue'
 import PagePagination from '~/components/ui/PagePagination.vue'
+import Accardion from '~/components/ui/Accardion.vue'
 
 var { faqPageQuery, answersQuery } = useQueries()
 var route = useRoute()
@@ -83,6 +84,14 @@ useJsonld(() => ({
         }
     }))
 }))
+
+useHead({
+    title: 'Вопрос-ответ'
+})
+
+function onDetailsContentClick() {
+    
+}
 </script>
 
 <template>
@@ -93,7 +102,7 @@ useJsonld(() => ({
                 is-dark
                 class="mb-7 lg:mb-[3.75rem]"
             />
-            <h1 class="h2 mb-10 lg:mb-[3.75rem] text-accent font-[Mignon]">
+            <h1 class="h2 mb-10 lg:mb-[3.75rem] text-accent font-serif">
                 {{ data.answersListing.data.attributes.title }}
             </h1>
             <div>
@@ -109,29 +118,11 @@ useJsonld(() => ({
                     <div
                         class="flex flex-col gap-4 lg:gap-6 lg:mb-[3.75rem] mb-10"
                     >
-                        <details
+                        <Accardion 
                             v-for="post of posts?.answers?.data"
                             :key="post.id"
-                            class="pb-4 lg:pb-8"
-                            :id="`post-${post.id}`"
-                        >
-                            <a :href="`post-${post.id}`"></a>
-                            <summary
-                                class="flex px-4 lg:px-7 lg:pt-8 pt-4 gap-5 justify-between"
-                            >
-                                <span
-                                    class="text-accent lg:text-[1.375rem] text-opacity-70 lg:text-opacity-100"
-                                    >{{ post.attributes.title }}</span
-                                >
-                                <svgo-chevron-left class="icon-left" />
-                                <svgo-chevron-right class="icon-right" />
-                            </summary>
-                            <p
-                                class="text-[0.875rem] lg:text-[1.375rem] px-4 lg:px-7 text-accent text-opacity-60"
-                            >
-                                {{ post.attributes.text }}
-                            </p>
-                        </details>
+                            :post="post"
+                        />
                     </div>
                     <PagePagination
                         @show-more="showMore"
@@ -144,45 +135,3 @@ useJsonld(() => ({
         </div>
     </div>
 </template>
-
-<style scoped>
-details {
-    @apply bg-gray rounded-[0.375rem] cursor-pointer;
-}
-
-details[open] {
-    @apply bg-secondary transition-colors;
-}
-
-details summary {
-    outline: none;
-    transition: margin 150ms ease-out;
-}
-
-details[open] summary {
-    cursor: pointer;
-    margin-bottom: 16px;
-}
-
-details .icon-left {
-    display: block;
-}
-
-details .icon-right {
-    display: none;
-}
-
-details[open] .icon-left {
-    display: none;
-}
-
-details[open] .icon-right {
-    display: block;
-}
-
-.icon-left,
-.icon-right {
-    @apply text-[1.5rem] min-w-[1.5rem] lg:text-[1.75rem] lg:min-w-[1.75rem];
-    margin-bottom: 0 !important;
-}
-</style>

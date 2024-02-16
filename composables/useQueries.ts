@@ -395,15 +395,15 @@ export default function useQueries() {
     `
 
     var mainPageNewsQuery = gql`
-        query NewsQuery($pagination: PaginationArg) {
-            newsPosts(pagination: $pagination) {
+        query NewsQuery($pagination: PaginationArg, $sort: [String]) {
+            newsPosts(pagination: $pagination, sort: $sort) {
                 data {
                     id
                     attributes {
                         title
                         slug
                         description
-                        createdAt
+                        publishedAt
                         avatar {
                             data {
                                 attributes {
@@ -832,6 +832,7 @@ export default function useQueries() {
         query SubServices($filters: SubServiceFiltersInput) {
             subServices(filters: $filters) {
                 data {
+                    id
                     attributes {
                         title
                         slug

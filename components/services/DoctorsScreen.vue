@@ -15,7 +15,7 @@ var config = useAppConfig()
 <template>
     <div v-if="list?.length">
         <div class="flex items-center justify-between lg:mb-[3rem] mb-7">
-            <h3 class="h3 text-accent lg:text-[2.5rem] font-[Mignon]">
+            <h3 class="h3 text-accent lg:text-[2.5rem] font-serif">
                 НАШИ ВРАЧИ
             </h3>
             <div class="hidden lg:block">

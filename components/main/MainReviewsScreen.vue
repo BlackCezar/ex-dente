@@ -18,7 +18,7 @@ var swiper = ref(null)
         <div class="container mx-auto">
             <div class="flex items-center justify-between lg:mb-[5rem] mb-7">
                 <h2
-                    class="font-[Mignon] font-semibold text-[1.5rem] lg:text-[2.5rem] uppercase text-accent"
+                    class="font-serif font-semibold text-[1.5rem] lg:text-[2.5rem] uppercase text-accent"
                 >
                     Отзывы пациентов
                 </h2>

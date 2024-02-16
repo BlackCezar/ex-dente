@@ -39,7 +39,7 @@ function onSlideChange(swiper: any) {
                     spaceBetween: 40,
                 },
             }"
-            class="max-w-[100%] lg:!flex flex-col items-col lg:flex-col-reverse"
+            class="max-w-[100%] lg:!flex flex-col w-full items-col lg:flex-col-reverse"
             @slideChange="onSlideChange"
         >
             <template v-for="slide of slides" :key="slide.id">

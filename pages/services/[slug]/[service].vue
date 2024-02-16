@@ -34,6 +34,9 @@ var { data: subServices } = await useAsyncQuery<SubServicesList>(
                     eq: route.params.slug,
                 },
             },
+            slug: {
+                nei: route.params.service
+            }
         },
     },
 )
@@ -64,7 +67,7 @@ useSeo(data.value.subServices.data[0].attributes.title ?? 'Услуга', data.v
 </script>
 
 <template>
-    <div class="vertical-padding pb-0 bg-accent">
+    <div class="vertical-padding service-page pb-0 bg-accent">
         <div class="container mx-auto" v-if="data.subServices.data[0]">
             <BreadCrumbs
                 :list="breadCrumbs"
@@ -80,13 +83,15 @@ useSeo(data.value.subServices.data[0].attributes.title ?? 'Услуга', data.v
             class="mx-auto lg:bg-white container lg:py-[8.75rem] content flex flex-col gap-0 lg:gap-[4rem] lg:flex-row justify-between"
         >
             <div
-                class="content text-white text-opacity-70 lg:text-accent pb-[3.75rem] lg:pb-0"
+                class="content  text-opacity-70  pb-[3.75rem] lg:pb-0"
             >
                 <RenderBlocks
+                class="!text-white !text-opacity-70 lg:!text-[hsla(213,_63%,_12%,_0.7)]"
                     :text="data.subServices.data[0]?.attributes.description"
                 />
             </div>
             <div
+                v-if="subServices.subServices.data.length"
                 class="bg-white w-screen lg:w-full -ml-4 lg:ml-0 px-4 pt-12 lg:pt-0 lg:pb-0 pb-[3.75rem]"
             >
                 <DirectionsList
@@ -137,4 +142,11 @@ details[open] .arrow-down {
 .price-row:nth-child(even) {
     @apply bg-gray text-accent;
 }
+
+
 </style>
+<style>
+.service-page .content li {
+    @apply text-[1.125rem] lg:text-[1.375rem] leading-[1.75rem] lg:leading-[2.25rem];
+}
+</style>   

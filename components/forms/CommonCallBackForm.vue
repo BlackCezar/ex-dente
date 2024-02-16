@@ -11,9 +11,9 @@ var error = ref('')
 var {values, isSubmitting, handleSubmit, setFieldValue, resetForm} = useForm({
     validationSchema: yup.lazy((val) => {
         let schema = {
-            username: yup.string().required(),
-            phone: yup.string().required(),
-            requestType: yup.string().oneOf(Object.values(RequestType)).required(),
+            username: yup.string().required('Поле обязательно').trim().max(255, 'Слишком длинное имя'),
+            phone: yup.string().required('Поле обязательно').max(16, 'Не больше 16 символов').max(16, 'Не больше 16 символов').matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат'),
+            requestType: yup.string().oneOf(Object.values(RequestType)).required('Поле обязательно'),
         }
 
         if (val.requestType === RequestType.Doctor) {
@@ -115,8 +115,8 @@ var reviewTypes = shallowRef<SelectOption[]>([{
 
 var globalStore = useGlobalStore()
 var { services, doctors } = storeToRefs(globalStore)
-var servicesOptions = computed(() =>
-    services.value?.map((service) => {
+var servicesOptions = computed(() =>{
+    const list = services.value?.map((service) => {
         return {
             value: service.id,
             label: service.attributes.title,
@@ -126,20 +126,35 @@ var servicesOptions = computed(() =>
                 label: subS.attributes.title,
             })),
         }
-    }),
-)
+    })
+    list.unshift({
+        label: 'Любое направления',
+        value: undefined
+    })
+    return list
+})
 
 var doctorsOptions = computed(() => {
     if (values.selectedService) {
-        return doctors.value.filter(doctor => doctor.attributes.sub_services.data.some(s => s.id === values.selectedService)).map((doc) => ({
+        const selectedDoctors = doctors.value.filter(doctor => doctor.attributes.sub_services.data.some(s => s.id === values.selectedService)).map((doc) => ({
             value: doc.id,
             label: doc.attributes.name,
         }))
+
+        setFieldValue('selectedDoctor', undefined)
+        
+        return [{
+            value: undefined,
+            label: 'Выберите врача'
+        }, ...selectedDoctors]
     }
-    return doctors.value.map((doc) => ({
+    return [{
+            value: undefined,
+            label: 'Выберите врача'
+        }, ...doctors.value.map((doc) => ({
         value: doc.id,
         label: doc.attributes.name,
-    }))
+    }))]
 })
 
 useListen('call:callBackForm', (input) => {
@@ -155,12 +170,12 @@ useListen('call:callBackForm', (input) => {
 </script>
 <template>
     <form class="text-accent overflow-x-auto h-auto max-h-full" @submit.prevent="handleForm">
-        <h2 class="font-[Mignon] text-accent text-[1.75rem] lg:text-[3rem] lg:mb-5 mb-3 font-semibold">Есть вопросы?</h2>
+        <h2 class="font-serif text-accent text-[1.75rem] lg:text-[3rem] lg:mb-5 mb-3 font-semibold">Есть вопросы?</h2>
         <p class="text-[1.125rem] mb-10 lg:text-[1.375rem]">
             Оставьте заявку, и мы перезвоним вам в ближайшее время
         </p>
         <div class="grid mb-7 lg:mb-10 grid-cols-1 gap-5 lg:gap-10 lg:grid-cols-2">
-            <UiInput label="Ваше имя*" placeholder="Иван Иванов" mode="light" name="username" />
+            <UiInput data-maska="A A A" data-maska-tokens="A:[а-яА-Яa-zA-ZёЁ]:multiple" label="Ваше имя*" placeholder="Иван Иванов" mode="light" name="username" />
             <UiInput type="tel" label="Телефон*" placeholder="+7" mode="light" name="phone" />
         </div>
         <div class="mb-10 lg:mb-[3.75rem]">

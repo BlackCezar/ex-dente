@@ -198,7 +198,7 @@ function reFetch() {
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
             <div class="flex gap-5 justify-between items-center relative">
-                <h1 class="h2 lg:h1 !font-[Mignon]">
+                <h1 class="h2 lg:h1 !font-serif">
                     {{ data.straniczaOtzyvov.data.attributes.title }}
                 </h1>
                 <div class="">
@@ -263,7 +263,7 @@ function reFetch() {
                                 <ReviewItem :review="item" />
                             </template>
                         </div>
-                        <h3 v-else class="h3 text-accent font-[Mignon] text-center">Нет отзывов</h3>
+                        <h3 v-else class="h3 text-accent font-serif text-center">Нет отзывов</h3>
 
                         <UiPagePagination
                             @show-more="showMore"

@@ -13,7 +13,7 @@ var swiper = ref(null)
 </script>
 
 <template>
-    <div class="">
+    <div class="" v-if="data.banner.data.length">
         <ClientOnly>
             <Swiper
                 :modules="[Autoplay]"
@@ -46,7 +46,7 @@ var swiper = ref(null)
                     />
                 </SwiperSlide>
                 <template #container-end>
-                    <div class="flex justify-center pt-5 lg:pt-12">
+                    <div class="flex justify-center pt-5 lg:pt-12" v-if="data.banner.data.length > 1">
                         <LeftButton @click="swiper.slidePrev(300)" />
                         <RightButton @click="swiper.slideNext(300)" />
                     </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IDoctor } from '~/types/doctors.type'
 import DirectionsList from '~/components/common/DirectionsList.vue'
+import RenderBlocks from '~/components/common/RenderBlocks.vue'
 
 defineProps<{
     doctor: IDoctor
@@ -22,7 +23,9 @@ defineProps<{
             </section>
             <section v-if="doctor?.education">
                 <h2>Образование</h2>
-                <p>{{ doctor.education }}</p>
+                <div class=" text-accent text-opacity-70 text-[1.125rem] leading-[1.75rem] lg:leading-[2.875rem] lg:text-[1.75rem]">
+                    <RenderBlocks :text="doctor.education" />
+                </div>
             </section>
             <section v-if="doctor?.information">
                 <h2>Информация</h2>
@@ -31,7 +34,7 @@ defineProps<{
         </div>
         <div v-if="doctor?.sub_services.data?.length">
             <h3
-                class="text-[1.25rem] font-semibold font-[Mignon] text-accent lg:text-[1.75rem] mb-6 lg:mb-8"
+                class="text-[1.25rem] font-semibold font-serif text-accent lg:text-[1.75rem] mb-6 lg:mb-8"
             >
                 Услуги
             </h3>
@@ -63,7 +66,7 @@ defineProps<{
 
 <style scoped>
 .info section h2 {
-    @apply font-semibold mb-4 text-accent lg:mb-5 text-[1.75rem] lg:text-[3rem] font-[Mignon];
+    @apply font-semibold mb-4 text-accent lg:mb-5 text-[1.75rem] lg:text-[3rem] font-serif;
 }
 .info section p {
     @apply text-opacity-70 text-accent text-[1.125rem] leading-[1.75rem] lg:leading-[2.875rem] lg:text-[1.75rem];

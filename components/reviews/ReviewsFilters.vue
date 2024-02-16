@@ -21,8 +21,8 @@ var sortOptions = markRaw<SelectOption[]>([
 var globalStore = useGlobalStore()
 var { services, doctors } = storeToRefs(globalStore)
 
-var servicesOptions = computed(() =>
-    services.value.map((service) => {
+var servicesOptions = computed(() =>{
+    const list = services.value.map((service) => {
         return {
             value: service.id,
             label: service.attributes.title,
@@ -31,15 +31,25 @@ var servicesOptions = computed(() =>
                 label: subS.attributes.title,
             })),
         }
-    }),
-)
+    })
+    list.unshift({
+        label: 'Все направления',
+        value: undefined
+    })
+    return list
+})
 
-var doctorsOptions = computed(() =>
-    doctors.value.map((doctor) => ({
+var doctorsOptions = computed(() =>{
+    const list = doctors.value.map((doctor) => ({
         value: doctor.id,
         label: doctor.attributes.name,
-    })),
-)
+    }))
+    list.unshift({
+        label: 'Все врачи',
+        value: undefined
+    })
+    return list
+})
 </script>
 
 <template>

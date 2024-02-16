@@ -26,7 +26,7 @@ function toService(service: ServicesItem) {
                 class="flex mb-6 lg:mb-[4.5rem] flex-col lg:items-center lg:gap-[8rem] lg:flex-row gap-5"
             >
                 <h2
-                    class="font-[Mignon] text-[1.5rem] lg:text-[2.5rem] font-semibold uppercase text-accent"
+                    class="font-serif text-[1.5rem] lg:text-[2.5rem] font-semibold uppercase text-accent"
                 >
                     Услуги
                 </h2>

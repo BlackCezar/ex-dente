@@ -15,8 +15,10 @@ var onSwiperInit = (swiper: any) => {
 }
 function onSlideChange(swiper: any) {
     const slide = props.slides[swiper.activeIndex]
-    if (bannerEl.value && slide)
+    if (bannerEl.value && slide && slide.bgColor) {
         bannerEl.value.style.setProperty('--bg', slide.bgColor)
+        useEvent('call:changeHeaderColor', slide.bgColor)
+    }
 }
 </script>
 
@@ -110,7 +112,7 @@ function onSlideChange(swiper: any) {
                             class="slide-hero text-white order-2 lg:order-1 px-4 lg:px-0 items-center flex flex-col lg:items-start"
                         >
                             <h1
-                                class="text-[1.75rem] text-center mb-3 lg:mb-8 font-bold lg:text-[3.75rem] uppercase font-[Mignon] lg:text-left"
+                                class="text-[1.75rem] text-center mb-3 lg:mb-8 font-bold lg:text-[3.75rem] uppercase font-serif lg:text-left"
                             >
                                 {{ slide.title }}
                             </h1>

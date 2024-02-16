@@ -20,7 +20,7 @@ useSeo(data.value.homePage.data.attributes.title, data.value.homePage.data.attri
         <MainSlider :slides="data?.homePage?.data.attributes.slider" />
         <ServicesScreen />
         <BenefitsScreen />
-        <MainReviewsScreen />
+        <!-- <MainReviewsScreen /> -->
         <MainCallBackForm />
         <NewsScreen />
         <SeoTextBlock :content="data?.homePage?.data.attributes.seoText" />

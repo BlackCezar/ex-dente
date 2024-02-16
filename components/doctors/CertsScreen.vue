@@ -19,7 +19,7 @@ var config = useAppConfig()
             class="flex justify-between mb-7 lg:mb-[2.375rem] items-center flex-col lg:flex-row"
         >
             <h2
-                class="lg:text-[2.5rem] font-[Mignon] text-[1.25rem] font-semibold uppercase text-accent"
+                class="lg:text-[2.5rem] font-serif text-[1.25rem] font-semibold uppercase text-accent"
             >
                 Сертификаты
             </h2>

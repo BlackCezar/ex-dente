@@ -84,7 +84,7 @@ var appConfig = useAppConfig()
                 />
             </div>
             <div>
-                <h3 class="mb-1 h4 font-[Mignon]">
+                <h3 class="mb-1 h4 font-serif">
                     {{ article.attributes.title }}
                 </h3>
                 <h4

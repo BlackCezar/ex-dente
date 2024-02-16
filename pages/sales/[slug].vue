@@ -16,6 +16,14 @@ var variables = ref({
 })
 
 var { data } = await useAsyncQuery<SalePage>(salesPageQuery, variables.value)
+
+if (!data.value || data.value?.promos?.data.length === 0) throw createError({
+    statusCode: 404,
+    fatal: true,
+    message: 'Страница не найдена'
+})
+
+
 var breadCrumbs = markRaw<IBreadCrumb[]>([
     {
         path: '/',
@@ -51,7 +59,7 @@ useSeo(data.value.promos.data[0].attributes.title ?? 'Акция', data.value.pr
                 />
                 <article class="ml-auto max-w-[62rem]">
                     <h1
-                        class="mb-6 text-[1.75rem] font-semibold font-[Mignon] lg:text-[3rem]"
+                        class="mb-6 text-[1.75rem] font-semibold font-serif lg:text-[3rem]"
                     >
                         {{ data.promos.data[0].attributes.title }}
                     </h1>
@@ -65,7 +73,7 @@ useSeo(data.value.promos.data[0].attributes.title ?? 'Акция', data.value.pr
                             :text="data.promos.data[0].attributes.description"
                         />
                     </section>
-                    <UiButton @click="useEvent('call:callBackForm')" variant="primary">Записаться на прием</UiButton>
+                    <UiButton class="!w-full lg:!w-auto" @click="useEvent('call:callBackForm')" variant="primary">Записаться на прием</UiButton>
                 </article>
             </div>
         </div>

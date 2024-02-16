@@ -8,12 +8,12 @@ defineProps<{
 
 <template>
     <h2
-        class="font-[Mignon] px-4 text-[1.25rem] mb-5 font-semibold uppercase lg:mb-12 lg:text-[2.5rem] text-accent"
+        class="font-serif px-4 text-[1.25rem] mb-5 font-semibold uppercase lg:mb-12 lg:text-[2.5rem] text-accent"
     >
         цены
     </h2>
     <div class="flex flex-col gap-3 pb-[3.75rem] lg:pb-[8.75rem]">
-        <details v-for="item of list" :key="item.id" class="">
+        <details v-for="item of list" :key="item.id" class="cursor-pointer">
             <summary
                 class="bg-secondary-before flex p-4 lg:py-6 lg:px-10 gap-2"
             >

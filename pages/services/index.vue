@@ -42,7 +42,7 @@ useHead({
                 :list="breadCrumbs"
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
-            <h2 class="h2 lg:mb-[4.5rem] mb-6 font-[Mignon] text-accent">
+            <h2 class="h2 lg:mb-[4.5rem] mb-6 font-serif text-accent">
                 УСЛУГИ
             </h2>
             <div>

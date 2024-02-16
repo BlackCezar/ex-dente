@@ -9,9 +9,11 @@ import {
     YandexMapEntity,
     YandexMapMarker,
 } from 'vue-yandex-maps'
+import {VueYandexMaps} from 'vue-yandex-maps'
 import type { YMap } from '@yandex/ymaps3-types'
 import RenderBlocks from '~/components/common/RenderBlocks.vue'
 
+var isLoading = ref(true)
 var breadCrumbs = markRaw<IBreadCrumb[]>([
     {
         path: '/',
@@ -48,6 +50,14 @@ function selectClinic(clinic: IClinic) {
 }
 
 var config = useAppConfig()
+
+watch(VueYandexMaps.loadStatus, (val) => {
+    if (val === 'loaded') isLoading.value = false
+})
+
+useHead({
+    title: 'Контакты'
+})
 </script>
 
 <template>
@@ -61,11 +71,11 @@ var config = useAppConfig()
                 :list="breadCrumbs"
                 class="lg:mb-[3.75rem] mb-7"
             />
-            <h1 class="h2 lg:h1 text-accent mb-8 lg:mb-[5rem] !font-[Mignon]">
+            <h1 class="h2 lg:h1 text-accent mb-8 lg:mb-[5rem] !font-serif">
                 {{ data.contactPage.data.attributes.title ?? 'Контакты' }}
             </h1>
             <div class="mb-16 lg:mb-[7.5rem]">
-                <div>
+                <div class="relative">
                     <yandex-map
                         v-model="map"
                         class="ymaps"
@@ -82,7 +92,7 @@ var config = useAppConfig()
                             <div class="map-list">
                                 <div class="map-list-inner flex flex-col">
                                     <section
-                                        class="px-7 font-[Mignon] h4 pt-[2.75rem] pb-8 lg:block hidden"
+                                        class="px-7 font-serif h4 pt-[2.75rem] pb-8 lg:block hidden"
                                     >
                                         Филиалы exellentDENT
                                     </section>
@@ -109,11 +119,9 @@ var config = useAppConfig()
                                             >
                                                 {{ item.attributes.address }}
                                             </address>
-                                            <a
-                                                class="text-accent text-opacity-50 lg:text-[1.125rem]"
-                                                :href="`tel:${item.attributes.phone}`"
-                                                >{{ item.attributes.phone }}</a
-                                            >
+                                            <div v-if="item.attributes.phone" class="phone-blocks text-accent text-opacity-50 lg:text-[1.125rem]">
+                                                <RenderBlocks :text="item.attributes.phone" />
+                                            </div>
                                         </article>
                                     </div>
                                 </div>
@@ -142,6 +150,11 @@ var config = useAppConfig()
                             </yandex-map-marker>
                         </template>
                     </yandex-map>
+                    <Transition name="fade" >
+                        <div v-if="isLoading" class="absolute bg-white left-0 top-0 w-full h-full flex items-center justify-center">
+                            <UiPageSpinner />
+                        </div>
+                    </Transition>
                 </div>
             </div>
             <div>
@@ -153,7 +166,7 @@ var config = useAppConfig()
                         class="grid text-accent lg:gap-10 gap-4 grid-cols-1 lg:grid-cols-5"
                     >
                         <section
-                            class="h4 mb-1 lg:mb-0 lg:col-start-1 lg:col-end-2 font-[Mignon] lg:text-[1.375rem] lg:leading-[2.25rem]"
+                            class="h4 mb-1 lg:mb-0 lg:col-start-1 lg:col-end-2 font-serif lg:font-sans lg:text-[1.375rem] lg:leading-[2.25rem]"
                         >
                             {{ item.attributes.address }}
                         </section>
@@ -165,11 +178,9 @@ var config = useAppConfig()
                                 class="lg:hidden text-accent text-[0.875rem] text-opacity-50"
                                 >Телефон</span
                             >
-                            <a
-                                class="lg:text-[1.375rem]"
-                                :href="'tel:' + item.attributes.phone"
-                                >{{ item.attributes.phone }}</a
-                            >
+                            <div class="phone-blocks lg:text-[1.375rem]" v-if="item.attributes.phone">
+                                <RenderBlocks :text="item.attributes.phone" />
+                            </div>
                         </section>
                         <section
                             v-if="item.attributes.email"
@@ -192,7 +203,7 @@ var config = useAppConfig()
                                 class="lg:hidden text-accent text-[0.875rem] text-opacity-50"
                                 >Режим работы</span
                             >
-                            <div class="content">
+                            <div class="content" v-if="item.attributes.workingHours">
                                 <RenderBlocks
                                     :text="item.attributes.workingHours"
                                 ></RenderBlocks>
@@ -211,8 +222,7 @@ var config = useAppConfig()
                                                 class="grayscale contrast-200 invert"
                                                 :src="
                                                     config.assetsUri +
-                                                    link.icon.data[0].attributes
-                                                        .url
+                                                    link.icon.data?.[0]?.attributes?.url
                                                 "
                                             />
                                         </a>
@@ -251,5 +261,10 @@ var config = useAppConfig()
 
 .map-list-inner {
     @apply w-full h-full bg-white lg:p-4 rounded-[0.25rem] lg:rounded-[0.375rem] overflow-hidden;
+}
+
+
+.phone-blocks p {
+    display: inline-block;
 }
 </style>

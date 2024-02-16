@@ -14,7 +14,7 @@ var route = useRoute()
 var router = useRouter()
 var {values} = useForm({
     validationSchema: yup.object().shape({
-        service: yup.string().optional()
+        doctorsService: yup.string().optional()
     })
 })
 var paginationVariables = ref({
@@ -62,8 +62,8 @@ onMounted(execute)
 var globalStore = useGlobalStore()
 var { services } = storeToRefs(globalStore)
 
-var servicesOptions = computed(() =>
-    services.value.map((service) => {
+var servicesOptions = computed(() =>{
+    const list = services.value.map((service) => {
         return {
             value: service.id,
             label: service.attributes.title,
@@ -72,16 +72,21 @@ var servicesOptions = computed(() =>
                 label: subS.attributes.title,
             })),
         }
-    }),
-)
+    })
+    list.unshift({
+        value: undefined,
+        label: 'Все направления'
+    })
+    return list
+})
 
 watch(
-    () => values.service,
+    () => values.doctorsService,
     () => {
-        if (values.service) paginationVariables.value.filters.sub_services = 
+        if (values.doctorsService) paginationVariables.value.filters.sub_services = 
         { 
             id: {
-                eq: values.service
+                eq: values.doctorsService
             }
         }; else {
             paginationVariables.value.filters.sub_services = undefined
@@ -131,13 +136,13 @@ useJsonld(() => ({
                 class="flex flex-col lg:flex-row justify-between lg:items-center gap-6 lg:gap-12"
             >
                 <h1
-                    class="uppercase text-left text-accent lg:text-[3.75rem] lg:leading-[5rem] lg:font-bold text-[1.5rem] font-[Mignon] leading-[2rem] font-semibold"
+                    class="uppercase text-left text-accent lg:text-[3.75rem] lg:leading-[5rem] lg:font-bold text-[1.5rem] font-serif leading-[2rem] font-semibold"
                 >
                     {{ data.doctorsListing.data.attributes.title }}
                 </h1>
                     <UiSelect
                         class="max-w-[25rem]"
-                        name="service"
+                        name="doctorsService"
                         :options="servicesOptions"
                         placeholder="Все направления"
                     />

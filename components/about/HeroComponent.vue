@@ -71,7 +71,7 @@ watchEffect(() => {
                 <BreadCrumbs :list="breadCrumbs" class="mb-7 lg:-mt-7" />
                 <div class="lg:my-auto">
                     <h1
-                        class="font-semibold text-white font-[Mignon] text-[1.75rem] lg:text-[3rem] lg:leading-[3.625rem] leading-[2.375rem]"
+                        class="font-semibold text-white font-serif text-[1.75rem] lg:text-[3rem] lg:leading-[3.625rem] leading-[2.375rem]"
                     >
                         {{ slogan ?? '' }}
                     </h1>

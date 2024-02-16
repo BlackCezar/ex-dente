@@ -58,7 +58,7 @@ defineProps<{
                 <div v-else>{{ error.statusCode }}</div>
             </div>
             <div
-                class="text-[1.75rem] lg:text-[3rem] text-center lg:mb-12 font-semibold font-[Mignon] text-white mb-10"
+                class="text-[1.75rem] lg:text-[3rem] text-center lg:mb-12 font-semibold font-serif text-white mb-10"
             >
                 {{
                     error?.statusCode === 404

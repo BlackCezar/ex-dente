@@ -102,12 +102,12 @@ withDefaults(
 }
 /* Secondary - Dark */
 .btn.secondary.dark {
-    color: hsl(0, 0%, 100%);
-    background-color: hsla(213, 63%, 12%, 1);
-    border: 1px solid hsla(0, 0%, 99%, 0.5);
+    color: hsla(213, 63%, 12%, 1);
+    background-color: hsl(0, 0%, 100%);
+    border: 1px solid hsla(213, 63%, 12%, 0.3);
 }
 .btn.secondary.dark:hover {
-    border: 1px solid hsla(0, 0%, 99%, 1);
+    border: 1px solid hsla(213, 63%, 12%, 1);
 }
 .btn.secondary.dark:active {
     background-color: hsla(0, 0%, 99%, 1);

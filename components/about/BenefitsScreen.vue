@@ -25,7 +25,7 @@ useJsonld(() => ({
             class="container grid grid-cols-1 lg:gap-[9rem] lg:grid-cols-[1fr_2fr] gap-8"
         >
             <h2
-                class="font-semibold text-accent lg:text-[3rem] text-[1.75rem] font-[Mignon]"
+                class="font-semibold text-accent lg:text-[3rem] text-[1.75rem] font-serif"
             >
                 Наши преимущества
             </h2>
@@ -36,7 +36,7 @@ useJsonld(() => ({
                     class="flex flex-col gap-3 lg:gap-4"
                 >
                     <h2
-                        class="font-[Mignon] lg:text-[1.75rem] lg:leading-[2.5rem] lg:font-normal leading-[1.5rem] text-[1.125rem] text-accent font-medium"
+                        class="font-serif lg:text-[1.75rem] lg:leading-[2.5rem] lg:font-normal leading-[1.5rem] text-[1.125rem] text-accent font-medium"
                     >
                         {{ item.title }}
                     </h2>

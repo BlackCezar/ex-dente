@@ -79,7 +79,7 @@ onUnmounted(() => {
         class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[5rem] items-center bg-accent pb-10 lg:pb-[10rem]"
     >
         <section class="max-w-[52rem]">
-            <h1 class="h1 font-[Mignon] mb-6 lg:mb-[3rem] text-white">
+            <h1 class="h1 font-serif mb-6 lg:mb-[3rem] text-white">
                 {{ data.title }}
             </h1>
             <h2

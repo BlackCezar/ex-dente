@@ -19,7 +19,7 @@ useListen('scroll:callBack', () => {
             <div class="slider-wrapper">
                 <div class="slider-inner"></div>
             </div>
-            <img src="~/assets/imgs/dentists-instruments.png" loading="lazy" class="absolute block -ml-4 lg:-ml-[12.5rem] " alt="Изображение инструментов">
+            <img src="~/assets/imgs/dentists-instruments.png" loading="lazy" class="absolute block -ml-8 lg:-ml-[12.5rem] " alt="Изображение инструментов">
             <ToServicesButton class="lg:left-[66%] lg:bottom-[8%] bottom-0" />
         </div>
         <ConsultForm />

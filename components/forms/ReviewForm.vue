@@ -27,9 +27,9 @@ var { handleSubmit, setFieldValue, values, resetForm } = useForm<{
     reviewClinic?: string
 }>({
     validationSchema: yup.object().shape({
-        reviewName: yup.string().required(),
+        reviewName: yup.string().required('Поле обязательно').trim().max(255, 'Слишком длинное имя'),
         reviewText: yup.string().optional(),
-        reviewType: yup.string().required().oneOf(Object.values(ReviewType)),
+        reviewType: yup.string().required('Поле обязательно').oneOf(Object.values(ReviewType)),
         reviewDoctor: yup.string().optional(),
         reviewClinic: yup.string().optional(),
         reviewService: yup.string().optional(),
@@ -96,15 +96,9 @@ var doctorsOptions = computed(() => {
             value: doc.id,
             label: doc.attributes.name,
         }))
-        if (list.length) {
-            setFieldValue('reviewDoctor', list[0].value)
+        setFieldValue('reviewDoctor', undefined)
 
-            return list
-        }  else {
-            setFieldValue('reviewDoctor', undefined)
-
-            return []
-        }
+        return list
     }
     return doctors.value.map((doc) => ({
         value: doc.id,
@@ -134,7 +128,7 @@ watch(
 <template>
     <form @submit.prevent="onProcess" class="px-4 lg:pl-0 lg:pr-[6.25rem]">
         <h4
-            class="font-[Mignon] text-accent lg:font-semibold lg:text-[3rem] text-[1.75rem] mb-10 lg:mb-12"
+            class="font-serif text-accent lg:font-semibold lg:text-[3rem] text-[1.75rem] mb-10 lg:mb-12"
         >
             Оставьте свой отзыв о враче
         </h4>
@@ -142,6 +136,7 @@ watch(
             placeholder="Иван Иванов"
             name="reviewName"
             type="text"
+            data-maska="A A A" data-maska-tokens="A:[а-яА-Яa-zA-ZёЁ]:multiple"
             mode="light"
             label="Ваше имя*"
             class="mb-6 lg:mb-10"

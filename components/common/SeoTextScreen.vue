@@ -21,7 +21,7 @@ var isShort = ref(true)
                 'is-full': !isShort,
             }"
         >
-            <div class="flex flex-col md text-ellipsis overflow-hidden gap-2">
+            <div v-if="list?.length" class="flex flex-col md text-ellipsis overflow-hidden gap-2">
                 <RenderBlocks :text="list" />
             </div>
             <button

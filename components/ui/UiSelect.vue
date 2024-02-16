@@ -130,4 +130,11 @@ var { meta, value, handleChange } = useField(() => props.name)
     @apply whitespace-normal py-1.5;
 }
 
+.selectic__input-value {
+    display: none;
+}
+
+.selectic-item.selectic-item--header.selectic-item__is-group {
+    display: none;
+}
 </style>

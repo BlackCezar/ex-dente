@@ -69,7 +69,7 @@ var appConfig = useAppConfig()
                             "
                             onerror="this.style.display='none'"
                             loading="lazy"
-                            :alt="
+                            :alt="'Изображение карточки новости с темой ' + 
                                 article?.attributes.avatar?.data?.attributes
                                     ?.alternativeText
                             "

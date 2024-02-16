@@ -14,6 +14,14 @@ var variables = ref({
     },
 })
 var { data } = await useAsyncQuery<NewsPage>(newsPageQuery, variables.value)
+
+if (!data.value || data.value?.newsPosts?.data.length === 0) throw createError({
+    statusCode: 404,
+    fatal: true,
+    message: 'Страница не найдена'
+})
+
+
 var breadCrumbs = markRaw<IBreadCrumb[]>([
     {
         path: '/',
@@ -41,7 +49,7 @@ useSeo(data.value?.newsPosts?.data[0].attributes.title ?? 'Новость', data
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
             <div
-                class="grid grid-cols-1 items-start lg:grid-cols-[0.5fr_1fr] xl:grid-cols-[1fr_2fr] justify-between gap-6 lg:gap-10"
+                class="grid grid-cols-1 news-content items-start lg:grid-cols-[0.5fr_1fr] xl:grid-cols-[1fr_2fr] justify-between gap-6 lg:gap-10"
             >
                 <NewsPageAvatar
                     class="lg:row-span-2"
@@ -50,7 +58,7 @@ useSeo(data.value?.newsPosts?.data[0].attributes.title ?? 'Новость', data
                 />
                 <div class="lg:col-start-2">
                     <h1
-                        class="font-[Mignon] mb-3 lg:mb-5 text-[1.75rem] lg:text-[3rem] font-semibold leading-[2.375rem] lg:leading-[3.625rem]"
+                        class="font-serif mb-3 lg:mb-5 text-[1.75rem] lg:text-[3rem] font-semibold leading-[2.375rem] lg:leading-[3.625rem]"
                     >
                         {{ data?.newsPosts.data[0].attributes.title }}
                     </h1>
@@ -66,10 +74,14 @@ useSeo(data.value?.newsPosts?.data[0].attributes.title ?? 'Новость', data
                         }}</time
                     >
                 </div>
-                <NewsPageContent :data="data?.newsPosts.data?.[0].attributes" />
+                <NewsPageContent  :data="data?.newsPosts.data?.[0].attributes" />
             </div>
         </div>
     </div>
 </template>
 
-<style scoped></style>
+<style>
+.news-content .content p {
+    @apply text-accent text-opacity-70;
+}
+</style>

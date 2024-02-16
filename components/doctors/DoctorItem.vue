@@ -41,7 +41,7 @@ function onDoctorClick() {
                     ></UiButton
                 >
             </div>
-            <h3 class="h4 mb-1 font-[Mignon] text-accent">
+            <h3 class="h4 mb-1 font-serif text-accent">
                 {{ article.name }}
             </h3>
             <section

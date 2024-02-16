@@ -17,6 +17,10 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Proxima Nova', 'ui-sans-serif', 'system-ui'],
+                serif: ['Mignon', 'ui-serif', 'Georgia']
+            },
             backgroundImage: {
                 tooth: 'url(/assets/icons/tooth.svg)',
             },

@@ -15,8 +15,8 @@ var props = defineProps<{
 
 var { handleSubmit, setFieldValue, resetForm } = useForm({
     validationSchema: yup.object().shape({
-        selectedName: yup.string().required(),
-        selectedPhone: yup.string().required(),
+        selectedName: yup.string().required('Поле обязательно').trim().max(255, 'Слишком длинное имя'),
+        selectedPhone: yup.string().required('Поле обязательно').max(16, 'Не больше 16 символов').matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат'),
         selectedService: yup.string().optional(),
         selectedDoctor: yup.string().optional(),
     }),
@@ -83,7 +83,7 @@ watch(
 <template>
     <form @submit.prevent="onProcess">
         <h2
-            class="font-[Mignon] text-[1.75rem] font-semibold mb-10 text-white lg:text-[3rem]"
+            class="font-serif text-[1.75rem] font-semibold mb-10 text-white lg:text-[3rem]"
         >
             Запишитесь на прием
         </h2>
@@ -106,7 +106,7 @@ watch(
         <div
             class="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 mb-8 lg:mb-12"
         >
-            <UiInput mode="dark" name="selectedName" placeholder="Ваше имя" />
+            <UiInput mode="dark" data-maska="A A A" data-maska-tokens="A:[а-яА-Яa-zA-ZёЁ]:multiple" name="selectedName" placeholder="Ваше имя" />
             <UiInput
                 mode="dark"
                 type="tel"

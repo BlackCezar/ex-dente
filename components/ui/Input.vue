@@ -4,6 +4,8 @@ import type { InputHTMLAttributes } from 'vue'
 defineProps<{
     name: string
     label?: string
+    dataMaska?: string
+    dataMaskaTokens?: string
     mode?: 'dark' | 'light'
     placeholder?: InputHTMLAttributes['placeholder']
     autocomplete?: InputHTMLAttributes['autocomplete']
@@ -31,7 +33,8 @@ defineProps<{
                 :value="value"
                 v-bind="field"
                 v-maska
-                :data-maska="type === 'tel' ? '+7 ### ### ##-##' : null"
+                :data-maska="type === 'tel' ? '+7 ### ### ##-##' : dataMaska ? dataMaska : null"
+                :data-maska-tokens="dataMaskaTokens"
             />
         </Field>
     </label>

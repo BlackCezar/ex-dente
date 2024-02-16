@@ -1,4 +1,5 @@
 import type {
+    ITextItems,
     TImageFormats,
     TMeta,
     TSeo,
@@ -47,7 +48,7 @@ export interface IDoctor {
     specification: string
     experience: string
     clinicAddress: string
-    education: string
+    education: ITextItems[]
     information: string
     seo?: TSeo
     image?: UploadFileEntityResponse

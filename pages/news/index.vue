@@ -64,7 +64,7 @@ useSeo(data.value.newsListing.data.attributes.title ?? 'Новости', data.va
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
             <h1
-                class="uppercase text-accent lg:text-[3.75rem] lg:leading-[5rem] lg:font-bold text-[1.5rem] font-[Mignon] leading-[2rem] font-semibold"
+                class="uppercase text-accent lg:text-[3.75rem] lg:leading-[5rem] lg:font-bold text-[1.5rem] font-serif leading-[2rem] font-semibold"
             >
                 {{ data?.newsListing?.data?.attributes.title }}
             </h1>

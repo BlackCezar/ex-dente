@@ -30,7 +30,7 @@ useSeo(data.value.clientInformation.data.attributes.title ?? 'Для пацие�
                 is-dark
                 class="lg:mb[3.5rem] mb-7"
             />
-            <h1 class="font-[Mignon] h2 mb-7 lg:mb-[3.75rem]">
+            <h1 class="font-serif h2 mb-7 lg:mb-[3.75rem]">
                 {{
                     data.clientInformation.data.attributes.title ??
                     'для пациентов'

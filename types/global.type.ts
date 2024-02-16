@@ -23,6 +23,7 @@ export interface IMenu {
 
 export interface ISection {
     label: string
+    url?: string
     links: ILink[]
 }
 
@@ -592,7 +593,7 @@ export interface IClinic {
         coordinates: string
         email: string
         label: string
-        phone: string
+        phone: ITextItems[]
         workingHours: ITextItems[]
         socials: ISocialItem[]
     }

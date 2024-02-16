@@ -48,6 +48,9 @@ watch(
             !!headerWrapper.value?.nextElementSibling?.classList.contains(
                 'bg-white',
             )
+        
+        isOpen.value = false;
+        closeSearch()
     },
 )
 watch(
@@ -86,6 +89,13 @@ function closeSearch() {
                     'bg-white',
                 )
 }
+
+function handleIndex() {
+    isOpen.value = false;
+    closeSearch()
+    useEvent('close:callBackForm')
+}
+
 </script>
 
 <template>
@@ -98,7 +108,7 @@ function closeSearch() {
         <div
             class="py-4 relative z-10 flex h-fit items-center header justify-end gap-3 lg:gap-12"
         >
-            <HeaderLogo :light="isLight" />
+            <HeaderLogo @click.native="handleIndex" :light="isLight" />
 
             <a
                 :href="`tel:${phoneNumber}`"
@@ -120,7 +130,8 @@ function closeSearch() {
                 v-for="button of header?.header?.data?.attributes.request_button"
             >
                 <UiButton
-                    class="hidden lg:grid h-12"
+                    class="hidden lg:grid h-12 !bg-transparent"
+                    :mode="isLight ? 'dark' : 'light'"
                     @click="buttonHandle(button)"
                     variant="secondary"
                     >{{ button.label }} </UiButton
@@ -165,7 +176,8 @@ function closeSearch() {
                                     role="menuitem"
                                     class="hidden group cursor-pointer relative lg:flex whitespace-nowrap items-center gap-2"
                                 >
-                                    <span>
+                                    <nuxt-link v-if="section.attributes.url" :to="section.attributes.url">{{ section.attributes.label }}</nuxt-link>
+                                    <span v-else>
                                         {{ section.attributes.label }}
                                     </span>
                                     <svgo-chevron-down />

@@ -20,6 +20,12 @@ var { data } = await useAsyncQuery<DoctorPage>(doctorPageQuery, {
     },
 })
 
+if (!data.value || data.value?.doctors?.data.length === 0) throw createError({
+    statusCode: 404,
+    fatal: true,
+    message: 'Страница не найдена'
+})
+
 var { data: reviews } = await useAsyncQuery<DoctorReviews>(reviewsDoctorQuery, {
     pagination: {
         limit: 6,
@@ -64,7 +70,7 @@ var reviewsList = computed(() =>
 )
 </script>
 <template>
-    <div class="pt-[6.5rem] lg:pt-[15.25rem] bg-accent">
+    <div class="pt-[6.5rem] lg:pt-[15.25rem] bg-accent" v-if="data?.doctors?.data?.length">
         <div class="container mx-auto">
             <bread-crumbs :list="breadCrumbs" />
             <DoctorMainBanner :doctor="data.doctors.data[0].attributes" />

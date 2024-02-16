@@ -34,4 +34,13 @@ globalStore.setMainMenu(mainMenu.value)
 globalStore.setAppConfig(commonConfig.value)
 globalStore.setServices(services.value?.services.data)
 globalStore.setDoctors(doctors.value?.doctors.data)
+
+useHead({
+    title: 'Страница не найдена'
+})
+
+onMounted(() => {
+    if (process.server) return;
+    window.scrollTo(0,0)
+})
 </script>

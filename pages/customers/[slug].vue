@@ -12,6 +12,14 @@ var { data } = await useAsyncQuery<CustomerPage>(customerPageQuery, {
         },
     },
 })
+
+if (!data.value || data.value?.textPages?.data.length === 0) throw createError({
+    statusCode: 404,
+    fatal: true,
+    message: 'Страница не найдена'
+})
+
+
 var breadCrumbs = markRaw<IBreadCrumb[]>([
     {
         title: 'Главная',
@@ -31,14 +39,14 @@ useSeo(data.value.textPages.data[0].attributes.title ?? 'Для пациенто
 </script>
 
 <template>
-    <div class="vertical-padding bg-white">
+    <div class="vertical-padding customer-page bg-white">
         <div class="container mx-auto" v-if="data.textPages.data.length">
             <BreadCrumbs
                 :list="breadCrumbs"
                 is-dark
                 class="mb-7 lg:mb-[3.75rem]"
             />
-            <h1 class="h2 mb-10 lg:mb-[3.75rem] text-accent font-[Mignon]">
+            <h1 class="h2 mb-10 lg:mb-[3.75rem] text-accent font-serif">
                 {{ data.textPages.data[0].attributes.title }}
             </h1>
             <section class="content text-accent">
@@ -50,4 +58,12 @@ useSeo(data.value.textPages.data[0].attributes.title ?? 'Для пациенто
     </div>
 </template>
 
-<style scoped></style>
+<style>
+.customer-page .content li {
+    @apply text-[1.125rem] lg:text-[1.375rem];
+}
+.customer-page .content a {
+    color: hsla(213, 63%, 12%, 0.7);
+    text-decoration: none;
+}
+</style>
