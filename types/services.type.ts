@@ -34,6 +34,9 @@ export interface ServiceItem {
         __typename: 'Service'
         slug: string
         seo?: TSeo
+        sekcziya_stoimosts: {
+            data: PriceSectionEntity[]
+        }
         subtitle: string
         title: string
         description: ITextItems[]

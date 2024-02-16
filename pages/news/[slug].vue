@@ -70,7 +70,7 @@ useSeo(data.value?.newsPosts?.data[0].attributes.title ?? 'Новость', data
                         >{{
                             new Date(
                                 data?.newsPosts.data[0].attributes.publishedAt,
-                            ).toLocaleDateString()
+                            ).toLocaleDateString('ru-RU')
                         }}</time
                     >
                 </div>

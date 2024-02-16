@@ -26,7 +26,7 @@ defineProps<{
 				Отзыв о враче {{review.attributes.review.doctor.data?.attributes.name}}
 			</section>
 		</template>
-		<time :datetime="review.attributes.publishedAt">{{new Date(review.attributes.publishedAt).toLocaleDateString()}}</time>
+		<time :datetime="review.attributes.publishedAt">{{new Date(review.attributes.publishedAt).toLocaleDateString('ru-RU')}}</time>
 	</div>
 	<div class="text-[1.125rem] lg:text-[1.375rem] leading-[1.75rem] lg:leading-[2.25rem] text-accent">
 		<p v-html="review.attributes.review.reviewText" />

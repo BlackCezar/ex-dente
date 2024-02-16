@@ -91,7 +91,7 @@ var appConfig = useAppConfig()
                 >{{
                     new Date(
                         article?.attributes.publishedAt,
-                    ).toLocaleDateString()
+                    ).toLocaleDateString('ru-RU')
                 }}</time
             >
             <h3

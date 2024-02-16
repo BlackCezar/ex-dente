@@ -410,7 +410,6 @@ export default function useQueries() {
                                             }
                                         }
                                     }
-                                    subServicePageQuery
                                     name
                                     slug
                                     specification
@@ -925,6 +924,20 @@ export default function useQueries() {
                     id
                     attributes {
                         slug
+                        sekcziya_stoimosts {
+                            data {
+                              id
+                              attributes {
+                                label
+                                price {
+                                  description
+                                  price
+                                  id
+                                  style
+                                }
+                              }
+                            }
+                        }
                         seo {
                             id
                             metaTitle

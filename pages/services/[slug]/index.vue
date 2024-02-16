@@ -73,6 +73,7 @@ useSeo(data.value.services.data[0].attributes.title ?? 'Услуги', data.valu
                     :list="data.services.data[0].attributes.sub_services.data"
                 />
             </div>
+            <PricesScreen v-if="data.services.data[0].attributes.sekcziya_stoimosts.data.length" :list="data.services.data[0].attributes.sekcziya_stoimosts.data"></PricesScreen>
             <ServicesDoctorsScreen
                 :list="data.services.data[0].attributes.doctors.data"
             />
