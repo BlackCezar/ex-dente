@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: false },
+    typescript: {
+        tsConfig: {
+            include: ["../types/*.ts", "../composables/*.ts"]
+        }
+    },
     experimental: {
         externalVue: false,
     },
@@ -42,8 +47,17 @@ export default defineNuxtConfig({
         'nuxt-jsonld',
         '@nuxtjs/device',
         'vue-yandex-maps/nuxt',
-        'nuxt-meilisearch'
+        'nuxt-meilisearch',
+        '@nuxtjs/robots'
     ],
+    robots: {
+        rules: {
+            UserAgent: '*',
+            Allow: '/assets',
+            Disallow: '/search/',
+            Sitemap: (req) => `https://${req.headers.host}/sitemap.xml`
+        }
+    },
     meilisearch: {
         hostUrl: 'http://217.28.220.193/search',
         searchApiKey: 'ciDsceYWGpER82s2ufj3AoD3d1380Fd6SQAVtAfaoT8',
@@ -74,7 +88,7 @@ export default defineNuxtConfig({
     apollo: {
         clients: {
             default: {
-                httpEndpoint: 'http://89.111.155.40:1337/graphql',
+                httpEndpoint: 'http://admin.ex-dent.ru/graphql',
             },
         },
     },

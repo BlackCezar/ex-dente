@@ -13,6 +13,79 @@ export default function useQueries() {
         }
     `
 
+    var articlePageQuery = gql`
+    query Articles($filters: ArticleFiltersInput) {
+        articles(filters: $filters) {
+          data {
+            attributes {
+              banner {
+                data {
+                  attributes {
+                    alternativeText
+                    url
+                    caption
+                  }
+                }
+              }
+              seo {
+                id
+                metaTitle
+                metaDescription
+                sharedImage {
+                    id
+                    media {
+                        data {
+                            attributes {
+                                url
+                            }
+                        }
+                    }
+                    alt
+                }
+                preventIndexing
+                keywords
+            }
+              content
+              title
+              slug
+              publishedAt
+              description
+            }
+          }
+        }
+      }
+    `
+
+    var articleQuery = gql`
+        query ArticlePage {
+            articlePage {
+                data {
+                    attributes {
+                        title
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                    }
+                }
+            }
+        }
+    `
+
     var aboutPageQuery = gql`
         query Query {
             about {
@@ -101,6 +174,7 @@ export default function useQueries() {
                                     data {
                                         attributes {
                                             label
+                                            url
                                             links {
                                                 label
                                                 url
@@ -336,7 +410,9 @@ export default function useQueries() {
                                             }
                                         }
                                     }
+                                    subServicePageQuery
                                     name
+                                    slug
                                     specification
                                 }
                             }
@@ -1056,12 +1132,76 @@ export default function useQueries() {
         }
     `
 
+    var pricesPageQuery = gql`
+        query Attributes($publicationState: PublicationState, $subServicesPublicationState2: PublicationState, $priceSectionsPublicationState2: PublicationState, $filters: SubServiceFiltersInput) {
+            prices(publicationState: $publicationState) {
+            data {
+                attributes {
+                title
+                seo {
+                    id
+                    metaTitle
+                    metaDescription
+                    sharedImage {
+                        id
+                        media {
+                            data {
+                                attributes {
+                                    url
+                                }
+                            }
+                        }
+                        alt
+                    }
+                    preventIndexing
+                    keywords
+                }
+                services {
+                    data {
+                    id
+                    attributes {
+                        title
+                        slug
+                        sub_services(publicationState: $subServicesPublicationState2, filters: $filters) {
+                        data {
+                            id
+                            attributes {
+                            title
+                            slug
+                            price_sections(publicationState: $priceSectionsPublicationState2) {
+                                data {
+                                id
+                                attributes {
+                                    label
+                                    price {
+                                    description
+                                    price
+                                    id
+                                    style
+                                    }
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+                id
+            }
+            }
+        }
+    `
+
     var contactsPageQuery = gql`
         query ContactPage {
             contactPage {
                 data {
                     attributes {
                         title
+                        legalInfo
                         yandexMapsToken
                         clinics {
                             data {
@@ -1070,6 +1210,7 @@ export default function useQueries() {
                                     address
                                     coordinates
                                     email
+                                    busStation
                                     label
                                     phone
                                     socials {
@@ -1248,6 +1389,40 @@ export default function useQueries() {
     }
     `
 
+    var articlePosts = gql`
+    query Articles($sort: [String], $pagination: PaginationArg) {
+        articles(sort: $sort, pagination: $pagination) {
+          meta {
+            pagination {
+              total
+              pageSize
+              pageCount
+            }
+          }
+          data {
+            id
+            attributes {
+              banner {
+                data {
+                  id
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                  }
+                }
+              }
+              description
+              title
+              slug
+              publishedAt
+            }
+          }
+        }
+      }
+
+    `
+
     return {
         // News
         newsPosts,
@@ -1297,6 +1472,14 @@ export default function useQueries() {
 
         // requests
         createRequest,
-        createReviewMutation
+        createReviewMutation,
+
+        // Prices Page
+        pricesPageQuery,
+
+        // Articles
+        articleQuery,
+        articlePosts,
+        articlePageQuery
     }
 }

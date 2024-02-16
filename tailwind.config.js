@@ -17,6 +17,9 @@ export default {
     ],
     theme: {
         extend: {
+            gap: {
+                15: '3.75rem',
+            },
             fontFamily: {
                 sans: ['Proxima Nova', 'ui-sans-serif', 'system-ui'],
                 serif: ['Mignon', 'ui-serif', 'Georgia']

@@ -22,6 +22,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/nuxt": "^4.12.3",
     "@vee-validate/yup": "^4.12.4",

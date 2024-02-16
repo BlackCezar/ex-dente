@@ -20,7 +20,7 @@ defineEmits<{
         class="flex justify-between items-center gap-6 flex-col lg:flex-row"
         v-if="pageCount > 1"
     >
-        <UiIconButton @click="$emit('showMore')" title="Показать еще" />
+        <UiIconButton class="disabled:cursor-not-allowed" :disabled="page >= pageCount" @click="$emit('showMore')" title="Показать еще" />
         <div class="flex gap-1 items-center lg:gap-3">
             <LeftButton
                 @click="$emit('setPage', page - 1)"

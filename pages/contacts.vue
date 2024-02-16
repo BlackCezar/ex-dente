@@ -2,6 +2,7 @@
 import BreadCrumbs from '~/components/common/BreadCrumbs.vue'
 import type { ContactPage, IBreadCrumb, IClinic } from '~/types/global.type'
 import useQueries from '~/composables/useQueries'
+import LegalInfo from '~/components/common/LegalInfo.vue'
 import {
     YandexMap,
     YandexMapDefaultFeaturesLayer,
@@ -157,7 +158,7 @@ useHead({
                     </Transition>
                 </div>
             </div>
-            <div>
+            <div class="mb-[4.5rem] lg:mb-[7.5rem]">
                 <div class="flex flex-col lg:gap-y-16 gap-y-[3.75rem]">
                     <div
                         v-for="item of data.contactPage.data.attributes.clinics
@@ -166,9 +167,12 @@ useHead({
                         class="grid text-accent lg:gap-10 gap-4 grid-cols-1 lg:grid-cols-5"
                     >
                         <section
-                            class="h4 mb-1 lg:mb-0 lg:col-start-1 lg:col-end-2 font-serif lg:font-sans lg:text-[1.375rem] lg:leading-[2.25rem]"
+                            class="h4 mb-1 lg:flex lg:flex-col lg:mb-0 lg:col-start-1 lg:col-end-2 font-serif lg:font-sans lg:text-[1.375rem] lg:leading-[2.25rem]"
                         >
-                            {{ item.attributes.address }}
+                            <span>
+                                {{ item.attributes.address }}
+                            </span>
+                            <span v-if="item.attributes.busStation" class="text-base font-sans">Автобусная остановка: {{ item.attributes.busStation }}</span>
                         </section>
                         <section
                             v-if="item.attributes.phone"
@@ -233,6 +237,7 @@ useHead({
                     </div>
                 </div>
             </div>
+            <LegalInfo :info="data?.contactPage?.data?.attributes?.legalInfo" />
         </div>
     </div>
 </template>

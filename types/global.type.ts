@@ -591,6 +591,7 @@ export interface IClinic {
         __typename: 'Clinic'
         address: string
         coordinates: string
+        busStation?: string
         email: string
         label: string
         phone: ITextItems[]
@@ -599,12 +600,61 @@ export interface IClinic {
     }
 }
 
+export interface IPricesPage {
+    prices: {
+        __typename: 'PricesEntityResponse'
+        data: {
+            id: string
+            __typename: 'PricesEntity'
+            attributes: {
+                __typename: 'Prices',
+                title: string
+                seo?: TSeo
+                services: {
+                    __typename: 'ServiceRelationResponseCollection'
+                    data: {
+                        __typename: 'ServiceEntity'
+                        id: string
+                        attributes: {
+                            __typename: 'Service'
+                            title: string
+                            slug: string
+                            sub_services: {
+                                __typename: 'SubServiceRelationResponseCollection'
+                                data: {
+                                    __typename: 'SubServiceEntity'
+                                    id: string
+                                    attributes: {
+                                        __typename: 'SubService'
+                                        title: string
+                                        slug: string
+                                        price_sections: {
+                                            __typename: 'PriceSectionRelationResponseCollection'
+                                            data: PriceSectionEntity[]
+                                        }
+                                    }
+                                }[]
+                            }
+                        }
+                    }[]
+                }
+            }
+        }
+    }
+}
+
+export enum PublicationState {
+    LIVE = 'LIVE',
+    PREVIEW = 'PREVIEW'
+}
+
 export interface ContactPage {
     contactPage: {
         data: {
             attributes: {
                 title: string
                 yandexMapsToken?: string
+                legalInfo: ITextItems[]
                 clinics: {
                     data: IClinic[]
                 }
