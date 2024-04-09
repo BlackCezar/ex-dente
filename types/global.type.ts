@@ -88,7 +88,7 @@ export interface IImage
     extends TData<{
         __typename: string
         url: string
-    }> {}
+    }> { }
 
 export interface Header {
     header: {
@@ -619,6 +619,9 @@ export interface IPricesPage {
                             __typename: 'Service'
                             title: string
                             slug: string
+                            sekcziya_stoimosts: {
+                                data: PriceSectionEntity[]
+                            }
                             sub_services: {
                                 __typename: 'SubServiceRelationResponseCollection'
                                 data: {
@@ -654,6 +657,7 @@ export interface ContactPage {
             attributes: {
                 title: string
                 yandexMapsToken?: string
+                seo?: TSeo
                 legalInfo: ITextItems[]
                 clinics: {
                     data: IClinic[]

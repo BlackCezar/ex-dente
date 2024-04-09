@@ -32,7 +32,34 @@ export default defineNuxtConfig({
                 defer: true,
                 type: 'text/javascript',
                 src: '/js/bvi.min.js'
-            }]
+            }, {
+                src: 'https://www.googletagmanager.com/gtag/js?id=G-E0PFXS4SX0',
+                async: true
+            }, {
+                innerHTML: `  window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+              
+                gtag('config', 'G-E0PFXS4SX0');`
+            }, {
+                innerHTML: ` (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+             
+                ym(96536061, "init", {
+                     clickmap:true,
+                     trackLinks:true,
+                     accurateTrackBounce:true,
+                     webvisor:true
+                });`
+            }],
+            noscript: [
+                {
+                    innerHTML: `<div><img src="https://mc.yandex.ru/watch/96536061" style="position:absolute; left:-9999px;" alt="" /></div>`
+                }
+            ]
         }
     },
     ssr: true,
@@ -54,12 +81,12 @@ export default defineNuxtConfig({
         rules: {
             UserAgent: '*',
             Allow: '/assets',
-            Disallow: '/search/',
-            Sitemap: (req) => `https://${req.headers.host}/sitemap.xml`
+            Disallow: ['/search/', '/uploads/', '/admin'],
+            Sitemap: `https://ex-dent.com/sitemap.xml`
         }
     },
     meilisearch: {
-        hostUrl: 'http://217.28.220.193/search',
+        hostUrl: 'https://admin.ex-dent.com/search',
         searchApiKey: 'ciDsceYWGpER82s2ufj3AoD3d1380Fd6SQAVtAfaoT8',
         adminApiKey: 'ciDsceYWGpER82s2ufj3AoD3d1380Fd6SQAVtAfaoT8',
         serverSideUsage: true
@@ -88,7 +115,7 @@ export default defineNuxtConfig({
     apollo: {
         clients: {
             default: {
-                httpEndpoint: 'http://admin.ex-dent.ru/graphql',
+                httpEndpoint: 'https://admin.ex-dent.com/graphql',
             },
         },
     },

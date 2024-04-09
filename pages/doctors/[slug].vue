@@ -26,6 +26,8 @@ if (!data.value || data.value?.doctors?.data.length === 0) throw createError({
     message: 'Страница не найдена'
 })
 
+useSeo(data.value.doctors.data[0].attributes.name, data.value.doctors.data[0].attributes.seo)
+
 var { data: reviews } = await useAsyncQuery<DoctorReviews>(reviewsDoctorQuery, {
     pagination: {
         limit: 6,

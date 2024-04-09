@@ -16,28 +16,19 @@ function onDetailsContentClick() {
 }
 </script>
 <template>
-<details
-:id="`post-${post.id}`"
->
-    <a :href="`post-${post.id}`"></a>
-    <summary
-        ref="summary"
-        class="flex px-4 lg:px-7 lg:pt-8 pt-4 gap-5 justify-between"
-    >
-        <span
-            class="text-accent lg:text-[1.375rem] text-opacity-70 lg:text-opacity-100"
-            >{{ post.attributes.title }}</span
-        >
-        <svgo-chevron-left class="icon-left" />
-        <svgo-chevron-right class="icon-right" />
-    </summary>
-    <p
-        @click="onDetailsContentClick"
-        class="text-[0.875rem] lg:text-[1.375rem] px-4 lg:px-7 text-accent text-opacity-60"
-    >
-        {{ post.attributes.text }}
-    </p>
-</details>
+    <details :id="`post-${post.id}`">
+        <a :href="`#post-${post.id}`"></a>
+        <summary ref="summary" class="flex px-4 lg:px-7 lg:pt-8 pt-4 gap-5 justify-between">
+            <span class="text-accent lg:text-[1.375rem] text-opacity-70 lg:text-opacity-100">{{ post.attributes.title
+            }}</span>
+            <svgo-chevron-left class="icon-left" />
+            <svgo-chevron-right class="icon-right" />
+        </summary>
+        <p @click="onDetailsContentClick"
+            class="text-[0.875rem] lg:text-[1.375rem] px-4 lg:px-7 text-accent text-opacity-60">
+            {{ post.attributes.text }}
+        </p>
+    </details>
 </template>
 <style scoped>
 details {
@@ -58,7 +49,8 @@ details[open] summary {
     @apply pb-0 mb-4;
     cursor: pointer;
 }
-details[open] > *:last-child {
+
+details[open]>*:last-child {
     @apply pb-4 lg:pb-8;
 }
 
@@ -82,4 +74,5 @@ details[open] .icon-right {
 .icon-right {
     @apply text-[1.5rem] min-w-[1.5rem] lg:text-[1.75rem] lg:min-w-[1.75rem];
     margin-bottom: 0 !important;
-}</style>
+}
+</style>

@@ -6,9 +6,7 @@ import * as yup from 'yup'
 
 const {pricesPageQuery} = useQueries()
 const paginationVariables =ref({
-    publicationState: PublicationState.LIVE,
-    subServicesPublicationState2: PublicationState.LIVE,
-    priceSectionsPublicationState2: PublicationState.LIVE,
+    servicesPublicationState2: PublicationState.LIVE,
     filters: {
         id: {
             eq: undefined
@@ -53,14 +51,12 @@ const subServicesList = computed(() => {
     const list = []
 
     for (const service of data.value.prices.data.attributes.services.data) {
-        for (const subService of service.attributes.sub_services.data) {
-            for (const price of subService.attributes.price_sections.data) {
-                list.push({
-                    ...price.attributes,
-                    parent: service.attributes.slug,
-                    subService: subService.attributes.slug
-                })
-            }
+        for (const price of service.attributes.sekcziya_stoimosts.data) {
+            
+            list.push({
+                ...price.attributes,
+                parent: service.attributes.slug
+            })
         }
     }
     return list
@@ -74,7 +70,7 @@ useJsonld(() => ({
     itemListElement: subServicesList.value.map(item => ({
         '@type': 'Product',
         name: item.label,
-        url: `${url.origin}/services/${item.parent}/${item.subService}`,
+        url: `${url.origin}/services/${item.parent}`,
         priceCurrency: 'RUB',
         offers: {
             "@type": 'AggregateOffer',
@@ -94,10 +90,7 @@ onMounted(() => {
     const list = data.value.prices.data.attributes.services.data.map(service => ({
         value: service.id,
         label: service.attributes.title,
-        children: service.attributes.sub_services.data.map(subS => ({
-            value: subS.id,
-            label: subS.attributes.title
-        }))
+   
     }))
 
     list.unshift({
@@ -128,24 +121,22 @@ onMounted(() => {
                 <UiPageSpinner />
             </div>
             <div v-if="!pending" class="flex flex-col gap-12 lg:gap-[5rem]">
-                <template v-for="service of data.prices.data.attributes.services.data" :key="service.id">
-                    <article v-if="service.attributes.sub_services.data.length">
-                        <h2 class="font-serif title font-semibold text-[1.75rem] text-accent mb-4 lg:mb-7 lg:text-[3rem]">{{ service.attributes.title }}</h2>
-                        <section class="grid grid-cols-1 gap-10 lg:gap-15">
-                            <template v-for="subService of service.attributes.sub_services.data" :key="subService.id">
-                                <article>
-                                    <h3 class="mb-4 text-lg lg:mb-6 lg:text-[1.75rem] title">{{ subService.attributes.title }}</h3>
-                                    <div class="grid grid-cols-1 gap-3 lg:gap-5">
-                                        <template v-for="item of subService.attributes.price_sections.data" :key="item.id">
-                                                <PricesRow :item="item" />
-                                        </template>
-                                    </div>
-                                </article>
+                <article v-for="service of data.prices.data.attributes.services.data" :key="service.id">
+                    <h2 class="font-serif title font-semibold text-[1.75rem] text-accent mb-4 lg:mb-7 lg:text-[3rem]">{{ service.attributes.title }}</h2>
+                    <section class="grid grid-cols-1 gap-10 lg:gap-15">
+                        <div class="grid grid-cols-1 gap-3 lg:gap-5">
+                            <template v-for="item of service.attributes.sekcziya_stoimosts.data" :key="item.id">
+                                    <PricesRow :item="item" />
                             </template>
-                        </section>
-                    </article>
-                </template>
+                        </div>
+                    </section>
+                </article>
             </div>
         </div>
     </div>
 </template>
+<style>
+.price-row:nth-child(even) {
+    @apply bg-gray text-accent;
+}
+</style>

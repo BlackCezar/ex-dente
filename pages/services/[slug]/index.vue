@@ -45,9 +45,9 @@ useSeo(data.value.services.data[0].attributes.title ?? 'Услуги', data.valu
                 :list="breadCrumbs"
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
-            <h2 class="h2 lg:mb-[3rem] mb-6 font-serif text-accent">
+            <h1 class="h2 lg:mb-[3rem] mb-6 font-serif text-accent">
                 {{ data.services.data?.[0].attributes.title }}
-            </h2>
+            </h1>
             <div
                 class="flex flex-col lg:flex-row gap-[3.75rem] lg:gap-[6rem] justify-between mb-[3.75rem] lg:mb-[8.75rem]"
             >

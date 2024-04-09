@@ -9,6 +9,7 @@ const props = defineProps<{
 
 var config = useAppConfig()
 var bannerEl = ref<HTMLDivElement | null>(null)
+var router = useRouter()
 
 var onSwiperInit = (swiper: any) => {
     swiper.on('slideChange', onSlideChange)
@@ -19,6 +20,10 @@ function onSlideChange(swiper: any) {
         bannerEl.value.style.setProperty('--bg', slide.bgColor)
         useEvent('call:changeHeaderColor', slide.bgColor)
     }
+}
+
+function onClick(url: string) {
+    if (url.startsWith('/')) router.push(url); else useEvent(url)
 }
 </script>
 
@@ -125,7 +130,7 @@ function onSlideChange(swiper: any) {
                                 :mode="!slide.isLight ? 'light' : 'dark'"
                                 v-if="slide.button"
                                 :variant="slide.button.style"
-                                @click="useEvent(slide.button.url)"
+                                @click="onClick(slide.button.url)"
                                 >{{ slide.button.label }}</UiButton
                             >
                         </article>

@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
     <p>
-        <template v-for="text of data.children">
+        <template v-for="text of data?.children">
             <b v-if="text.bold">{{ text.text }}</b>
             <i v-else-if="text.italic">{{ text.text }}</i>
             <u v-else-if="text.underline">{{ text.text }}</u>

@@ -14,11 +14,7 @@ defineProps<{
 <template>
     <template v-for="(item, index) of text" :key="index">
         <ParagraphBlock
-            v-if="
-                item.type === 'paragraph' &&
-                item.children.length &&
-                item.children[0].text
-            "
+            v-if="item.type === 'paragraph'"
             :data="item"
             :class="class"
         />

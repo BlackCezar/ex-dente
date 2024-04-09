@@ -1146,7 +1146,7 @@ export default function useQueries() {
     `
 
     var pricesPageQuery = gql`
-        query Attributes($publicationState: PublicationState, $subServicesPublicationState2: PublicationState, $priceSectionsPublicationState2: PublicationState, $filters: SubServiceFiltersInput) {
+        query Attributes($publicationState: PublicationState, $servicesPublicationState2: PublicationState, $filters: ServiceFiltersInput) {
             prices(publicationState: $publicationState) {
             data {
                 attributes {
@@ -1169,34 +1169,25 @@ export default function useQueries() {
                     preventIndexing
                     keywords
                 }
-                services {
+                services(publicationState: $servicesPublicationState2, filters: $filters) {
                     data {
                     id
                     attributes {
                         title
                         slug
-                        sub_services(publicationState: $subServicesPublicationState2, filters: $filters) {
-                        data {
+                        sekcziya_stoimosts {
+                            data {
                             id
                             attributes {
-                            title
-                            slug
-                            price_sections(publicationState: $priceSectionsPublicationState2) {
-                                data {
+                                label
+                                price {
+                                description
+                                price
                                 id
-                                attributes {
-                                    label
-                                    price {
-                                    description
-                                    price
-                                    id
-                                    style
-                                    }
-                                }
+                                style
                                 }
                             }
                             }
-                        }
                         }
                     }
                     }
@@ -1216,6 +1207,24 @@ export default function useQueries() {
                         title
                         legalInfo
                         yandexMapsToken
+                        seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
                         clinics {
                             data {
                                 id

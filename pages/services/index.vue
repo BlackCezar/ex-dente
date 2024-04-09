@@ -83,7 +83,7 @@ useHead({
                         </ul>
                     </nav>
                     <div v-if="activeService">
-                        <h2 class="text-[1.75rem] text-accent mb-5">
+                        <h2 class="text-[1.75rem] text-accent mb-5" v-if="activeService?.attributes.sub_services.data.length">
                             Направления
                         </h2>
                         <nav>
