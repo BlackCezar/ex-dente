@@ -8,7 +8,7 @@ defineProps<{
 </script>
 <template>
     <div v-if="info" class="px-4 legal-info py-10 lg:p-14 rounded-[6px] lg:w-full text-accent text-opacity-70 lg:ml-0 -ml-4 w-screen bg-gray">
-        <h1 class="mb-6 lg:text-[3rem] lg:mb-10 font-serif font-semibold  leading-[2rem] text-[1.75rem]">Юридическая информация</h1> 
+        <h2 class="mb-6 lg:text-[3rem] lg:mb-10 font-serif font-semibold  leading-[2rem] text-[1.75rem]">Юридическая информация</h2> 
         <div class="content  text-accent text-opacity-70">
             <RenderBlocks :text="info" />
         </div>

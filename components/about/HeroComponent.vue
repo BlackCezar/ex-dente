@@ -70,11 +70,11 @@ watchEffect(() => {
             <div class="lg:flex h-full flex-col">
                 <BreadCrumbs :list="breadCrumbs" class="mb-7 lg:-mt-7" />
                 <div class="lg:my-auto">
-                    <h1
+                    <h2
                         class="font-semibold text-white font-serif text-[1.75rem] lg:text-[3rem] lg:leading-[3.625rem] leading-[2.375rem]"
                     >
                         {{ slogan ?? '' }}
-                    </h1>
+                    </h2>
                     <div class="hidden lg:block lg:pt-16">
                         <UiButton
                             v-if="button"

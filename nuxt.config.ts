@@ -81,7 +81,7 @@ export default defineNuxtConfig({
         rules: {
             UserAgent: '*',
             Allow: '/assets',
-            Disallow: ['/search/', '/uploads/', '/admin'],
+            Disallow: ['/search/', '/uploads/', '/admin', '*?*'],
             Sitemap: `https://ex-dent.com/sitemap.xml`
         }
     },

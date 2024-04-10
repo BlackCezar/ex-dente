@@ -33,7 +33,7 @@ var onProcess = handleSubmit(async (values) => {
     <h3 class="text-[1.125rem] lg:leading-[2.875rem] lg:text-[1.75rem] text-white text-opacity-70 mb-8 lg:mb-12">{{ isDone ? 'наш администратор свяжется с вами в ближайшее время' : 'и мы сделаем вашу улыбку яркой и здоровой'}}</h3>
     <div class="flex flex-col gap-4 mb-8 lg:mb-12 lg:gap-10 lg:flex-row">
         <UiInput data-maska="A A A" data-maska-tokens="A:[а-яА-Яa-zA-ZёЁ]:multiple" name="username" type="text" placeholder="Ваше имя" />
-        <UiInput name="phone" type="tel" placeholder="+7" />
+        <UiInput name="phone" type="tel" placeholder="+7" data-maska-tokens="N:[0-79]" />
     </div>
     <div class="flex flex-col gap-6 lg:gap-10 lg:items-center lg:flex-row">
         <p class="text-opacity-50 text-white text-[0.875rem]">Нажимая на кнопку «Отправить», вы даете свое согласиена обработку персональных данных</p>

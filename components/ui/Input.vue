@@ -33,7 +33,7 @@ defineProps<{
                 :value="value"
                 v-bind="field"
                 v-maska
-                :data-maska="type === 'tel' ? '+7 ### ### ##-##' : dataMaska ? dataMaska : null"
+                :data-maska="type === 'tel' ? '+7 N## ### ##-##' : dataMaska ? dataMaska : null"
                 :data-maska-tokens="dataMaskaTokens"
             />
         </Field>

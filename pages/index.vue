@@ -17,6 +17,7 @@ useSeo(data.value.homePage.data.attributes.title, data.value.homePage.data.attri
 
 <template>
     <div class="">
+        <h1 class="hidden">{{ data.homePage.data.attributes.h1 }}</h1>
         <MainSlider :slides="data?.homePage?.data.attributes.slider" />
         <ServicesScreen />
         <BenefitsScreen />

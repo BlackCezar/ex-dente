@@ -112,6 +112,7 @@ watch(
                 type="tel"
                 name="selectedPhone"
                 placeholder="+7"
+                data-maska-tokens="N:[0-79]"
             />
         </div>
         <div class="flex flex-col items-center lg:flex-row gap-6 lg:gap-10">

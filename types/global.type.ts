@@ -71,6 +71,9 @@ export interface IConfig {
     }
     email: string
     phoneNumber: string
+    company: string
+    name: string
+    description: string
     googleReCaptchaToken: string | null
     logo: {
         logoDark: {
@@ -188,6 +191,7 @@ export interface HomePage {
             __typename: string
             attributes: {
                 title: string
+                h1: string
                 seoText?: string
                 seo: TSeo
                 slider: TSlide[]

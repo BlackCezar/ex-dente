@@ -176,7 +176,7 @@ useListen('call:callBackForm', (input) => {
         </p>
         <div class="grid mb-7 lg:mb-10 grid-cols-1 gap-5 lg:gap-10 lg:grid-cols-2">
             <UiInput data-maska="A A A" data-maska-tokens="A:[а-яА-Яa-zA-ZёЁ]:multiple" label="Ваше имя*" placeholder="Иван Иванов" mode="light" name="username" />
-            <UiInput type="tel" label="Телефон*" placeholder="+7" mode="light" name="phone" />
+            <UiInput type="tel" label="Телефон*" placeholder="+7" mode="light" name="phone" data-maska-tokens="N:[0-79]" />
         </div>
         <div class="mb-10 lg:mb-[3.75rem]">
             <UiRadio class="flex-col lg:flex-row" :options="reviewTypes" name="requestType" />

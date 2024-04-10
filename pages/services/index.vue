@@ -16,6 +16,8 @@ var breadCrumbs = markRaw<IBreadCrumb[]>([
 ])
 
 var globalStore = useGlobalStore()
+const {mainServicePageQuery} = useQueries()
+var {data} = await useAsyncQuery(mainServicePageQuery)
 var { services } = storeToRefs(globalStore)
 
 var activeService = ref<ServicesItem | null>(null)
@@ -29,9 +31,8 @@ function selectService(service: ServicesItem) {
     }
 }
 
-useHead({
-    title: 'Услуги',
-})
+
+useSeo(data.value?.serviceListing?.data?.attributes?.title, data.value?.serviceListing?.data?.attributes?.seo)
 </script>
 
 <template>
@@ -42,9 +43,9 @@ useHead({
                 :list="breadCrumbs"
                 class="mb-[1.75rem] lg:mb-[3.75rem]"
             />
-            <h2 class="h2 lg:mb-[4.5rem] mb-6 font-serif text-accent">
-                УСЛУГИ
-            </h2>
+            <h1 class="h2 lg:mb-[4.5rem] mb-6 font-serif text-accent">
+                {{data.serviceListing.data.attributes.title}}
+            </h1>
             <div>
                 <div class="hidden lg:grid grid-cols-2">
                     <nav>

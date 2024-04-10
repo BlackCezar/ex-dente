@@ -244,6 +244,9 @@ export default function useQueries() {
                             }
                         }
                         phoneNumber
+                        name
+                        company
+                        description
                     }
                 }
             }
@@ -364,6 +367,7 @@ export default function useQueries() {
                             }
                         }
                         title
+                        h1
                         seoText
                     }
                 }
@@ -917,6 +921,36 @@ export default function useQueries() {
         }
     `
 
+    var mainServicePageQuery = gql`
+        query ServicePage {
+            serviceListing {
+                data {
+                attributes {
+                    title
+                    seo {
+                            id
+                            metaTitle
+                            metaDescription
+                            sharedImage {
+                                id
+                                media {
+                                    data {
+                                        attributes {
+                                            url
+                                        }
+                                    }
+                                }
+                                alt
+                            }
+                            preventIndexing
+                            keywords
+                        }
+                }
+                }
+            }
+        }
+    `
+
     var servicePageQuery = gql`
         query ServicesPAge($filters: ServiceFiltersInput) {
             services(filters: $filters) {
@@ -1455,6 +1489,7 @@ export default function useQueries() {
         subServicePageQuery,
         servicesQuery,
         subServicesQuery,
+        mainServicePageQuery,
         // Sales
         salesPage,
         salesPageQuery,
